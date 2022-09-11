@@ -1,0 +1,52 @@
+---
+import HomeIcon from "@Component/VectorIcons/HomeIcon.astro";
+import SubmitIcon from "@Component/VectorIcons/SubmitIcon.astro";
+import SearchIcon from "@Component/VectorIcons/SearchIcon.astro";
+
+export type Links = {
+  name: string;
+  href: string;
+  icon: (props: any) => any;
+}[];
+
+const links: Links = [
+  {
+    name: "Home",
+    href: "/",
+    icon: HomeIcon,
+  },
+  {
+    name: "Submit",
+    href: "/submit",
+    icon: SubmitIcon,
+  },
+  {
+    name: "Search",
+    href: "/search",
+    icon: SearchIcon,
+  },
+];
+---
+
+<nav class="bg-zinc-800">
+  <div
+    class="max-w-4xl mx-auto px-3 py-3 flex items-center justify-between h-14"
+  >
+    {
+      links.map((item) => {
+        const { icon: Icon } = item;
+        return (
+          <a
+            href={item.href}
+            class="text-lg text-slate-50  flex flex-row align-middle text-center leading-none"
+          >
+            <Icon tailCSS="w-6 h-6" />
+            <span class="mx-2 flex items-center border-b-2 border-solid border-b-zinc-800 hover:border-b-slate-50">
+              {item.name}
+            </span>
+          </a>
+        );
+      })
+    }
+  </div>
+</nav>

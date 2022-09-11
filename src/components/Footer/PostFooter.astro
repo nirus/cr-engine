@@ -1,0 +1,48 @@
+---
+import { Settings } from "@config/settings";
+
+export interface Props {
+  avatar_url?: string;
+  name?: string;
+  company?: string;
+  bio?: string;
+  html_url?: string;
+  login?: string;
+}
+
+const {
+  avatar_url = "",
+  name = "",
+  bio = "",
+  html_url = "",
+  login = "",
+} = Astro.props;
+---
+
+<footer
+  class={`text-center ${Settings.post.contentWidth} mx-auto flex flex-col`}
+>
+  <div class="border-b-2 pt-4 border-zinc-400"></div>
+
+  <div class="flex items-center m-auto">
+    <img
+      src={avatar_url}
+      loading="lazy"
+      width={Settings.post.avatarSize}
+      class="m-5"
+    />
+    <div class="text-left m-5">
+      <div class="text-sm font-light">WriteUp by</div>
+      <strong class="text-lg">{name}</strong>
+      <div class="text-lg font-light"><span>{bio}</span></div>
+      <a
+        href={html_url}
+        target="_blank"
+        rel="noreferrer"
+        class="font-medium text-lg"
+      >
+        @{login}
+      </a>
+    </div>
+  </div>
+</footer>

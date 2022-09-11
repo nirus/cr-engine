@@ -1,0 +1,15 @@
+---
+import Social from "./Social.astro";
+import { Settings } from "@config/settings";
+---
+
+<footer
+  class="py-4 lg:py-6 text-center flex flex-col content-center align-middle"
+>
+  <div class="text-sm w-full" data-test="footer-text">
+    &copy; {Settings.site.title}&nbsp;-&nbsp;<script type="text/javascript">
+      document.write(new Date().getFullYear());
+    </script>
+  </div>
+  <Social />
+</footer>

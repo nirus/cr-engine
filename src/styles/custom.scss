@@ -1,0 +1,32 @@
+.blog-tags a {
+  @apply font-bold underline text-sky-600;
+
+  &:hover {
+    @apply text-black;
+  }
+}
+
+#searchBox {
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.searchResultPage {
+  padding: 15px 0;
+}
+
+.searchResultTitle {
+  @apply text-sky-600;
+}
+
+.content {
+  blockquote {
+    .source {
+      @apply text-sm p-4 text-right;
+    }
+  }
+}
+
+.coder-rocks-font {
+  font-family: Arial !important;
+}

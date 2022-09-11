@@ -1,0 +1,26 @@
+---
+import { Settings } from "@config/settings";
+
+const { gaUserAgent } = Settings.site;
+---
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script
+  async
+  defer
+  src={`https://www.googletagmanager.com/gtag/js?id=${gaUserAgent}`}
+></script>
+<script>
+  declare var dataLayer: any;
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  // @ts-ignore
+  gtag("js", new Date());
+
+  // @ts-ignore
+  gtag("config", gaUserAgent);
+</script>

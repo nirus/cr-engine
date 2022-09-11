@@ -1,0 +1,10 @@
+@import "./global";
+@import "./variables";
+@import "./content";
+@import "./site";
+@import "./custom";
+
+html,
+body {
+  @apply font-display;
+}

@@ -1,0 +1,10 @@
+.astro-code {
+  code {
+    width: 100%;
+  }
+  @media (max-width: 640px) {
+    code {
+      width: auto;
+    }
+  }
+}

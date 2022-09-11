@@ -1,0 +1,21 @@
+---
+import CoderRocksLogo from "@Component/VectorImages/CoderRocksLogo.astro";
+export interface Props {
+  title: string;
+  tagline: string;
+  showLogo?: boolean;
+}
+const { title, tagline, showLogo = true } = Astro.props;
+---
+
+<header
+  class="mx-auto max-w-xl text-center content flex flex-col align-middle content-center items-center"
+>
+  {showLogo && <CoderRocksLogo size="100px" css="pb-2" />}
+  <h1 class="coder-rocks-font text-4xl my-2 leading-2" data-test="header-title">
+    {title}
+  </h1>
+  <p data-test="header-description" class="text-2xl font-light">
+    {tagline}
+  </p>
+</header>

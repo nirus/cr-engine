@@ -1,0 +1,64 @@
+---
+import BaseHead from "@Component/Head/BaseHead.astro";
+import TopBarNav from "@Component/Navigation/TopBar.astro";
+import HomeHeader from "@Component/Head/HomeHeader.astro";
+import Card from "@Component/Content/Card.astro";
+import Footer from "@Component/Footer/Footer.astro";
+import Paginator from "@Component/Content/Paginator.astro";
+import type { MarkdownFrontmatter } from "../index.astro";
+import type { Props as CardProps } from "@Component/Content/Card.astro";
+import { Settings } from "@config/settings";
+
+export async function getStaticPaths({ paginate }: any) {
+  const allPosts = await Astro.glob<MarkdownFrontmatter>("./*.md");
+  const sortedPosts = allPosts.sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  );
+
+  return paginate(sortedPosts, {
+    pageSize: 21,
+  });
+}
+
+const { page } = Astro.props;
+let pageTitle = "Articles";
+let pageDescription = `page [ ${page.currentPage} ] of all articles`;
+let seoTitle = `Articles | ${Settings.site.title}`;
+let seoDescription = "";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={seoTitle} description={seoDescription} />
+  </head>
+
+  <body class="bg-white text-black font-body leading-normal personality-casual">
+    <TopBarNav />
+
+    <main class="py-6 lg:py-10">
+      <article class="max-w-6xl mx-auto px-3">
+        <HomeHeader
+          title={pageTitle}
+          tagline={pageDescription}
+          showLogo={false}
+        />
+        <section
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8"
+          data-test="articles-section"
+        >
+          {
+            page.data.map((p: CardProps["post"]) => (
+              <div class="col-span-1">
+                <Card post={p} />
+              </div>
+            ))
+          }
+        </section>
+      </article>
+    </main>
+    <Paginator page={page} />
+    <Footer />
+  </body>
+</html>

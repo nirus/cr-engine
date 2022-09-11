@@ -1,0 +1,34 @@
+---
+import BaseHead from "@Component/Head/BaseHead.astro";
+import TopNavBar from "@Component/Navigation/TopBar.astro";
+import HomeHeader from "@Component/Head/HomeHeader.astro";
+import Footer from "@Component/Footer/Footer.astro";
+import SearchInput from "@Component/Content/SearchInput.astro";
+import { Settings } from "@config/settings";
+
+let pageTitle = "Search";
+let pageDescription = "Find all the writeup's";
+let seoTitle = `Search | ${Settings.site.title}`;
+let seoDescription = "search all the articles written on CoderRocks";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={seoTitle} description={seoDescription} />
+  </head>
+
+  <body class="bg-white text-black font-body leading-normal personality-casual">
+    <TopNavBar />
+    <main class="py-12">
+      <article class="max-w-6xl mx-auto px-3">
+        <HomeHeader
+          title={pageTitle}
+          tagline={pageDescription}
+          showLogo={false}
+        />
+        <SearchInput />
+      </article>
+      <Footer />
+    </main>
+  </body>
+</html>

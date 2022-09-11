@@ -1,0 +1,55 @@
+---
+import BaseHead from "@Component/Head/BaseHead.astro";
+import Nav from "@Component/Navigation/TopBar.astro";
+import HomeHeader from "@Component/Head/HomeHeader.astro";
+import Footer from "@Component/Footer/Footer.astro";
+import { Settings } from "@config/settings";
+
+let pageTitle = Settings.site.title;
+let pageDescription = "Are you interested to submit a writeup?";
+let seoTitle = `Submit | ${Settings.site.title}`;
+let seoDescription = "submit your article on CoderRocks";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={seoTitle} description={seoDescription} />
+  </head>
+
+  <body class="bg-white text-black font-body leading-normal personality-casual">
+    <Nav />
+    <main class="py-12">
+      <HomeHeader title={pageTitle} tagline={pageDescription} />
+      <article class="max-w-6xl mx-auto px-3 content">
+        <h3 class="ml-4">Follow the below guidelines:</h3>
+        <ul>
+          <li>
+            Create a <b>pull request on Github</b> with proper description.
+          </li>
+          <li>Excerpt about your post.</li>
+          <li>
+            Article legend image size should be lesser than <b>400kb</b> (Formats:
+            JPEG, PNG or SVG).
+          </li>
+          <li>Proper <b>SEO description</b> for your article.</li>
+          <li>Strictly <b>no profanity words</b> .</li>
+          <li>
+            Strictly <b>no plagiarism</b>. Link the original article and author
+            as inspirational source material.
+          </li>
+          <li>
+            Strictly <b>no illegal content</b> linking and referencing in your article.
+          </li>
+          <li>
+            <b>No spam</b>, no spam linking for page ranking in search engines.
+          </li>
+          <li>
+            Articles allowed on CR - coding, hacking <b>(whiteHat)</b>,
+            programming, embedded programming.
+          </li>
+        </ul>
+      </article>
+      <Footer />
+    </main>
+  </body>
+</html>

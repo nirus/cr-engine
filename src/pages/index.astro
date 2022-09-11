@@ -1,0 +1,66 @@
+---
+import BaseHead from "@Component/Head/BaseHead.astro";
+import TopBarNav from "@Component/Navigation/TopBar.astro";
+import HomeHeader from "@Component/Head/HomeHeader.astro";
+import Card from "@Component/Content/Card.astro";
+import Footer from "@Component/Footer/Footer.astro";
+import { Settings } from "@config/settings";
+
+export interface MarkdownFrontmatter {
+  pubDate: Date;
+}
+const { title, tagline } = Settings.site;
+const description =
+  "Coder Rocks is a blogging site to share coding knowledge & ideas through writeups";
+
+const allPosts = await Astro.glob<MarkdownFrontmatter>("./posts/*.md");
+const sortedPosts = allPosts
+  .slice(0, 3)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  );
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body class="bg-white text-black font-body leading-normal personality-casual">
+    <TopBarNav />
+
+    <main class="py-12">
+      <article class="max-w-6xl mx-auto px-3">
+        <HomeHeader title={title} tagline={tagline} />
+        <section
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8"
+          data-test="articles-section"
+        >
+          {
+            sortedPosts.map((p: any) => (
+              <div class="col-span-1">
+                <Card post={p} />
+              </div>
+            ))
+          }
+        </section>
+      </article>
+    </main>
+
+    <section
+      class="flex space-x-8 justify-center text-xl pt-8 font-bold text-center"
+    >
+      <a
+        href="/posts"
+        data-test="see-all-link"
+        class="m-2 border-b-2 border-b-white hover:border-b-gray-800"
+      >
+        View All &nbsp;&rarr;
+      </a>
+    </section>
+
+    <Footer />
+  </body>
+</html>

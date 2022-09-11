@@ -1,0 +1,32 @@
+---
+import TopBarNav from "@Component/Navigation/TopBar.astro";
+import BaseHead from "@Component/Head/BaseHead.astro";
+import BlogPost from "@Component/Content/BlogPost.astro";
+import Footer from "@Component/Footer/Footer.astro";
+
+const { content } = Astro.props;
+const { title, description, pubDate, hero, youtube, author, tags } = content;
+---
+
+<html lang={content.lang || "en"}>
+  <head>
+    <BaseHead title={title} description={description} image={hero} />
+  </head>
+
+  <body>
+    <TopBarNav />
+    <main class="py-12">
+      <BlogPost
+        title={title}
+        tags={tags}
+        hero={hero}
+        pubDate={pubDate}
+        youtube={youtube}
+        author={author}
+      >
+        <slot />
+      </BlogPost>
+    </main>
+    <Footer />
+  </body>
+</html>
