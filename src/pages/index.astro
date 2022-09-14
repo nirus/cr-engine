@@ -13,7 +13,7 @@ const { title, tagline } = Settings.site;
 const description =
   "Coder Rocks is a blogging site to share coding knowledge & ideas through writeups";
 
-const allPosts = await Astro.glob<MarkdownFrontmatter>("./posts/*.md");
+const allPosts = await Astro.glob<MarkdownFrontmatter>("./posts/**/*.md");
 const sortedPosts = allPosts
   .slice(0, 3)
   .sort(

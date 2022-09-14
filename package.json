@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "rmdir": "node -e \"var fs = require('fs');process.argv.slice(1).map((fpath)=>{ try {fs.rmdirSync(fpath,{recursive: true})} catch(e){console.warn('Error folder:', fpath, e)}});process.exit(0);\"",
+    "build:clean": "npm run rmdir --silent -- dist"
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.0",
@@ -19,6 +21,7 @@
     "sitemap": "^7.1.1"
   },
   "devDependencies": {
+    "@astrojs/image": "^0.7.0",
     "globby": "^13.1.2",
     "mark.js": "^8.11.1",
     "sass": "^1.54.8",

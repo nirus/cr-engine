@@ -10,7 +10,7 @@ import type { Props as CardProps } from "@Component/Content/Card.astro";
 import { Settings } from "@config/settings";
 
 export async function getStaticPaths({ paginate }: any) {
-  const allPosts = await Astro.glob<MarkdownFrontmatter>("./*.md");
+  const allPosts = await Astro.glob<MarkdownFrontmatter>("./**/*.md");
   const sortedPosts = allPosts.sort(
     (a, b) =>
       new Date(b.frontmatter.pubDate).valueOf() -

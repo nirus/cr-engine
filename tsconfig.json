@@ -12,6 +12,9 @@
       "@Component/*": [
         "src/components/*"
       ]
-    }
+    },
+    "types": [
+      "@astrojs/image/client"
+    ]
   }
 }
