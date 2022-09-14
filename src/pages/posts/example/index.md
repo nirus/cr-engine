@@ -3,7 +3,7 @@ title: "How to compare dates in JavaScript"
 pubDate: "2020-01-28"
 slug: "how-to-compare-dates-in-javascript"
 description: "How to compare dates in JavaScript natively using the Date Object, without using any third-party libraries."
-hero: "./hero.jpg"
+hero: "hero.jpg"
 tags: ["javascript"]
 youtube: "yzjB1IVc0_E"
 layout: "../../../layouts/BlogPostLayout.astro"

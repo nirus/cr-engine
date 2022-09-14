@@ -3,17 +3,17 @@ import TopBarNav from "@Component/Navigation/TopBar.astro";
 import BaseHead from "@Component/Head/BaseHead.astro";
 import BlogPost from "@Component/Content/BlogPost.astro";
 import Footer from "@Component/Footer/Footer.astro";
-import { relative, resolve, dirname, basename } from "path";
-import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 const { content, file } = Astro.props;
 
 const isProd = import.meta.env.PROD;
 const { title, description, pubDate, hero, youtube, author, tags } = content;
-const baseProjectDir = process.cwd() + "/";
-const heroFilePath = dirname(file).replace(baseProjectDir, "") + "/hero.jpg";
-/** Weird bugFix during the build process */
-const legend = isProd ? "./" + heroFilePath : heroFilePath;
+const baseProjectDir = process.cwd(); //package.json
+const heroFilePath = dirname(file).replace(baseProjectDir, "") + "/" + hero;
+
+/** Weird bugfix during the build process */
+const legendImage = isProd ? "./" + heroFilePath : heroFilePath;
 ---
 
 <html lang={content.lang || "en"}>
@@ -27,7 +27,7 @@ const legend = isProd ? "./" + heroFilePath : heroFilePath;
       <BlogPost
         title={title}
         tags={tags}
-        hero={legend}
+        hero={legendImage}
         pubDate={pubDate}
         youtube={youtube}
         author={author}

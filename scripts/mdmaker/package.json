@@ -1,0 +1,13 @@
+{
+  "name": "mdmaker",
+  "version": "1.0.0",
+  "description": "builds the markdown files based on claims.json",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npm run mdmaker --silent",
+    "mdmaker": "node --experimental-modules --input-type=module --eval 'const { appendConfiguration } = await import(\"./index.js\"); appendConfiguration(\"./__testData__/TestArticle\");'"
+  },
+  "author": "NiRUS",
+  "license": "ISC"
+}
