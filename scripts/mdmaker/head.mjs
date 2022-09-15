@@ -1,3 +1,7 @@
+/*TODO: get the PR author via github actions 
+refer - https://github.com/orgs/community/discussions/25502
+*/
+
 
 //@credit : https://stackoverflow.com/a/63346501/1848109
 function dontIndent(str) {
@@ -6,7 +10,7 @@ function dontIndent(str) {
 
 export const template = function (claims, mdContents) {
 
-    const { title, pubDate, slug, description, hero, tags, youtube } = claims;
+    const { title, pubDate, slug, description, hero, tags, youtube, author } = claims;
 
     const head = `---
     title: "${title}"
@@ -14,9 +18,10 @@ export const template = function (claims, mdContents) {
     slug: "${slug}"
     description: "${description}"
     hero: "${hero}"
-    tags: [${tags.map((tag) => `"${tag}"`).join(',')}]
+    tags: [${tags.length ? tags.map((tag) => `"${tag}"`).join(',') : 'General'}]
     youtube: "${youtube}"
     layout: "../../../layouts/BlogPostLayout.astro"
+    author: "${author}"
     ---    
     `;
 

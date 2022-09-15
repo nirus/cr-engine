@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "rmdir": "node -e \"var fs = require('fs');process.argv.slice(1).map((fpath)=>{ try {fs.rmdirSync(fpath,{recursive: true})} catch(e){console.warn('Error folder:', fpath, e)}});process.exit(0);\"",
-    "build:clean": "npm run rmdir --silent -- dist"
+    "build:clean": "npm run rmdir --silent -- dist",
+    "build:preview": "npm run build && npm run preview"
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.0",

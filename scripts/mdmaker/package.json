@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "npm run mdmaker --silent",
-    "mdmaker": "node --experimental-modules --input-type=module --eval 'const { appendConfiguration } = await import(\"./index.js\"); appendConfiguration(\"./__testData__/TestArticle\");'"
+    "test": "npm start --silent -- './__testdata__/TestArticle'",
+    "start": "node --input-type=module --eval 'const { appendConfiguration } = await import(\"./index.js\"); const [markdown, author] = process.argv.slice(1); appendConfiguration(`${markdown}`, author);'"
   },
   "author": "NiRUS",
   "license": "ISC"

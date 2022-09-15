@@ -1,4 +1,4 @@
-import { template } from "./headTemplate.mjs";
+import { template } from "./head.mjs";
 import fs from 'fs';
 import { extname, resolve } from 'path';
 
@@ -13,7 +13,7 @@ const restrictedFiles = ["claim.json"];
  * Astro build command
  * @param {*} inputFolder folder to process
  */
-export function appendConfiguration(inputFolder) {
+export function appendConfiguration(inputFolder, author = 'nirus') {
 
     const sourceFolderName = inputFolder.split('/').pop();
 
@@ -35,7 +35,7 @@ export function appendConfiguration(inputFolder) {
 
         if (extname(filename) === '.md') {
             const mdContents = fs.readFileSync(inputFile, 'utf8');
-            fs.writeFileSync(targetFolder + '/' + filename, template(claim, mdContents), 'utf8')
+            fs.writeFileSync(targetFolder + '/' + filename, template({ ...claim, author }, mdContents), 'utf8')
         } else {
             fs.copyFileSync(inputFile, targetFolder + '/' + filename);
         }

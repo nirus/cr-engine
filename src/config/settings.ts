@@ -1,7 +1,7 @@
 export const Settings = {
     site: {
         title: 'CoderRocks',
-        tagline: 'coding & hacking writeups',
+        tagline: 'coding & hacking articles',
         gaUserAgent: ''
     },
 
