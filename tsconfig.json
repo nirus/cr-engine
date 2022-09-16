@@ -11,6 +11,9 @@
       ],
       "@Component/*": [
         "src/components/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
       ]
     },
     "types": [

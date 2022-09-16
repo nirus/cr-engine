@@ -8,10 +8,12 @@ import grayMatter from "gray-matter";
   const srcDir = path.join(process.cwd(), "src");
   const publicDir = path.join(process.cwd(), "public");
   const contentDir = path.join(srcDir, "pages", "posts");
-  const contentFilePattern = path.join(contentDir, "*.md");
+  const contentFilePattern = path.join(contentDir, "**/*.md");
   const indexFile = path.join(publicDir, "search-index.json");
-  const getSlugFromPathname = (pathname) =>
-    path.basename(pathname, path.extname(pathname));
+  const getSlugFromPathname = (pathname) => {
+    const removeIndexFile = pathname.replace('index.md', '')
+    return path.basename(removeIndexFile);
+  }
 
   const contentFilePaths = await globby([contentFilePattern]);
 
