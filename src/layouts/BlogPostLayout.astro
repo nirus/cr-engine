@@ -3,9 +3,17 @@ import TopBarNav from "@Component/Navigation/TopBar.astro";
 import BaseHead from "@Component/Head/BaseHead.astro";
 import BlogPost from "@Component/Content/BlogPost.astro";
 import Footer from "@Component/Footer/Footer.astro";
+import { dirname } from "path";
 
-const { content } = Astro.props;
+const { content, file } = Astro.props;
+
+const isProd = import.meta.env.PROD;
 const { title, description, pubDate, hero, youtube, author, tags } = content;
+const baseProjectDir = process.cwd(); //package.json
+const heroFilePath = dirname(file).replace(baseProjectDir, "") + "/" + hero;
+
+/** Weird bugfix during the build process */
+const legendImage = isProd ? "./" + heroFilePath : heroFilePath;
 ---
 
 <html lang={content.lang || "en"}>
@@ -19,7 +27,7 @@ const { title, description, pubDate, hero, youtube, author, tags } = content;
       <BlogPost
         title={title}
         tags={tags}
-        hero={hero}
+        hero={legendImage}
         pubDate={pubDate}
         youtube={youtube}
         author={author}
