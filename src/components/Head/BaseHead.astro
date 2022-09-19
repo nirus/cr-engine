@@ -1,15 +1,16 @@
 ---
 import GoogleAnalytics from "./GoogleAnalytics.astro";
 import "../../styles/main.scss";
+import { Settings } from "@config/settings";
 
 export interface Props {
   title: string;
   description: string;
-  image?: string;
+  image?: string | null;
 }
 const { title, description, image = "/images/social.jpg" } = Astro.props;
 
-let permalink = "https://coder.rocks";
+let permalink = Settings.site.mainUrl;
 ---
 
 <GoogleAnalytics />
@@ -38,6 +39,7 @@ let permalink = "https://coder.rocks";
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={image} />
+<meta name="twitter:creator" content="@Coder_Rocks" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -2,7 +2,9 @@ export const Settings = {
     site: {
         title: 'CoderRocks',
         tagline: 'coding & hacking articles',
-        gaUserAgent: ''
+        gaUserAgent: '',
+        mainUrl: 'https://coder.rocks',
+        secondUrl: 'https://CoderRocks.com'
     },
 
     post: {
@@ -14,6 +16,12 @@ export const Settings = {
         email: 'mailtto:support@coder.rocks',
         twitter: 'https://twitter.com/coder_rocks',
         github: 'https://github.com/nirus/coder-rocks'
+    },
+
+    legendImageSize: {
+        width: 1024,
+        height: 640,
+        aspectRatio: 16 / 9,
     }
 
 }

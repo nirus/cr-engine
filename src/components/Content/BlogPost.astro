@@ -10,7 +10,7 @@ import { Image } from "@astrojs/image/components";
 export interface Props {
   title: string;
   pubDate: string;
-  hero?: string;
+  hero?: string | null;
   youtube?: string;
   author: string;
   tags: string[];
@@ -52,17 +52,14 @@ if (isValid) {
   <!-- Image -->
   {
     hero && (
-      <Image
-        class="rounded-xl mx-auto mb-4"
-        width={1024}
-        height={640}
+      <img
+        class="rounded-xl mx-auto mb-4 object-contain"
+        width={Settings.legendImageSize.width}
+        height={Settings.legendImageSize.height}
         sizes={"100%"}
         loading="lazy"
         src={hero}
         alt={title}
-        aspectRatio={"16:9"}
-        fit="contain"
-        quality={10}
       />
     )
   }
