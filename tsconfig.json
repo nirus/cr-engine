@@ -9,7 +9,7 @@
       "@config/*": [
         "src/config/*"
       ],
-      "@Component/*": [
+      "@component/*": [
         "src/components/*"
       ],
       "@layouts/*": [
