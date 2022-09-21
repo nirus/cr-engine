@@ -12,7 +12,7 @@
     "build:clean": "npm run rmdir --silent -- dist",
     "build:preview": "npm run build && npm run preview",
     "build:search": "node scripts/search-indexer/index.js",
-    "add:subtree": "git subtree add --prefix src/posts https://github.com/nirus/coder-rocks.git publish --squash",
+    "add:subtree": "git subtree add --prefix src/pages/posts https://github.com/nirus/coder-rocks.git publish --squash",
     "link:subtree": "npm run start --prefix scripts/symlink_publish"
   },
   "dependencies": {
