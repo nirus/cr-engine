@@ -1,4 +1,8 @@
 ---
+/**
+ * Remember: Use import to absolute path to prevent linter errors
+ * import -> 'src/*'
+ */
 import BaseHead from "@component/Head/BaseHead.astro";
 import TopBarNav from "@component/Navigation/TopBar.astro";
 import HomeHeader from "@component/Head/HomeHeader.astro";
@@ -10,7 +14,7 @@ import type { Props as CardProps } from "@component/Content/Card.astro";
 import { Settings } from "@config/settings";
 
 export async function getStaticPaths({ paginate }: any) {
-  const allPosts = await Astro.glob<MarkdownFrontmatter>("./**/*.md");
+  const allPosts = await Astro.glob<MarkdownFrontmatter>("./**/*.md"); // Tracks all the 'src/pages/posts/**/*.md' files
   const sortedPosts = allPosts.sort(
     (a, b) =>
       new Date(b.frontmatter.pubDate).valueOf() -
