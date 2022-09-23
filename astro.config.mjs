@@ -10,5 +10,11 @@ export default defineConfig({
   markdown: {
     extendDefaultPlugins: true,
     remarkPlugins: [codeRocksMiddleWare]
+  },
+
+  vite: {
+    resolve: {
+      preserveSymlinks: true // Resolves the symlink files from 'astro-code-pub' folder properly
+    }
   }
 });

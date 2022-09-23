@@ -6,14 +6,17 @@ import { resolve, dirname } from 'path'
  */
 export function codeRocksMiddleWare() {
     return function (tree, file) {
-        const inputFolder = dirname(file.history[0]);
-        const claimFile = resolve(inputFolder + '/claim.json');
-        const claimJSON = JSON.parse(fs.readFileSync(claimFile, 'utf8'))
 
-        file.data.astro.frontmatter = {
-            ...file.data.astro.frontmatter,
-            ...claimJSON,
-            layout: '@layouts/BlogPostLayout.astro'
+        const inputFolder = dirname(file.history[0]);
+        if (inputFolder.includes('src/pages/posts')) {
+            const claimFile = resolve(inputFolder + '/claim.json');
+            const claimJSON = JSON.parse(fs.readFileSync(claimFile, 'utf8'))
+
+            file.data.astro.frontmatter = {
+                ...file.data.astro.frontmatter,
+                ...claimJSON,
+                layout: '@layouts/BlogPostLayout.astro'
+            }
         }
     }
 }

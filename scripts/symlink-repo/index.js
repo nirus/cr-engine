@@ -6,4 +6,14 @@
 const { symlinkSync } = require('fs');
 const { resolve } = require('path')
 
-symlinkSync(resolve('../../src/astro-code-pub/[...page].astro'), resolve('../../src/pages/posts/[...page].astro'));
+/**
+ * Add the files that you want to link
+ * In future it can be wildcard based on the requirement using glob matching
+ * For now lets settle with this.
+ */
+
+const files = ['[...page].astro'];
+
+files.forEach((file) => {
+    symlinkSync(resolve(`../../src/astro-code-pub/${file}`), resolve(`../../src/pages/posts/${file}`));
+});

@@ -12,8 +12,7 @@
     "build:clean": "npm run rmdir --silent -- dist",
     "build:preview": "npm run build && npm run preview",
     "build:search": "node scripts/search-indexer/index.js",
-    "add:subtree": "git clone https://github.com/nirus/coder-rocks.git src/pages/posts",
-    "link:subtree": "npm run start --prefix scripts/symlink-publish"
+    "link:repo-code": "npm run start --prefix scripts/symlink-repo"
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.0",
