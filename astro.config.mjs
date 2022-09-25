@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
 import image from "@astrojs/image";
-import { codeRocksMiddleWare } from './plugin/crMiddleware.mjs';
+import { claimMiddleware } from './plugin/claimMiddleware.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,7 +9,7 @@ export default defineConfig({
   site: 'https://coder.rocks',
   markdown: {
     extendDefaultPlugins: true,
-    remarkPlugins: [codeRocksMiddleWare]
+    remarkPlugins: [claimMiddleware] // Adds the claim.json to the markdown files before parsing
   },
 
   vite: {

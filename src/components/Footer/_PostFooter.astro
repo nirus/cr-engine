@@ -1,0 +1,78 @@
+---
+/**
+ * Implementation for dynamic footer fectchig at client side
+ * consuming /ask api from 'pages/ask.ts'
+ * TODO: Future implementation
+ */
+import { Settings } from "@config/settings";
+export interface Props {
+  author: string;
+}
+
+const { author: gitAuthor } = Astro.props;
+---
+
+<footer
+  class={`text-center ${Settings.post.contentWidth} mx-auto flex-col hidden`}
+  id="_authorBlock"
+>
+  <div class="border-b-2 pt-4 border-zinc-400"></div>
+
+  <div class="flex items-center m-auto">
+    <img
+      id="_authorAvatar"
+      loading="lazy"
+      width={Settings.post.avatarSize}
+      class="m-5"
+    />
+    <div class="text-left m-5">
+      <div class="text-sm font-light">Article by</div>
+      <strong class="text-lg" id="_authorName">{"name"}</strong>
+      <div class="text-lg font-light"><span id="_authorBio"></span></div>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        class="font-medium text-lg"
+        id="_authorProfileUrl"
+      >
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script define:vars={{ gitAuthor }}>
+  (async function () {
+    try {
+      const response = await fetch("/ask", {
+        method: "POST",
+        body: JSON.stringify({ author: gitAuthor }),
+      });
+
+      const author = await response.json();
+
+      /**
+       * One way binding using classic window.[ID] technique
+       * Thats all i need for now! Who cares!!!!
+       */
+      const {
+        _authorName,
+        _authorAvatar,
+        _authorBio,
+        _authorProfileUrl,
+        _authorBlock,
+      } = window;
+
+      _authorName.textContent = author.name;
+      _authorAvatar.src = author.avatar_url;
+      _authorBio.textContent = author.bio;
+      _authorProfileUrl.href = author.html_url;
+      _authorProfileUrl.textContent = `@${author.login}`;
+      _authorBlock.classList.remove("hidden");
+      _authorBlock.style.display = "flex";
+    } catch (error) {
+      console.log(
+        "Some error occured while rendering the profile details in footer"
+      );
+    }
+  })();
+</script>

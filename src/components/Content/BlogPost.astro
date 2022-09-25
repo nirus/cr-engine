@@ -3,9 +3,9 @@
 import Author, {
   Props as AuthorProps,
 } from "@component/Footer/PostFooter.astro";
-import { githubUserNameRegex } from "@utils/help";
+
 import { Settings } from "@config/settings";
-import { Image } from "@astrojs/image/components";
+import { fetchAuthor } from "@restapi/fetchAuthor";
 
 export interface Props {
   title: string;
@@ -17,30 +17,8 @@ export interface Props {
 }
 
 const { title, pubDate, hero, youtube, author, tags } = Astro.props;
-const isValid: boolean = githubUserNameRegex.test(author);
-let ghAuthor: AuthorProps | null = null;
 
-if (isValid) {
-  try {
-    // const ghProfile = await fetch(`https://api.github.com/users/${author}`, {
-    //   headers: {
-    //     /* TODO: make this token a secret */
-    //     Authorization: "token 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",
-    //   },
-    // });
-    // gh = await ghProfile.json();
-    ghAuthor = {
-      avatar_url: "https://avatars.githubusercontent.com/u/2213751?v=4",
-      name: "Niranjan Kumar",
-      company: "@Nirus",
-      bio: "Meta thinker",
-      html_url: "https://github.com/nirus",
-      login: "nirus",
-    };
-  } catch (e) {
-    console.log("Github api: ", e);
-  }
-}
+let ghAuthor: AuthorProps | null = await fetchAuthor({ author });
 ---
 
 <header class="mx-auto max-w-3xl text-center content">
