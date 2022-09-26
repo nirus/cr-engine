@@ -11,10 +11,10 @@ export function claimMiddleware() {
         if (inputFolder.includes('src/pages/posts')) {
             const claimFile = resolve(inputFolder + '/claim.json');
             const claimJSON = JSON.parse(fs.readFileSync(claimFile, 'utf8'))
-
             file.data.astro.frontmatter = {
                 ...file.data.astro.frontmatter,
                 ...claimJSON,
+                hero: 'hero.jpg',
                 layout: '@layouts/BlogPostLayout.astro' // Hacks the 'tsconfig.json' to resolve the import
             }
         }
