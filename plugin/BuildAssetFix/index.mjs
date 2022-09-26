@@ -44,7 +44,7 @@ export default function () {
                     for (const sourceFile of paths) {
                         const relativePathExtract = relative(resolvedPath, sourceFile)
                         const destinationFile = resolve(`${destinationFolder}/${relativePathExtract}`)
-                        copyFile(sourceFile, destinationFile);
+                        await copyFile(sourceFile, destinationFile);
                     }
                 } catch (error) {
                     console.log('Error while copying the assets from "src/pages/posts" to the build folder');
