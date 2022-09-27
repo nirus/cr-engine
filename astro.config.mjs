@@ -4,6 +4,7 @@ import image from "@astrojs/image";
 import { claimMiddleware } from './plugin/ClaimJson/index.mjs';
 import { postImageFix } from './plugin/PostImageFix/index.mjs';
 import buildImageFix from './plugin/BuildAssetFix/index.mjs';
+import { transformCustomTag } from './plugin/TransformCustomTags/index.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,7 +12,8 @@ export default defineConfig({
   site: 'https://coder.rocks',
   markdown: {
     extendDefaultPlugins: true,
-    remarkPlugins: [postImageFix, claimMiddleware] // Adds the claim.json to the markdown files before parsing
+    remarkPlugins: [postImageFix, claimMiddleware], // Adds the claim.json to the markdown files before parsing
+    rehypePlugins: [transformCustomTag],
   },
 
   vite: {

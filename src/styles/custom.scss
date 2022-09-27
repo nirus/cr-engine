@@ -30,3 +30,18 @@
 .coder-rocks-font {
   font-family: Arial !important;
 }
+
+.cr-figure {
+  @apply text-center;
+
+  > img {
+    @apply m-auto;
+    @media (max-width: 640px) {
+      width: auto;
+    }
+  }
+
+  figcaption {
+    @apply py-4;
+  }
+}
