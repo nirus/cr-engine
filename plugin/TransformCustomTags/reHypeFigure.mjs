@@ -20,7 +20,7 @@ export function rehypeFigure(option) {
              */
             const attr = JSON.parse(alt.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": '));
             console.log({ attr })
-            const { caption, ...props } = attr;
+            const { caption = "", ...props } = attr;
             properties = { ...properties, ...props }
             properties.alt = caption;
         } catch (error) {
