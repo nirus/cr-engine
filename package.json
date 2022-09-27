@@ -12,7 +12,8 @@
     "build:clean": "npm run rmdir --silent -- dist",
     "build:preview": "npm run build && npm run preview",
     "build:search": "node scripts/search-indexer/index.js",
-    "link:repo-code": "npm run start --prefix scripts/symlink-repo"
+    "link:repo-code": "npm run start --prefix scripts/symlink-repo",
+    "clean:repo-code": "npm run rmdir --silent -- src/pages/posts"
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.0",

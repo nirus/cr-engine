@@ -4,5 +4,5 @@
 
 
 ### points to remember
-- 'posts/**/hero.jpg' is hardcoded as a legend images to each posts
+- 'posts/**/hero.jpg' or 'posts/**/hero.png' is hardcoded as a legend images to each posts
 - Images used in image markdown is relative to the 'posts' folder.

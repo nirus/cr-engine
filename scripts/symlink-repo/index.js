@@ -15,5 +15,5 @@ const { resolve } = require('path')
 const files = ['[...page].astro'];
 
 files.forEach((file) => {
-    symlinkSync(resolve(`../../src/astro-code-pub/${file}`), resolve(`../../src/pages/posts/${file}`));
+    symlinkSync(resolve(`../../src/posts-astro-code/${file}`), resolve(`../../src/pages/posts/${file}`));
 });

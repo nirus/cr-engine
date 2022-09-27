@@ -1,24 +1,28 @@
 import { defineConfig } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
 import image from "@astrojs/image";
-import { claimMiddleware } from './plugin/ClaimJson/index.mjs';
-import { postImageFix } from './plugin/PostImageFix/index.mjs';
-import buildImageFix from './plugin/BuildAssetFix/index.mjs';
-import { transformCustomTag } from './plugin/TransformCustomTags/index.mjs';
+import { claimMiddleware } from './plugins/ClaimJson/index.mjs';
+import { postsImagePathFixture } from './plugins/PostsImagePathFixture/index.mjs';
+import PostsBundleProcess from './plugins/PostsBundleProcess/index.mjs';
+import { transformCustomTag } from './plugins/TransformCustomTags/index.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [sitemap(), image(), buildImageFix()],
+  integrations: [sitemap(), image(), PostsBundleProcess()],
   site: 'https://coder.rocks',
   markdown: {
     extendDefaultPlugins: true,
-    remarkPlugins: [postImageFix, claimMiddleware], // Adds the claim.json to the markdown files before parsing
+    /**
+     * - Adds 'claim.json' to markdown bundle process.
+     * - fixes the path of image file referenced in markdown to absolute one.
+     */
+    remarkPlugins: [postsImagePathFixture, claimMiddleware],
     rehypePlugins: [transformCustomTag],
   },
 
   vite: {
     resolve: {
-      preserveSymlinks: true // Resolves the symlink files from 'astro-code-pub' folder properly
+      preserveSymlinks: true // Resolves the symlink files from 'posts-astro-code' folder properly
     }
   }
 });

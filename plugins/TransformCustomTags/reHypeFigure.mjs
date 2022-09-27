@@ -1,6 +1,7 @@
 /**
  * This plugin parses below MarkDown
- * example parsing - ![{ width:"200px", caption:"See this" }](./error.png)
+ * Example markdown - ![{ caption: "[ This is a sample screen shot ]", width: "500px" }](./screenshot.png)
+ * except 'caption' property all the other attributes are applied to `<img />` tag
  */
 import { visit } from 'unist-util-visit';
 import { h } from 'hastscript';
@@ -9,17 +10,13 @@ export function rehypeFigure(option) {
     const className = (option && option.className) || "rehype-figure"
 
     function buildFigure({ properties }) {
-        console.log({ properties })
-
         try {
             const { alt } = properties;
-            console.log({ alt })
             /**
              * @credits: https://stackoverflow.com/a/34763398/1848109
              *  JSON parsing!!
              */
             const attr = JSON.parse(alt.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": '));
-            console.log({ attr })
             const { caption = "", ...props } = attr;
             properties = { ...properties, ...props }
             properties.alt = caption;
@@ -41,8 +38,7 @@ export function rehypeFigure(option) {
         visit(tree, { tagName: "p" }, (node, index) => {
             const images = node.children
                 .filter((n) => {
-                    const isImg = n.tagName === "img"
-                    isImg && console.log({ img: n });
+                    const isImg = n.tagName === "img";
                     return isImg;
                 })
                 .map((img) => buildFigure(img))

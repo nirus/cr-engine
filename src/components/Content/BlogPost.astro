@@ -3,7 +3,8 @@
 import Author, {
   Props as AuthorProps,
 } from "@component/Footer/PostFooter.astro";
-
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import { Settings } from "@config/settings";
 import { fetchAuthor } from "@restapi/fetchAuthor";
 
@@ -18,11 +19,17 @@ export interface Props {
 
 const { title, pubDate, hero, youtube, author, tags } = Astro.props;
 
+/**
+ * @docs: https://day.js.org/docs/en/display/format#list-of-localized-formats
+ */
+dayjs.extend(localizedFormat);
+const parsedDay = dayjs(pubDate).format("LL");
+
 let ghAuthor: AuthorProps | null = await fetchAuthor({ author });
 ---
 
 <header class="mx-auto max-w-3xl text-center content">
-  <h1 class="text-6xl m-3 leading-normal pb-4">{title}</h1>
+  <h1 class="text-5xl m-3 leading-normal pb-4">{title}</h1>
 </header>
 <article
   class="post max-w-5xl mx-auto p-3 lg:border-2 lg:border-stone-200 lg:rounded-lg"
@@ -66,7 +73,7 @@ let ghAuthor: AuthorProps | null = await fetchAuthor({ author });
     <slot />
   </section>
   <div class="inline-flex align-middle justify-center pb-3 flex-grow-1 w-full">
-    <div class="w-full px-2 text-sm">Published: <b>{pubDate}</b></div>
+    <div class="w-full px-2 text-sm">Published: <b>{parsedDay}</b></div>
     <div class="w-full px-2 text-sm text-right truncate">
       Tag:
       <b class="capitalize">

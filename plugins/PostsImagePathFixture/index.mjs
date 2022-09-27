@@ -5,7 +5,7 @@ import { dirname, basename } from 'path';
  * This plugin fixes the image markdown to point to proper image file while hosted within 'post' folder
  * @returns 
  */
-export function postImageFix() {
+export function postsImagePathFixture() {
     return function (tree, file) {
         const whichFile = file.history[0];
         const isPostDir = whichFile.includes('/src/pages/posts/');

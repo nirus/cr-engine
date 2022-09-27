@@ -22,7 +22,8 @@ export default function () {
                 server.middlewares.use(
                     function middleware(req, res, next) {
                         const extn = extname(req.url).replace('.', '');
-                        if (req.method === 'GET' && req.url.includes('/posts/') && allowedImgExtn.includes(extn) && basename(req.url) !== 'hero.jpg') {
+                        const isNotHeroFile = basename(req.url) !== 'hero.jpg' || basename(req.url) !== 'hero.png';
+                        if (req.method === 'GET' && req.url.includes('/posts/') && allowedImgExtn.includes(extn) && isNotHeroFile) {
                             const contentType = `image/${extn}`;
                             readFile(resolve('src/pages' + req.url), (err, content) => {
                                 res.writeHead(err ? 404 : 200, {
@@ -38,7 +39,7 @@ export default function () {
             "astro:build:done": async ({ dir }) => {
                 try {
                     const resolvedPath = resolve('src/pages');
-                    const paths = await globby([resolvedPath + `/posts/**/*.{${allowedImgExtn.join(',')}}`, `!${resolvedPath}/posts/**/hero.jpg`]);
+                    const paths = await globby([resolvedPath + `/posts/**/*.{${allowedImgExtn.join(',')}}`, `!${resolvedPath}/posts/**/hero.{jpg,png}`]);
                     const destinationFolder = resolve(fileURLToPath(dir));
 
                     for (const sourceFile of paths) {

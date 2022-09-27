@@ -70,24 +70,6 @@
     }
   }
 
-  code {
-    background: #292929;
-    color: rgb(232, 232, 232);
-    padding: 5px;
-  }
-
-  /* pre {
-        margin-bottom: 2em;
-    } */
-
-  p code,
-  ul li *:not(pre) code,
-  ul li > code,
-  ol li *:not(pre) code,
-  ol li > code {
-    @apply inline-block text-white text-sm p-1 leading-none whitespace-nowrap font-mono align-baseline;
-  }
-
   pre,
   // pre&,
   >ul li pre,

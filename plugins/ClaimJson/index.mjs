@@ -10,13 +10,18 @@ export function claimMiddleware() {
 
         const inputFolder = dirname(file.history[0]);
         if (inputFolder.includes('src/pages/posts')) {
-            const claimFile = resolve(inputFolder + '/claim.json');
+            const fullPath = (filename) => resolve(`${inputFolder}/${filename}`);
+
+            const claimFile = fullPath('claim.json');
             const claimJSON = JSON.parse(fs.readFileSync(claimFile, 'utf8'));
-            const isHeroFileThere = existsSync(resolve(inputFolder + '/hero.jpg'));
+
+            /** Precedence is .jpg file */
+            const whichHeroFile = (existsSync(fullPath('hero.jpg')) && 'jpg') || (existsSync(fullPath('hero.png')) && 'png');
+
             file.data.astro.frontmatter = {
                 ...file.data.astro.frontmatter,
                 ...claimJSON,
-                ...(isHeroFileThere ? { hero: 'hero.jpg' } : {}),
+                ...(whichHeroFile ? { hero: `hero.${whichHeroFile}` } : {}),
                 layout: '@layouts/BlogPostLayout.astro' // Hacks the 'tsconfig.json' to resolve the import
             }
         }
