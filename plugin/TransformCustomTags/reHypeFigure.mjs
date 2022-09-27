@@ -1,3 +1,7 @@
+/**
+ * This plugin parses below MarkDown
+ * example parsing - ![{ width:"200px", caption:"See this" }](./error.png)
+ */
 import { visit } from 'unist-util-visit';
 import { h } from 'hastscript';
 
@@ -12,6 +16,7 @@ export function rehypeFigure(option) {
             console.log({ alt })
             /**
              * @credits: https://stackoverflow.com/a/34763398/1848109
+             *  JSON parsing!!
              */
             const attr = JSON.parse(alt.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": '));
             console.log({ attr })
