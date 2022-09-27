@@ -20,7 +20,7 @@ export function rehypeFigure(option) {
             properties.alt = caption;
         } catch (error) {
             //Suppress the warning
-            console.log('Error happened', error)
+            console.log('I guess the Image properties are not JSON so skipping parsing!!');
         }
 
         const figure = h("figure", { class: className }, [
