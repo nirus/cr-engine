@@ -33,11 +33,11 @@
     } */
 
   > blockquote {
-    @apply text-center font-bold italic px-4 mb-6 pt-6 text-3xl leading-tight;
+    @apply text-center font-bold italic px-4 mb-6 pt-6 text-3xl;
   }
 
   > blockquote > p {
-    @apply text-xl font-light leading-tight;
+    @apply text-xl font-light leading-normal;
   }
 
   > img {
@@ -75,13 +75,6 @@
   >ul li pre,
   >ol li pre {
     @apply flex p-0 text-sm leading-loose mb-8;
-  }
-
-  pre code,
-  // pre code&,
-  >ul li pre code,
-  >ol li pre code {
-    @apply p-2;
   }
 
   pre[class*="language-"] {
