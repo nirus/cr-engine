@@ -22,7 +22,7 @@ export default function () {
                 server.middlewares.use(
                     function middleware(req, res, next) {
                         const extn = extname(req.url).replace('.', '');
-                        const isNotHeroFile = basename(req.url) !== 'hero.jpg' || basename(req.url) !== 'hero.png';
+                        const isNotHeroFile = basename(req.url) !== 'hero.jpg' && basename(req.url) !== 'hero.png';
                         if (req.method === 'GET' && req.url.includes('/posts/') && allowedImgExtn.includes(extn) && isNotHeroFile) {
                             const contentType = `image/${extn}`;
                             readFile(resolve('src/pages' + req.url), (err, content) => {
