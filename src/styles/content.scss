@@ -2,12 +2,21 @@
 
 .content {
   h1 {
-    @apply font-display font-semibold leading-tight break-words;
-    margin-bottom: 1em;
-    font-size: min(max(3rem, 6.25vw), 7rem);
+    @apply text-2xl font-display font-semibold leading-tight break-words mb-4;
 
-    @supports (font-size: clamp(3rem, 6.25vw, 7rem)) {
-      font-size: clamp(3rem, 6.25vw, 7rem);
+    @screen sm {
+      // applying font size for lg breakpoint
+      @apply text-3xl;
+    }
+
+    @screen md {
+      // applying font size for lg breakpoint
+      @apply text-4xl;
+    }
+
+    @screen lg {
+      // applying font size for lg breakpoint
+      @apply text-5xl;
     }
   }
 
