@@ -7,7 +7,7 @@
 import { extname, basename, resolve, relative } from 'path';
 import { readFile } from 'fs';
 import { globby } from 'globby';
-import { copyFile, } from 'node:fs/promises';
+import { copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 /** Allowed image files */

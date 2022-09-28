@@ -20,7 +20,7 @@ export const Settings = {
 
     legendImageSize: {
         width: 1024,
-        height: 640,
+        height: 420,
         aspectRatio: 16 / 9,
     }
 
