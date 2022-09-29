@@ -1,7 +1,7 @@
 export const Settings = {
     site: {
         title: 'CoderRocks',
-        tagline: 'coding & hacking articles',
+        tagline: 'Progress by coding',
         gaUserAgent: '',
         mainUrl: 'https://coder.rocks',
         secondUrl: 'https://CoderRocks.com'

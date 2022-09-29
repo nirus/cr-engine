@@ -27,8 +27,13 @@
   }
 }
 
-.coder-rocks-font {
-  font-family: Arial !important;
+.coder-rocks-head {
+  font-family: monospace !important;
+  @apply sm:text-5xl md:text-5xl text-5xl my-2;
+}
+
+.coder-rocks-tagline {
+  @apply font-thin;
 }
 
 .cr-figure {

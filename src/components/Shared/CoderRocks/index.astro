@@ -1,0 +1,19 @@
+---
+import CoderRocksLogo from "@component/VectorImages/CoderRocksLogo.astro";
+
+interface Props {
+  title: string;
+  tagline: string;
+}
+const { title, tagline } = Astro.props;
+---
+
+<>
+  <CoderRocksLogo size="100px" css="pb-2" />
+  <h1 class="coder-rocks-head" data-test="header-title">
+    {title}
+  </h1>
+  <p data-test="header-description" class="coder-rocks-tagline text-xl">
+    {tagline}
+  </p>
+</>
