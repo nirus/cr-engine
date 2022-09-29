@@ -10,10 +10,13 @@ const { title, tagline } = Astro.props;
 
 <>
   <CoderRocksLogo size="100px" css="pb-2" />
-  <h1 class="coder-rocks-head" data-test="header-title">
+  <h1
+    class="coder-rocks-head border-b-2 border-neutral-400 mb-0 pb-1 text-center"
+    data-test="header-title"
+  >
     {title}
   </h1>
-  <p data-test="header-description" class="coder-rocks-tagline text-2xl">
+  <p data-test="header-description" class="coder-rocks-tagline">
     {tagline}
   </p>
 </>

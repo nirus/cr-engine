@@ -27,13 +27,15 @@
   }
 }
 
-.coder-rocks-head {
-  font-family: monospace !important;
-  @apply sm:text-5xl md:text-5xl text-5xl my-2;
-}
+.content {
+  h1.coder-rocks-head {
+    font-family: monospace !important;
+    @apply sm:text-xl md:text-4xl lg:text-4xl text-5xl my-2;
+  }
 
-.coder-rocks-tagline {
-  @apply font-light;
+  p.coder-rocks-tagline {
+    @apply font-light sm:text-lg text-2xl;
+  }
 }
 
 .cr-figure {
