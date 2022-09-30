@@ -7,7 +7,7 @@ const { symlinkSync } = require('fs');
 const { resolve } = require('path')
 
 /**
- * Add the files that you want to link
+ * Add the 'files' that you want to symlink to 'src/pages/posts' folder from 'src/posts-astro-code'.
  * In future it can be wildcard based on the requirement using glob matching
  * For now lets settle with this.
  */
