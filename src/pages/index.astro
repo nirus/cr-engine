@@ -9,10 +9,7 @@ import { Settings } from "@config/settings";
 export interface MarkdownFrontmatter {
   pubDate: Date;
 }
-const { title, tagline } = Settings.site;
-const description =
-  "Coder Rocks is a blogging site to share coding knowledge & ideas through writeups";
-
+const { title, tagline, description } = Settings.site;
 const allPosts = await Astro.glob<MarkdownFrontmatter>("./posts/**/*.md");
 const sortedPosts = allPosts
   .slice(0, 3)

@@ -4,7 +4,8 @@ export const Settings = {
         tagline: 'Progress by coding',
         gaUserAgent: '',
         mainUrl: 'https://coder.rocks',
-        secondUrl: 'https://CoderRocks.com'
+        secondUrl: 'https://CoderRocks.com',
+        description: "Coder Rocks is a blog site to share coding knowledge, ideas & learning through articles"
     },
 
     post: {
