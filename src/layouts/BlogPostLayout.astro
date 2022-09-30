@@ -3,29 +3,34 @@ import TopBarNav from "@component/Navigation/TopBar.astro";
 import BaseHead from "@component/Head/BaseHead.astro";
 import BlogPost from "@component/Content/BlogPost.astro";
 import Footer from "@component/Footer/Footer.astro";
-import { dirname, extname, relative, resolve } from "path";
+import { dirname } from "path";
 import { getImage } from "@astrojs/image";
 import { Settings } from "@config/settings";
 import type { Props as AuthorProps } from "@component/Footer/PostFooter.astro";
 import { fetchAuthor } from "@restapi/fetchAuthor";
-import { copyFile, symlink } from "node:fs/promises";
-import { symlinkSync } from "fs";
 
 const { content, file } = Astro.props;
 
-const isProd = import.meta.env.PROD;
-const { title, description, pubDate, hero, youtube, author, tags, slug } =
-  content;
-const baseProjectDir = process.cwd(); //package.json
-const heroFilePath = dirname(file).replace(baseProjectDir, "") + "/" + hero;
+const { title, description, pubDate, hero, youtube, author, tags } = content;
 
-const legendImagePath = isProd ? "." + heroFilePath : heroFilePath;
+async function getHeroImage(hero: string) {
+  const baseProjectDir = process.cwd(); //package.json
+  const heroFilePath = dirname(file).replace(baseProjectDir, "") + "/" + hero;
 
-const { src: legendImage } = await getImage({
-  src: legendImagePath,
-  // src: "/images/hello.png",
-  ...Settings.legendImageSize,
-});
+  const legendImagePath = import.meta.env.PROD
+    ? "." + heroFilePath
+    : heroFilePath;
+
+  const { src: heroImage } = await getImage({
+    src: legendImagePath,
+    // src: "/images/hello.png",
+    ...Settings.legendImageSize,
+  });
+
+  return heroImage;
+}
+
+const legendImage = hero ? await getHeroImage(hero) : null;
 
 const authorDetails: AuthorProps | null = await fetchAuthor({ author }).then(
   (details) => (details?.name ? details : null) // Prevents bad request and just 'nullify'

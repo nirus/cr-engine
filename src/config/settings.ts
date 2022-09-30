@@ -12,6 +12,13 @@ export const Settings = {
         avatarSize: '100'
     },
 
+    indexPage: {
+        card: {
+            height: '192',
+            width: '360'
+        }
+    },
+
     cr: {
         email: 'mailtto:support@coder.rocks',
         twitter: 'https://twitter.com/coder_rocks',

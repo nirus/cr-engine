@@ -51,7 +51,7 @@ const parsedDay = dayjs(pubDate).format("LL");
   <!-- YouTube Video -->
   {
     youtube && (
-      <div class="embed-responsive aspect-ratio-16/9 mt-6 lg:mt-12">
+      <div class="embed-responsive aspect-ratio-16/9">
         <iframe
           width="700"
           height="500"
@@ -72,12 +72,14 @@ const parsedDay = dayjs(pubDate).format("LL");
     <slot />
   </section>
   <div class="inline-flex align-middle justify-center pb-3 flex-grow-1 w-full">
-    <div class="w-full px-2 text-sm">Published: <b>{parsedDay}</b></div>
+    <div class="w-full px-2 text-sm">
+      Published on <p class="font-semibold">{parsedDay}</p>
+    </div>
     <div class="w-full px-2 text-sm text-right truncate">
-      Tag:
-      <b class="capitalize">
+      Tags
+      <p class="capitalize font-semibold truncate">
         {tags.length ? tags.slice(0, 4).join(", ") : tags[0]}
-      </b>
+      </p>
     </div>
   </div>
   <!-- Author details -->

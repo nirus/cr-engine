@@ -99,8 +99,8 @@ module.exports = {
         black: "#12151E"
       },
       fontFamily: {
-        display: ["Roboto", "Arial", "Helvetica"],
-        body: ["Roboto", "Arial", "Helvetica"],
+        display: ['Poppins', 'sans-serif'],
+        body: ['Poppins', 'sans-serif'],
       },
       fontSize: {
         "7xl": "5rem",
