@@ -5,16 +5,18 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "astro:build": "astro build",
+    "build": "npm run pub-code:clean && npm run pub-code:link && npm run pub-code:refresh && npm run build:search && npm run astro:build",
     "preview": "astro preview",
     "astro": "astro",
     "rmdir": "node -e \"var fs = require('fs');process.argv.slice(1).map((fpath)=>{ try {fs.rmdirSync(fpath,{recursive: true})} catch(e){console.warn('Error folder:', fpath, e)}});process.exit(0);\"",
     "build:clean": "npm run rmdir --silent -- dist",
     "build:preview": "npm run build && npm run preview",
     "build:search": "node scripts/search-indexer/index.js",
-    "pub-code:link": "npm run start --prefix scripts/symlink-repo",
+    "pub-code:link": "sh scripts/cr-repo-connect/build.sh && npm run start --prefix scripts/symlink-repo",
     "pub-code:clean": "npm run rmdir --silent -- src/pages/posts",
-    "pub-code:refresh": "git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts pull origin"
+    "pub-code:head": "git  --git-dir=src/pages/posts/.git --work-tree=src/pages/posts reset --hard origin/publish",
+    "pub-code:refresh": "git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts pull"
   },
   "dependencies": {
     "@astrojs/rss": "^1.0.0",
