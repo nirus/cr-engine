@@ -11,9 +11,13 @@ rm -rf src/pages/posts/.git/info/sparse-checkout
 touch src/pages/posts/.git/info/sparse-checkout
 
 echo "/* \n!README.md" >> src/pages/posts/.git/info/sparse-checkout
+cd src/pages/posts/
+
+echo "\n ********** [GIT script starts] *********** \n"
+echo "$PWD\n"
 
 if [[ -n "$branch" ]]; then
-    git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts checkout $branch
+    git checkout $branch
 else
-    git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts checkout publish
+    git checkout publish
 fi
