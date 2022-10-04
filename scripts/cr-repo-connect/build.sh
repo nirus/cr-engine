@@ -25,3 +25,5 @@ fi
 ls -l
 
 echo "\n ********** [GIT script end] *********** \n"
+
+cat ./apollo-graphql-client-abort-pending-requests/claim.json
