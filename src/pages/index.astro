@@ -5,19 +5,54 @@ import HomeHeader from "@component/Head/HomeHeader.astro";
 import Card from "@component/Content/Card.astro";
 import Footer from "@component/Footer/Footer.astro";
 import { Settings } from "@config/settings";
-
+import { globby } from "globby";
+import { dirname, resolve } from "path";
+import fs, { existsSync } from "fs";
+import { basename } from "path";
+import type { Props } from "@component/Content/Card.astro";
 export interface MarkdownFrontmatter {
   pubDate: Date;
 }
 const { title, tagline, description } = Settings.site;
-const allPosts = await Astro.glob<MarkdownFrontmatter>("./posts/**/*.md");
-const sortedPosts = allPosts
-  .slice(0, 3)
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.pubDate).valueOf() -
-      new Date(a.frontmatter.pubDate).valueOf()
-  );
+// const allPosts = await Astro.glob<MarkdownFrontmatter>("./posts/**/*.md");
+// const sortedPosts = allPosts
+//   .slice(0, 3)
+//   .sort(
+//     (a, b) =>
+//       new Date(b.frontmatter.pubDate).valueOf() -
+//       new Date(a.frontmatter.pubDate).valueOf()
+//   );
+
+const resolvedPath = resolve("src/pages/posts");
+let allPosts: string[] | Array<Props["post"]> = await globby(
+  resolvedPath + "/**/claim.json"
+);
+
+console.log({ allPosts });
+
+allPosts = allPosts.slice(0, 6).map((file: string) => {
+  const claim = JSON.parse(fs.readFileSync(file, "utf8"));
+  const dir = dirname(file);
+
+  console.log({ claim });
+  return {
+    file: dir + "/index.md",
+    url: "/posts/" + basename(dir),
+    frontmatter: {
+      hero:
+        (existsSync(dir + "/hero.png") && "hero.png") ||
+        (existsSync(dir + "/hero.jpg") && "hero.jpg") ||
+        "",
+      ...claim,
+    },
+  };
+});
+
+const sortedPosts = (allPosts as Props["post"][]).sort(
+  (a, b) =>
+    new Date(b.frontmatter.pubDate).valueOf() -
+    new Date(a.frontmatter.pubDate).valueOf()
+);
 ---
 
 <html lang="en">
