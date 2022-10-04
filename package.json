@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "astro:build": "astro build",
-    "build": "npm run pub-code:clean && npm run pub-code:link && npm run pub-code:refresh && npm run build:search && npm run astro:build",
+    "build": "npm run pub-code:clean && npm run pub-code:link && npm run build:search && npm run astro:build",
     "preview": "astro preview",
     "astro": "astro",
     "rmdir": "node -e \"var fs = require('fs');process.argv.slice(1).map((fpath)=>{ try {fs.rmdirSync(fpath,{recursive: true})} catch(e){console.warn('Error folder:', fpath, e)}});process.exit(0);\"",
@@ -30,7 +30,6 @@
   "devDependencies": {
     "@astrojs/image": "^0.7.0",
     "@types/node": "^17.0.45",
-    "astro-html-minifier": "^0.2.0",
     "globby": "^13.1.2",
     "hastscript": "^7.0.2",
     "mark.js": "^8.11.1",

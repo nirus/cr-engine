@@ -5,12 +5,11 @@ import { claimMiddleware } from './plugins/ClaimJson/index.mjs';
 import { postsImagePathFixture } from './plugins/PostsImagePathFixture/index.mjs';
 import PostsBundleProcess from './plugins/PostsBundleProcess/index.mjs';
 import { transformCustomTag } from './plugins/TransformCustomTags/index.mjs';
-import htmlMinifier from "astro-html-minifier";
 
 const isProd = process.env.PROD;
 // https://astro.build/config
 export default defineConfig({
-  integrations: [sitemap(), image(), PostsBundleProcess(), isProd ? () => { } : htmlMinifier()],
+  integrations: [sitemap(), image(), PostsBundleProcess()],
   site: 'https://coder.rocks',
   markdown: {
     extendDefaultPlugins: true,
