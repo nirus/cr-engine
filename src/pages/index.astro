@@ -1,18 +1,15 @@
 ---
-import BaseHead from "@Component/Head/BaseHead.astro";
-import TopBarNav from "@Component/Navigation/TopBar.astro";
-import HomeHeader from "@Component/Head/HomeHeader.astro";
-import Card from "@Component/Content/Card.astro";
-import Footer from "@Component/Footer/Footer.astro";
+import BaseHead from "@component/Head/BaseHead.astro";
+import TopBarNav from "@component/Navigation/TopBar.astro";
+import HomeHeader from "@component/Head/HomeHeader.astro";
+import Card from "@component/Content/Card.astro";
+import Footer from "@component/Footer/Footer.astro";
 import { Settings } from "@config/settings";
 
 export interface MarkdownFrontmatter {
   pubDate: Date;
 }
-const { title, tagline } = Settings.site;
-const description =
-  "Coder Rocks is a blogging site to share coding knowledge & ideas through writeups";
-
+const { title, tagline, description } = Settings.site;
 const allPosts = await Astro.glob<MarkdownFrontmatter>("./posts/**/*.md");
 const sortedPosts = allPosts
   .slice(0, 3)

@@ -2,67 +2,48 @@
 // import EmailSignup from "./Subscribe/EmailSignup.astro";
 import Author, {
   Props as AuthorProps,
-} from "@Component/Footer/PostFooter.astro";
-import { githubUserNameRegex } from "@utils/help";
+} from "@component/Footer/PostFooter.astro";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import { Settings } from "@config/settings";
-import { Image } from "@astrojs/image/components";
 
 export interface Props {
   title: string;
   pubDate: string;
-  hero?: string;
+  hero?: string | null;
   youtube?: string;
-  author: string;
+  author: AuthorProps | null;
   tags: string[];
 }
 
 const { title, pubDate, hero, youtube, author, tags } = Astro.props;
-const isValid: boolean = githubUserNameRegex.test(author);
-let ghAuthor: AuthorProps | null = null;
 
-if (isValid) {
-  try {
-    // const ghProfile = await fetch(`https://api.github.com/users/${author}`, {
-    //   headers: {
-    //     /* TODO: make this token a secret */
-    //     Authorization: "token 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",
-    //   },
-    // });
-    // gh = await ghProfile.json();
-    ghAuthor = {
-      avatar_url: "https://avatars.githubusercontent.com/u/2213751?v=4",
-      name: "Niranjan Kumar",
-      company: "@Nirus",
-      bio: "Meta thinker",
-      html_url: "https://github.com/nirus",
-      login: "nirus",
-    };
-  } catch (e) {
-    console.log("Github api: ", e);
-  }
-}
+/**
+ * @docs: https://day.js.org/docs/en/display/format#list-of-localized-formats
+ */
+dayjs.extend(localizedFormat);
+const parsedDay = dayjs(pubDate).format("LL");
 ---
 
 <header class="mx-auto max-w-3xl text-center content">
-  <h1 class="text-6xl m-3 leading-normal pb-4">{title}</h1>
+  <h1 class="m-3 leading-normal pb-4">
+    {title}
+  </h1>
 </header>
 <article
   class="post max-w-5xl mx-auto p-3 lg:border-2 lg:border-stone-200 lg:rounded-lg"
 >
-  <!-- Image -->
+  <!-- Legend Image -->
   {
     hero && (
-      <Image
-        class="rounded-xl mx-auto mb-4"
-        width={1024}
-        height={640}
+      <img
+        class="rounded-xl mx-auto mb-4 object-contain"
+        width={Settings.legendImageSize.width}
+        height={Settings.legendImageSize.height}
         sizes={"100%"}
         loading="lazy"
         src={hero}
         alt={title}
-        aspectRatio={"16:9"}
-        fit="contain"
-        quality={10}
       />
     )
   }
@@ -70,7 +51,7 @@ if (isValid) {
   <!-- YouTube Video -->
   {
     youtube && (
-      <div class="embed-responsive aspect-ratio-16/9 mt-6 lg:mt-12">
+      <div class="embed-responsive aspect-ratio-16/9">
         <iframe
           width="700"
           height="500"
@@ -91,13 +72,16 @@ if (isValid) {
     <slot />
   </section>
   <div class="inline-flex align-middle justify-center pb-3 flex-grow-1 w-full">
-    <div class="w-full px-2 text-sm">Published: <b>{pubDate}</b></div>
+    <div class="w-full px-2 text-sm">
+      Published on <p class="font-semibold">{parsedDay}</p>
+    </div>
     <div class="w-full px-2 text-sm text-right truncate">
-      Tag:
-      <b class="capitalize">
+      Tags
+      <p class="capitalize font-semibold truncate">
         {tags.length ? tags.slice(0, 4).join(", ") : tags[0]}
-      </b>
+      </p>
     </div>
   </div>
-  {ghAuthor && <Author {...ghAuthor} />}
+  <!-- Author details -->
+  {author && <Author {...author} />}
 </article>

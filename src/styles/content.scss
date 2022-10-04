@@ -2,25 +2,49 @@
 
 .content {
   h1 {
-    @apply font-display font-semibold leading-tight break-words;
-    margin-bottom: 1em;
-    font-size: min(max(3rem, 6.25vw), 7rem);
+    @apply text-3xl font-display font-normal leading-relaxed break-words mb-4;
 
-    @supports (font-size: clamp(3rem, 6.25vw, 7rem)) {
-      font-size: clamp(3rem, 6.25vw, 7rem);
+    @screen sm {
+      // applying font size for lg breakpoint
+      @apply text-3xl;
+    }
+
+    @screen md {
+      // applying font size for lg breakpoint
+      @apply text-4xl;
+    }
+
+    @screen lg {
+      // applying font size for lg breakpoint
+      @apply text-5xl;
     }
   }
 
   h2 {
-    @apply text-4xl font-semibold leading-none mt-6 py-6 tracking-tight;
+    @apply text-2xl font-semibold leading-none py-6;
+
+    @screen sm {
+      // applying font size for lg breakpoint
+      @apply text-2xl;
+    }
+
+    @screen md {
+      // applying font size for lg breakpoint
+      @apply text-2xl;
+    }
+
+    @screen lg {
+      // applying font size for lg breakpoint
+      @apply text-3xl;
+    }
   }
 
   h3 {
-    @apply text-xl font-bold leading-none py-4;
+    @apply text-xl font-semibold leading-6 py-4;
   }
 
   h4 {
-    @apply font-bold uppercase tracking-widest leading-none py-3;
+    @apply font-semibold tracking-widest leading-5 py-3;
   }
 
   > p {
@@ -33,11 +57,11 @@
     } */
 
   > blockquote {
-    @apply text-center font-bold italic px-4 mb-6 pt-6 text-3xl leading-tight;
+    @apply text-center font-bold italic px-4 mb-6 pt-6 text-3xl;
   }
 
   > blockquote > p {
-    @apply text-xl font-light leading-tight;
+    @apply text-xl font-light leading-normal;
   }
 
   > img {
@@ -45,7 +69,7 @@
   }
 
   a {
-    @apply font-bold underline text-sky-600;
+    @apply font-normal underline text-sky-600;
     text-decoration: none;
 
     &:hover {
@@ -70,36 +94,11 @@
     }
   }
 
-  code {
-    background: #292929;
-    color: rgb(232, 232, 232);
-    padding: 5px;
-  }
-
-  /* pre {
-        margin-bottom: 2em;
-    } */
-
-  p code,
-  ul li *:not(pre) code,
-  ul li > code,
-  ol li *:not(pre) code,
-  ol li > code {
-    @apply inline-block text-white text-sm p-1 leading-none whitespace-nowrap font-mono align-baseline;
-  }
-
   pre,
   // pre&,
   >ul li pre,
   >ol li pre {
     @apply flex p-0 text-sm leading-loose mb-8;
-  }
-
-  pre code,
-  // pre code&,
-  >ul li pre code,
-  >ol li pre code {
-    @apply p-2;
   }
 
   pre[class*="language-"] {
@@ -120,6 +119,15 @@
     p {
       @apply leading-normal;
     }
+  }
+
+  em > strong,
+  p > strong {
+    @apply font-semibold;
+  }
+
+  a em > strong {
+    @apply font-normal;
   }
 }
 

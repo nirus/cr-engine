@@ -1,15 +1,18 @@
 ---
 import GoogleAnalytics from "./GoogleAnalytics.astro";
 import "../../styles/main.scss";
+import { Settings } from "@config/settings";
 
 export interface Props {
   title: string;
   description: string;
-  image?: string;
+  image?: string | null;
 }
-const { title, description, image = "/images/social.jpg" } = Astro.props;
 
-let permalink = "https://coder.rocks";
+const { mainUrl } = Settings.site;
+const { title, description, image } = Astro.props;
+
+const ogImage = mainUrl + (image || "/images/social.png");
 ---
 
 <GoogleAnalytics />
@@ -27,22 +30,23 @@ let permalink = "https://coder.rocks";
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={permalink} />
+<meta property="og:url" content={mainUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={image} />
+<meta property="og:image" content={ogImage} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={permalink} />
+<meta property="twitter:url" content={mainUrl} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={image} />
+<meta property="twitter:image" content={ogImage} />
+<meta name="twitter:creator" content="@Coder_Rocks" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,100;1,400;1,500;1,700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,800;1,100;1,200;1,400;1,600;1,800&display=swap"
   rel="stylesheet"
 />

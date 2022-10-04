@@ -407,6 +407,13 @@
   "resolved" "https://registry.npmjs.org/@ljharb/has-package-exports-patterns/-/has-package-exports-patterns-0.0.2.tgz"
   "version" "0.0.2"
 
+"@minify-html/node@0.9.2":
+  "integrity" "sha512-qXu2s34R9UgdBaofrF1OwEQXhVNsR9gK8knpQF2zSl00XFgiUKinfk6zyQu29Cwy2X4wPtOhzbg5K+vjyZnvQw=="
+  "resolved" "https://registry.npmjs.org/@minify-html/node/-/node-0.9.2.tgz"
+  "version" "0.9.2"
+  dependencies:
+    "cargo-cp-artifact" "^0.1"
+
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -670,6 +677,14 @@
   dependencies:
     "tslib" "^2.0.1"
 
+"astro-html-minifier@^0.2.0":
+  "integrity" "sha512-qxIffs5h/zBqiVydk5mp3un+4JAxkXDegdhQc8gljGGm+WSohMmlvzSlNejMsqm0AtYo3GMJBD0tWP9Qy7k7lA=="
+  "resolved" "https://registry.npmjs.org/astro-html-minifier/-/astro-html-minifier-0.2.0.tgz"
+  "version" "0.2.0"
+  dependencies:
+    "@minify-html/node" "0.9.2"
+    "globby" "13.1.2"
+
 "astro@^1.1.3":
   "integrity" "sha512-bD12gtIQkvqkc7L2syqsFdJzhvDYF/4EP8+RyMnE/FycAYSCn7z6AtIBMZIhPVhD+3GFhNYrhG5Sjfx/TlR9tQ=="
   "resolved" "https://registry.npmjs.org/astro/-/astro-1.1.3.tgz"
@@ -837,6 +852,11 @@
   "integrity" "sha512-fKDH0F1KOJvR+mWSOvhj8lVRr/Q/mc5u5nabU2vi1/sgvlSqEsE8dOq0Hy/BqVbDkCYQPRRHB1WRjW6PGB/7PA=="
   "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001387.tgz"
   "version" "1.0.30001387"
+
+"cargo-cp-artifact@^0.1":
+  "integrity" "sha512-CQw0doK/aaF7j041666XzuilHxqMxaKkn+I5vmBsd8SAwS0cO5CqVEVp0xJwOKstyqWZ6WK4Ww3O6p26x/Goyg=="
+  "resolved" "https://registry.npmjs.org/cargo-cp-artifact/-/cargo-cp-artifact-0.1.6.tgz"
+  "version" "0.1.6"
 
 "ccount@^2.0.0":
   "integrity" "sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg=="
@@ -1384,7 +1404,7 @@
   "resolved" "https://registry.npmjs.org/globalyzer/-/globalyzer-0.1.0.tgz"
   "version" "0.1.0"
 
-"globby@^13.1.2":
+"globby@^13.1.2", "globby@13.1.2":
   "integrity" "sha512-LKSDZXToac40u8Q1PQtZihbNdTYSNMuWe+K5l+oa6KgDzSvVrHXlJy40hUP522RjAIoNLJYBJi7ow+rbFpIhHQ=="
   "resolved" "https://registry.npmjs.org/globby/-/globby-13.1.2.tgz"
   "version" "13.1.2"
@@ -1531,7 +1551,7 @@
   "resolved" "https://registry.npmjs.org/hast-util-whitespace/-/hast-util-whitespace-2.0.0.tgz"
   "version" "2.0.0"
 
-"hastscript@^7.0.0":
+"hastscript@^7.0.0", "hastscript@^7.0.2":
   "integrity" "sha512-uA8ooUY4ipaBvKcMuPehTAB/YfFLSSzCwFSwT6ltJbocFUKH/GDHLN+tflq7lSRf9H86uOuxOFkh1KgIy3Gg2g=="
   "resolved" "https://registry.npmjs.org/hastscript/-/hastscript-7.0.2.tgz"
   "version" "7.0.2"
@@ -3482,7 +3502,7 @@
     "@types/unist" "^2.0.0"
     "unist-util-is" "^5.0.0"
 
-"unist-util-visit@^4.0.0", "unist-util-visit@^4.1.0":
+"unist-util-visit@^4.0.0", "unist-util-visit@^4.1.0", "unist-util-visit@^4.1.1":
   "integrity" "sha512-n9KN3WV9k4h1DxYR1LoajgN93wpEi/7ZplVe02IoB4gH5ctI1AaF2670BLHQYbwj+pY83gFtyeySFiyMHJklrg=="
   "resolved" "https://registry.npmjs.org/unist-util-visit/-/unist-util-visit-4.1.1.tgz"
   "version" "4.1.1"

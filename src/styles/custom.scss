@@ -21,12 +21,34 @@
 
 .content {
   blockquote {
-    .source {
+    .quote-credit {
       @apply text-sm p-4 text-right;
     }
   }
 }
 
-.coder-rocks-font {
-  font-family: Arial !important;
+.content {
+  h1.coder-rocks-head {
+    font-family: monospace !important;
+    @apply sm:text-xl md:text-4xl lg:text-4xl text-5xl my-2;
+  }
+
+  p.coder-rocks-tagline {
+    @apply font-light sm:text-lg text-2xl;
+  }
+}
+
+.cr-figure {
+  @apply text-center;
+
+  > img {
+    @apply m-auto;
+    @media (max-width: 640px) {
+      width: auto;
+    }
+  }
+
+  figcaption {
+    @apply py-4;
+  }
 }

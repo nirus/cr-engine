@@ -1,28 +1,41 @@
 ---
 import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import type { Props as BlogPostProps } from "./BlogPost.astro";
-import { youtubeImgPreview } from "@config/settings";
+import { youtubeImgPreview, Settings } from "@config/settings";
+import { dirname, relative } from "path";
+import { Image } from "@astrojs/image/components";
 
 export interface Props {
   post: {
     url: string;
     frontmatter: BlogPostProps;
+    file: string;
   };
 }
 
 /**
- * Set the Card heigth and width here
+ * Set the Card height and width here
  */
-const width = "360";
-const height = "192";
+const { width, height } = Settings.indexPage.card;
 
 const { post } = Astro.props;
 
 const {
-  frontmatter: { hero, youtube },
+  file,
+  frontmatter: { hero, youtube, pubDate },
 } = post;
 
-const previewImage = youtube ? youtubeImgPreview(youtube) : hero;
+const dir = relative(process.cwd(), dirname(file));
+const localImage = dir + "/" + hero;
+const legendImagePath = import.meta.env.PROD ? "./" + localImage : localImage;
+const previewImage = youtube ? youtubeImgPreview(youtube) : legendImagePath;
+
+/**
+ * @docs: https://day.js.org/docs/en/display/format#list-of-localized-formats
+ */
+dayjs.extend(localizedFormat);
+const parsedDay = dayjs(pubDate).format("LL");
 ---
 
 <a
@@ -30,7 +43,8 @@ const previewImage = youtube ? youtubeImgPreview(youtube) : hero;
   class="transition-all duration-75 ease-in-out h-full block relative top-0 hover:-top-2 shadow-lg hover:shadow-xl bg-white rounded-xl overflow-hidden"
   data-test="article-card"
 >
-  <img
+  <Image
+    class="card-images"
     src={previewImage}
     alt={post.frontmatter.title}
     width={width}
@@ -38,19 +52,11 @@ const previewImage = youtube ? youtubeImgPreview(youtube) : hero;
   />
 
   <div class="py-6 px-8">
-    <h2 class="font-bold text-xl leading-normal">
+    <h2 class="font-semibold text-xl leading-normal">
       {post.frontmatter.title}
     </h2>
     <p class="text-xs text-gray-600 mt-4 flex items-center">
-      {dayjs(post.frontmatter.pubDate).format("MM-DD-YYYY")}
+      {parsedDay}
     </p>
   </div>
 </a>
-
-<style>
-  img {
-    width: 100%;
-    aspect-ratio: 15/7;
-    object-fit: cover;
-  }
-</style>

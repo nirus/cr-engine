@@ -1,4 +1,4 @@
-import path from "path";
+import path, { dirname } from "path";
 import { promises as fs } from "fs";
 import { globby } from "globby";
 import grayMatter from "gray-matter";
@@ -19,15 +19,15 @@ import grayMatter from "gray-matter";
 
   if (contentFilePaths.length) {
     const files = contentFilePaths.map(
-      async (filePath) => await fs.readFile(filePath, "utf8")
+      async (filePath) => ({ contents: await fs.readFile(filePath, "utf8"), claim: await fs.readFile(dirname(filePath) + '/claim.json', 'utf8') })
     );
     const index = [];
     let i = 0;
     for await (let file of files) {
+      const { title, description, tags } = JSON.parse(file.claim);
       const {
-        data: { title, description, tags },
         content,
-      } = grayMatter(file);
+      } = grayMatter(file.contents);
       index.push({
         slug: getSlugFromPathname(contentFilePaths[i]),
         category: "blog",

@@ -1,10 +1,65 @@
-.astro-code {
-  code {
-    width: 100%;
+@mixin code-block {
+  background: $code-block-bg;
+  color: rgb(232, 232, 232);
+  @apply p-5;
+}
+
+.content {
+  /* pre {
+        margin-bottom: 2em;
+    } */
+
+  pre code,
+    // pre code&,
+    >ul li pre code,
+    >ol li pre code {
+    @apply p-2;
   }
-  @media (max-width: 640px) {
-    code {
-      width: auto;
+
+  p code,
+  ul li *:not(pre) code,
+  ul li > code,
+  ol li *:not(pre) code,
+  ol li > code {
+    @apply bg-stone-300 text-black text-sm px-2 py-1 leading-none font-mono align-baseline rounded-md;
+  }
+}
+
+.astro-code,
+.astro-code code {
+  @apply rounded-xl;
+}
+
+.astro-code {
+  border: 0px;
+  max-height: 500px;
+  code {
+    @include code-block;
+    width: 100%;
+    padding: 0.8rem !important;
+    @apply overflow-auto;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(54, 54, 54, 0.8);
+      border-radius: 6px;
+      background-color: rgb(98, 98, 98);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.9);
+      background-color: rgb(182, 182, 182);
     }
   }
+}
+
+.card-images {
+  width: 100%;
+  aspect-ratio: 15/7;
+  object-fit: cover;
 }

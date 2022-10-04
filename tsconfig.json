@@ -9,11 +9,14 @@
       "@config/*": [
         "src/config/*"
       ],
-      "@Component/*": [
+      "@component/*": [
         "src/components/*"
       ],
       "@layouts/*": [
         "src/layouts/*"
+      ],
+      "@restapi/*": [
+        "src/restapi/*"
       ]
     },
     "types": [
