@@ -21,3 +21,7 @@ if [[ -n "$branch" ]]; then
 else
     git checkout publish
 fi
+
+ls -l
+
+echo "\n ********** [GIT script end] *********** \n"
