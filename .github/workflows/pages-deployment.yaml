@@ -1,8 +1,8 @@
 on:
   push:
     branches:
-      - master
-      - 'feature/gitactions'
+      - main
+      - 'demo/**'
 
 env: 
   GA_KEY: ${{secrets.GA_KEY}}
