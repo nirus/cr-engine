@@ -11,19 +11,9 @@ rm -rf src/pages/posts/.git/info/sparse-checkout
 touch src/pages/posts/.git/info/sparse-checkout
 
 echo "/* \n!README.md" >> src/pages/posts/.git/info/sparse-checkout
-cd src/pages/posts/
-
-echo "\n ********** [GIT script starts] *********** \n"
-echo "$PWD\n"
 
 if [[ -n "$branch" ]]; then
-    git checkout $branch
+    git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts checkout $branch
 else
-    git checkout publish
+    git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts checkout publish
 fi
-
-ls -l
-
-echo "\n ********** [GIT script end] *********** \n"
-
-cat ./apollo-graphql-client-abort-pending-requests/claim.json
