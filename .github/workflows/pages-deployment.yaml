@@ -7,7 +7,7 @@ on:
 env: 
   GA_KEY: ${{secrets.GA_KEY}}
   SITE: ${{secrets.SITE}}  
-
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   deploy:
     runs-on: ubuntu-latest
