@@ -28,7 +28,7 @@ const links: Links = [
 ];
 ---
 
-<nav class="bg-zinc-800">
+<nav class="top-nav-bar bg-zinc-800">
   <div
     class="max-w-4xl mx-auto px-3 py-3 flex items-center justify-between h-14"
   >
@@ -38,12 +38,10 @@ const links: Links = [
         return (
           <a
             href={item.href}
-            class="text-lg text-slate-50  flex flex-row align-middle text-center leading-none"
+            class="text-slate-50 flex flex-row align-middle text-center"
           >
-            <Icon tailCSS="w-6 h-6" />
-            <span class="mx-2 flex items-center border-b-2 border-solid border-b-zinc-800 hover:border-b-slate-50">
-              {item.name}
-            </span>
+            <Icon class="w-5 h-5 lg:w-6 lg:h-6" />
+            <span class="link-text">{item.name}</span>
           </a>
         );
       })

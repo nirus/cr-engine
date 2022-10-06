@@ -1,3 +1,6 @@
+@import "./logo.scss";
+@import "./topnavbar.scss";
+
 .blog-tags a {
   @apply font-bold underline text-sky-600;
 
@@ -24,17 +27,6 @@
     .quote-credit {
       @apply text-sm p-4 text-right;
     }
-  }
-}
-
-.content {
-  h1.coder-rocks-head {
-    font-family: monospace !important;
-    @apply sm:text-xl md:text-4xl lg:text-4xl text-5xl my-2;
-  }
-
-  p.coder-rocks-tagline {
-    @apply font-light sm:text-lg text-2xl;
   }
 }
 

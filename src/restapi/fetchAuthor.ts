@@ -5,7 +5,7 @@ import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro';
 // import fetch from 'node-fetch';
 
 export async function fetchAuthor({ author }: { author: string; }): Promise<AuthorProps | null> {
-    const { GITHUB_API_KEY = null, PROD } = import.meta.env;
+    const { GITHUB_TOKEN = null, PROD } = import.meta.env;
     const isValid: boolean = githubUserNameRegex.test(author);
     let ghAuthor: AuthorProps | null = mockAuthorResp;
     try {
@@ -13,7 +13,7 @@ export async function fetchAuthor({ author }: { author: string; }): Promise<Auth
             const ghProfile = await fetch(`https://api.github.com/users/${author}`, {
                 headers: {
                     /* TODO: make this token a secret */
-                    Authorization: `token ${GITHUB_API_KEY}`,
+                    Authorization: `token ${GITHUB_TOKEN}`,
                 },
             });
 

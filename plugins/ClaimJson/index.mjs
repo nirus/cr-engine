@@ -38,6 +38,7 @@ export function claimMiddleware() {
 
             file.data.astro.frontmatter = {
                 ...file.data.astro.frontmatter,
+                author: 'nirus', // Hardcoding for now for default. Will be overridden if `author` is defined
                 ...claimJSON,
                 ...(whichHeroFile ? { hero: `hero.${whichHeroFile}` } : {}),
                 slug: toBeSlug,

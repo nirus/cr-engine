@@ -40,7 +40,7 @@ import grayMatter from "gray-matter";
     }
     await fs.writeFile(indexFile, JSON.stringify(index));
     console.log(
-      `Indexed ${index.length} documents from ${contentDir} to ${indexFile}`
+      `Search-JSON : Indexed ${index.length} documents from ${contentDir} to ${indexFile}`
     );
   }
 })();
