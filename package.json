@@ -21,6 +21,7 @@
   "dependencies": {
     "@astrojs/rss": "^1.0.0",
     "@astrojs/sitemap": "^1.0.0",
+    "@astrojs/ts-plugin": "^0.4.5",
     "astro": "^2.3.2",
     "autoprefixer": "^10.4.8",
     "dayjs": "^1.11.5",
