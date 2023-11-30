@@ -16,6 +16,8 @@ export async function post({ request }: { request: Body }) {
   }
 }
 
+console.log('get', get)
+
 export async function get() {
   return new Response(JSON.stringify({ message: "No implementation" }), { status: 501 });
 }

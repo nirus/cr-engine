@@ -1,26 +1,28 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
+    "jsx": "preserve",
+    "verbatimModuleSyntax": true,
     "paths": {
       "@utils/*": [
-        "src/utils/*"
+        "utils/*"
       ],
       "@config/*": [
-        "src/config/*"
+        "config/*"
       ],
       "@component/*": [
-        "src/components/*"
+        "components/*"
       ],
       "@layouts/*": [
-        "src/layouts/*"
+        "layouts/*"
       ],
       "@restapi/*": [
-        "src/restapi/*"
+        "restapi/*"
       ]
     },
     "types": [
-      "@astrojs/image/client"
+      "astro/client"
     ],
     "plugins": [
       {

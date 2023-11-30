@@ -15,8 +15,8 @@ export const Settings = {
 
     indexPage: {
         card: {
-            height: '192',
-            width: '360'
+            height: 192,
+            width: 360
         }
     },
 

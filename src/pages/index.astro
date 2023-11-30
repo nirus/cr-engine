@@ -5,9 +5,13 @@ import HomeHeader from "@component/Head/HomeHeader.astro";
 import Card from "@component/Content/Card.astro";
 import Footer from "@component/Footer/Footer.astro";
 import { Settings } from "@config/settings";
+import type { Props as BlogPostProps } from "@component/Content/BlogPost.astro";
 
 export interface MarkdownFrontmatter {
   pubDate: Date;
+  url: string;
+  frontmatter: BlogPostProps;
+  file: string;
 }
 const { title, tagline, description } = Settings.site;
 const allPosts = await Astro.glob<MarkdownFrontmatter>("./posts/**/*.md");
@@ -36,7 +40,7 @@ const sortedPosts = allPosts
           data-test="articles-section"
         >
           {
-            sortedPosts.map((p: any) => (
+            sortedPosts.map((p) => (
               <div class="col-span-1">
                 <Card post={p} />
               </div>

@@ -1,15 +1,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
-import image from "@astrojs/image";
 import { claimMiddleware } from './plugins/ClaimJson/index.mjs';
-import { postsImagePathFixture } from './plugins/PostsImagePathFixture/index.mjs';
 import PostsBundleProcess from './plugins/PostsBundleProcess/index.mjs';
 import { transformCustomTag } from './plugins/TransformCustomTags/index.mjs';
 
-const isProd = process.env.PROD;
 // https://astro.build/config
 export default defineConfig({
-  integrations: [sitemap(), image(), PostsBundleProcess()],
+  integrations: [sitemap(), PostsBundleProcess()],
   site: 'https://coder.rocks',
   markdown: {
     extendDefaultPlugins: true,
@@ -20,7 +17,7 @@ export default defineConfig({
      * - Adds 'claim.json' to markdown bundle process.
      * - fixes the path of image file referenced in markdown to absolute one.
      */
-    remarkPlugins: [postsImagePathFixture, claimMiddleware],
+    remarkPlugins: [claimMiddleware],
     rehypePlugins: [transformCustomTag]
   },
   vite: {

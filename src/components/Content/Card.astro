@@ -3,15 +3,20 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import type { Props as BlogPostProps } from "./BlogPost.astro";
 import { youtubeImgPreview, Settings } from "@config/settings";
-import { dirname, relative } from "path";
-import { Image } from "@astrojs/image/components";
+import blogSlugToLegendImageData from "../../layouts/BlogHero";
+import { Image } from "astro:assets";
+import type { MarkdownInstance } from "astro";
 
 export interface Props {
-  post: {
+  post: MarkdownInstance<{
+    pubDate: Date;
     url: string;
     frontmatter: BlogPostProps;
     file: string;
-  };
+    slug?: string;
+    youtube?: string;
+    title?: string;
+  }>;
 }
 
 /**
@@ -21,15 +26,14 @@ const { width, height } = Settings.indexPage.card;
 
 const { post } = Astro.props;
 
-const {
-  file,
-  frontmatter: { hero, youtube, pubDate },
-} = post;
+const { youtube, pubDate, slug } = post.frontmatter;
 
-const dir = relative(process.cwd(), dirname(file));
-const localImage = dir + "/" + hero;
-const legendImagePath = import.meta.env.PROD ? "./" + localImage : localImage;
-const previewImage = youtube ? youtubeImgPreview(youtube) : legendImagePath;
+
+const postImageGlobFile = blogSlugToLegendImageData(slug);
+
+const image = postImageGlobFile ?  postImageGlobFile : null;
+
+const previewImage = youtube ? youtubeImgPreview(youtube) : image;
 
 /**
  * @docs: https://day.js.org/docs/en/display/format#list-of-localized-formats
@@ -45,7 +49,7 @@ const parsedDay = dayjs(pubDate).format("LL");
 >
   <Image
     class="card-images"
-    src={previewImage}
+    src={previewImage as string}
     alt={post.frontmatter.title}
     width={width}
     height={height}
