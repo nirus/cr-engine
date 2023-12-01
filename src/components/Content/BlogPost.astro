@@ -24,7 +24,6 @@ const { title, pubDate, youtube, author, tags, legendImage } = Astro.props;
  */
 dayjs.extend(localizedFormat);
 const parsedDay = dayjs(pubDate).format("LL");
-console.log({ author })
 ---
 
 <header class="mx-auto max-w-3xl text-center content">
