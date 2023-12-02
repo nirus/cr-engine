@@ -1,5 +1,6 @@
 {
   "extends": "astro/tsconfigs/base",
+  "strict": true,
   "compilerOptions": {
     "baseUrl": "./src",
     "jsx": "preserve",
