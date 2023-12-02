@@ -18,6 +18,17 @@
     "pub-code:head": "git  --git-dir=src/pages/posts/.git --work-tree=src/pages/posts reset --hard origin/publish",
     "pub-code:refresh": "git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts pull"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{astro,scss,ts}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@astrojs/rss": "^3.0.0",
     "@astrojs/sitemap": "^3.0.3",
@@ -37,7 +48,10 @@
     "eslint-plugin-no-loops": "^0.3.0",
     "globby": "^14.0.0",
     "hastscript": "^8.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
     "mark.js": "^8.11.1",
+    "prettier": "^3.1.0",
     "sass": "^1.54.8",
     "tailwindcss": "^3.1.8",
     "typescript": "^5.3.2",

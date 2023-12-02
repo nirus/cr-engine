@@ -1,5 +1,15 @@
 module.exports = {
+  root: true,
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: ["./tsconfig.json"],
+    extraFileExtensions: [".astro"],
+  },
+  env: {
+    browser: true,
+    amd: true,
+    node: true,
+  },
   plugins: ["@typescript-eslint", "no-loops"],
   extends: [
     "eslint:recommended",
@@ -22,9 +32,13 @@ module.exports = {
         extraFileExtensions: [".astro"],
       },
       rules: {
-        // override/add rules settings here, such as:
-        // "astro/no-set-html-directive": "error"
-        "no-console": 2,
+        "@typescript-eslint/strict-boolean-expressions": [
+          2,
+          {
+            allowString: false,
+            allowNumber: false,
+          },
+        ],
       },
     },
     // ...

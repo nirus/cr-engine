@@ -14,7 +14,7 @@ export interface Props {
   author: AuthorProps | null;
   tags: string[];
   slug?: string;
-  legendImage: Promise<{ default: ImageMetadata }>;
+  legendImage?: Promise<{ default: ImageMetadata }>;
 }
 
 const { title, pubDate, youtube, author, tags, legendImage } = Astro.props;
