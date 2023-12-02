@@ -1,8 +1,9 @@
 {
-    "cSpell.words": [
-        "astro",
-        "dont",
-        "globby",
-        "nirus"
-    ]
+  "cSpell.words": ["astro", "dont", "globby", "nirus"],
+  "eslint.workingDirectories": [
+    {
+      "directory": "src",
+      "changeProcessCWD": true
+    }
+  ]
 }

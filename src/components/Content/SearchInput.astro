@@ -29,7 +29,7 @@
   <div id="searchResults" class="searchResults lg:pl-8"></div>
 
   <!-- Search JS -->
-  <script client:load>
+  <script>
     let lunrIndex;
     let lunrResult;
     let pagesIndex;
@@ -107,7 +107,7 @@
     };
 
     const initUI = () => {
-      const searchBox = document.querySelector("#searchBox");
+      const searchBox: HTMLInputElement = document.querySelector("#searchBox");
       if (searchBox === null) {
         return;
       }

@@ -33,14 +33,10 @@ export function claimMiddleware() {
             const claimFile = fullPath('claim.json');
             const claimJSON = JSON.parse(fs.readFileSync(claimFile, 'utf8'));
 
-            /** Precedence is .jpg file */
-            const whichHeroFile = (existsSync(fullPath('hero.jpg')) && 'jpg') || (existsSync(fullPath('hero.png')) && 'png');
-
             file.data.astro.frontmatter = {
                 ...file.data.astro.frontmatter,
                 author: 'nirus', // Hardcoding for now for default. Will be overridden if `author` is defined
-                ...claimJSON,
-                ...(whichHeroFile ? { hero: `hero.${whichHeroFile}` } : {}),
+                ...claimJSON, 
                 slug: toBeSlug,
                 layout: '@layouts/BlogPostLayout.astro' // Hacks the 'tsconfig.json' to resolve the import
             }

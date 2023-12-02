@@ -1,22 +1,23 @@
 ---
-// import EmailSignup from "./Subscribe/EmailSignup.astro";
 import Author, {
-  Props as AuthorProps,
+  type Props as AuthorProps,
 } from "@component/Footer/PostFooter.astro";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { Settings } from "@config/settings";
+import { Image } from "astro:assets";
 
 export interface Props {
   title: string;
   pubDate: string;
-  hero?: string | null;
   youtube?: string;
   author: AuthorProps | null;
   tags: string[];
+  slug?: string;
+  legendImage?: Promise<{ default: ImageMetadata }>;
 }
 
-const { title, pubDate, hero, youtube, author, tags } = Astro.props;
+const { title, pubDate, youtube, author, tags, legendImage } = Astro.props;
 
 /**
  * @docs: https://day.js.org/docs/en/display/format#list-of-localized-formats
@@ -35,14 +36,14 @@ const parsedDay = dayjs(pubDate).format("LL");
 >
   <!-- Legend Image -->
   {
-    hero && (
-      <img
+    legendImage && (
+      <Image
         class="rounded-xl mx-auto mb-4 object-contain"
         width={Settings.legendImageSize.width}
         height={Settings.legendImageSize.height}
         sizes={"100%"}
+        src={legendImage}
         loading="lazy"
-        src={hero}
         alt={title}
       />
     )
@@ -57,7 +58,6 @@ const parsedDay = dayjs(pubDate).format("LL");
           height="500"
           class="embed-responsive-item"
           src={`https://www.youtube.com/embed/${youtube}`}
-          frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope;"
           allowfullscreen
         />

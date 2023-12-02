@@ -5,10 +5,9 @@ import HomeHeader from "@component/Head/HomeHeader.astro";
 import Footer from "@component/Footer/Footer.astro";
 import { Settings } from "@config/settings";
 
-let pageTitle = Settings.site.title;
-let pageDescription = "Are you interested to submit an article?";
-let seoTitle = `Submit | ${Settings.site.title}`;
-let seoDescription = "submit your article on CoderRocks";
+const pageDescription = "Are you interested to submit an article?";
+const seoTitle = `Submit | ${Settings.site.title}`;
+const seoDescription = "submit your article on CoderRocks";
 ---
 
 <html lang="en">
@@ -19,7 +18,7 @@ let seoDescription = "submit your article on CoderRocks";
   <body class="bg-white text-black font-body leading-normal personality-casual">
     <Nav />
     <main class="py-12">
-      <HomeHeader title={pageTitle} tagline={pageDescription} />
+      <HomeHeader tagline={pageDescription} />
       <article class="max-w-6xl mx-auto px-3 content">
         <h3 class="ml-4">Follow the below guidelines:</h3>
         <ul>
