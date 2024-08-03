@@ -30,7 +30,7 @@ const { youtube, pubDate, slug } = post.frontmatter
 
 const postImageGlobFile = blogSlugToLegendImageData(slug)
 
-const image = postImageGlobFile ?  await postImageGlobFile : null
+const image = postImageGlobFile ? await postImageGlobFile : null
 
 const previewImage = youtube ? youtubeImgPreview(youtube) : image
 

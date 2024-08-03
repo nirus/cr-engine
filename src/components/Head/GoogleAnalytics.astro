@@ -1,5 +1,5 @@
 ---
-const gaUserAgent = import.meta.env.GA_KEY;
+const gaUserAgent = import.meta.env.GA_KEY
 ---
 
 <!-- Global site tag (gtag.js) - Google Analytics -->{
@@ -13,13 +13,13 @@ const gaUserAgent = import.meta.env.GA_KEY;
 }
 
 <script define:vars={{ gaUserAgent }}>
-  window.dataLayer = window.dataLayer || [];
+  window.dataLayer = window.dataLayer || []
 
   function gtag() {
-    dataLayer.push(arguments);
+    dataLayer.push(arguments)
   }
 
-  gtag("js", new Date());
+  gtag('js', new Date())
 
-  gtag("config", gaUserAgent);
+  gtag('config', gaUserAgent)
 </script>

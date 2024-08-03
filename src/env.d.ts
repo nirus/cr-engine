@@ -1,6 +1,6 @@
 // <reference types="astro/client" />
 /// <reference types="@astrojs/image/client" />
-declare var dataLayer: Array<any>;
+declare var dataLayer: Array<any>
 
 interface ImportMetaEnv {
   readonly GA_KEY: string

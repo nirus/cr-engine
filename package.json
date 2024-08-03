@@ -17,7 +17,8 @@
     "pub-code:clean": "npm run rmdir --silent -- src/pages/posts",
     "pub-code:head": "git  --git-dir=src/pages/posts/.git --work-tree=src/pages/posts reset --hard origin/publish",
     "pub-code:refresh": "git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts pull",
-    "prettier:write": "prettier 'src/**/*.{js,ts,mjs,cjs,json,astro}' --write --plugin-search-dir=. --plugin=.prettierrc.js"
+    "prettier:write": "prettier 'src/**/*.{js,ts,mjs,cjs,json,astro}' --write --plugin-search-dir=. --config .prettierrc.js",
+    "prepare": "husky"
   },
   "husky": {
     "hooks": {
@@ -25,9 +26,8 @@
     }
   },
   "lint-staged": {
-    "*.{astro,scss,ts}": [
-      "prettier --write",
-      "git add"
+    "*.{js,ts,mjs,cjs,json,astro}": [
+      "yarn prettier:write"
     ]
   },
   "dependencies": {
