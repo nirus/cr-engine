@@ -24,7 +24,7 @@ export const slugify = (...args) => {
  * @returns Mutated frontmatter object
  */
 export function claimMiddleware() {
-    return function (tree, file) {
+    return function (_, file) {
 
         const inputFolder = dirname(file.history[0]);
         if (inputFolder.includes('src/pages/posts')) {

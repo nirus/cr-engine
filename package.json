@@ -16,7 +16,8 @@
     "pub-code:link": "sh scripts/cr-repo-connect/build.sh && npm run start --prefix scripts/symlink-repo",
     "pub-code:clean": "npm run rmdir --silent -- src/pages/posts",
     "pub-code:head": "git  --git-dir=src/pages/posts/.git --work-tree=src/pages/posts reset --hard origin/publish",
-    "pub-code:refresh": "git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts pull"
+    "pub-code:refresh": "git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts pull",
+    "prettier:write": "prettier 'src/**/*.{js,ts,mjs,cjs,json,astro}' --write --plugin-search-dir=. --plugin=.prettierrc.js"
   },
   "husky": {
     "hooks": {
@@ -30,28 +31,27 @@
     ]
   },
   "dependencies": {
-    "@astrojs/rss": "^3.0.0",
+    "@astrojs/rss": "^4.0.7",
     "@astrojs/sitemap": "^3.0.3",
-    "astro": "^3.5.5",
+    "astro": "^4.13.0",
     "autoprefixer": "^10.4.8",
     "dayjs": "^1.11.5",
-    "lunr": "^2.3.9",
-    "sitemap": "^7.1.1"
+    "sitemap": "^8.0.0"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.3.1",
-    "@types/node": "^20.9.2",
-    "@typescript-eslint/eslint-plugin": "^6.13.1",
-    "@typescript-eslint/parser": "^6.13.1",
-    "eslint": "^8.54.0",
-    "eslint-plugin-astro": "^0.30.0",
-    "eslint-plugin-no-loops": "^0.3.0",
+    "@types/node": "^22.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.8.0",
+    "eslint-plugin-astro": "^1.2.3",
+    "eslint-plugin-no-loops": "^0.4.0",
     "globby": "^14.0.0",
-    "hastscript": "^8.0.0",
-    "husky": "^8.0.3",
+    "hastscript": "^9.0.0",
+    "husky": "^9.1.4",
     "lint-staged": "^15.1.0",
-    "mark.js": "^8.11.1",
-    "prettier": "^3.1.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
     "sass": "^1.54.8",
     "tailwindcss": "^3.1.8",
     "typescript": "^5.3.2",

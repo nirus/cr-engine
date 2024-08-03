@@ -1,38 +1,38 @@
 ---
-import TopBarNav from "@component/Navigation/TopBar.astro";
-import BaseHead from "@component/Head/BaseHead.astro";
-import BlogPost from "@component/Content/BlogPost.astro";
-import Footer from "@component/Footer/Footer.astro";
-import type { Props as AuthorProps } from "@component/Footer/PostFooter.astro";
-import { fetchAuthor } from "@restapi/fetchAuthor";
-import blogSlugToLegendImageData from "../layouts/BlogHero";
+import TopBarNav from '@component/Navigation/TopBar.astro'
+import BaseHead from '@component/Head/BaseHead.astro'
+import BlogPost from '@component/Content/BlogPost.astro'
+import Footer from '@component/Footer/Footer.astro'
+import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
+import { fetchAuthor } from '@request/fetchAuthor'
+import blogSlugToLegendImageData from '../layouts/BlogHero'
 
 interface Props {
   content: {
-    lang: string; // example: "en"
-    title: string; // example: "This is a title"
-    description: string; // example: "This is a description"
-    pubDate: string; // example: 2021-08-01
-    youtube: string; // youtube video id
-    author: string; // author name
-    tags: Array<string>; // ['tag1', 'tag2']
-    slug: string; // slugname example: 2021-08-01-hello-world
-    file: string; // absolute path to the file
-    url: string; // relative path to the file example: /blog/2021-08-01-hello-world
-  };
+    lang: string // example: "en"
+    title: string // example: "This is a title"
+    description: string // example: "This is a description"
+    pubDate: string // example: 2021-08-01
+    youtube: string // youtube video id
+    author: string // author name
+    tags: Array<string> // ['tag1', 'tag2']
+    slug: string // slugname example: 2021-08-01-hello-world
+    file: string // absolute path to the file
+    url: string // relative path to the file example: /blog/2021-08-01-hello-world
+  }
 }
-const { content } = Astro.props;
+const { content } = Astro.props
 
-const { title, description, pubDate, slug, youtube, author, tags } = content;
+const { title, description, pubDate, slug, youtube, author, tags } = content
 
-const legendImage = slug ? blogSlugToLegendImageData(slug) : null;
+const legendImage = slug ? blogSlugToLegendImageData(slug) : null
 
 const authorDetails: AuthorProps | null = await fetchAuthor({ author }).then(
-  (details) => (details?.name ? details : null) // Prevents bad request and just 'nullify'
-);
+  details => (details?.name ? details : null), // Prevents bad request and just 'nullify'
+)
 ---
 
-<html lang={content.lang || "en"}>
+<html lang={content.lang || 'en'}>
   <head>
     <BaseHead title={title} description={description} image={null} />
   </head>

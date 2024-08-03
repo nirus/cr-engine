@@ -18,9 +18,8 @@ const gaUserAgent = import.meta.env.GA_KEY;
   function gtag() {
     dataLayer.push(arguments);
   }
-  // @ts-ignore
+
   gtag("js", new Date());
 
-  // @ts-ignore
   gtag("config", gaUserAgent);
 </script>

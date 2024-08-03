@@ -1,10 +1,10 @@
-import rss from "@astrojs/rss";
-import { Settings } from '@config/settings';
+import rss from '@astrojs/rss'
+import { Settings } from '@config/settings'
 
 export const get = () =>
   rss({
     title: Settings.site.title,
     description: Settings.site.tagline,
     site: import.meta.env.SITE,
-    items: import.meta.glob("./posts/**/*.md"),
-  });
+    items: import.meta.glob('./posts/**/*.md'),
+  })

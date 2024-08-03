@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
 import { claimMiddleware } from './plugins/ClaimJson/index.mjs';
 import PostsBundleProcess from './plugins/PostsBundleProcess/index.mjs';
@@ -6,6 +6,9 @@ import { transformCustomTag } from './plugins/TransformCustomTags/index.mjs';
 
 // https://astro.build/config
 export default defineConfig({
+  image: {
+    service: passthroughImageService(),
+  },
   integrations: [sitemap(), PostsBundleProcess()],
   site: 'https://coder.rocks',
   markdown: {

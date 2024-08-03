@@ -1,45 +1,44 @@
 ---
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
-import type { Props as BlogPostProps } from "./BlogPost.astro";
-import { youtubeImgPreview, Settings } from "@config/settings";
-import blogSlugToLegendImageData from "../../layouts/BlogHero";
-import { Image } from "astro:assets";
-import type { MarkdownInstance } from "astro";
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+import type { Props as BlogPostProps } from './BlogPost.astro'
+import { youtubeImgPreview, Settings } from '@config/settings'
+import blogSlugToLegendImageData from '../../layouts/BlogHero'
+import { Image } from 'astro:assets'
+import type { MarkdownInstance } from 'astro'
 
 export interface Props {
   post: MarkdownInstance<{
-    pubDate: Date;
-    url: string;
-    frontmatter: BlogPostProps;
-    file: string;
-    slug?: string;
-    youtube?: string;
-    title?: string;
-  }>;
+    pubDate: Date
+    url: string
+    frontmatter: BlogPostProps
+    file: string
+    slug?: string
+    youtube?: string
+    title?: string
+  }>
 }
 
 /**
  * Set the Card height and width here
  */
-const { width, height } = Settings.indexPage.card;
+const { width, height } = Settings.indexPage.card
 
-const { post } = Astro.props;
+const { post } = Astro.props
 
-const { youtube, pubDate, slug } = post.frontmatter;
+const { youtube, pubDate, slug } = post.frontmatter
 
+const postImageGlobFile = blogSlugToLegendImageData(slug)
 
-const postImageGlobFile = blogSlugToLegendImageData(slug);
+const image = postImageGlobFile ?  await postImageGlobFile : null
 
-const image = postImageGlobFile ?  postImageGlobFile : null;
-
-const previewImage = youtube ? youtubeImgPreview(youtube) : image;
+const previewImage = youtube ? youtubeImgPreview(youtube) : image
 
 /**
  * @docs: https://day.js.org/docs/en/display/format#list-of-localized-formats
  */
-dayjs.extend(localizedFormat);
-const parsedDay = dayjs(pubDate).format("LL");
+dayjs.extend(localizedFormat)
+const parsedDay = dayjs(pubDate).format('LL')
 ---
 
 <a
@@ -50,7 +49,7 @@ const parsedDay = dayjs(pubDate).format("LL");
   <Image
     class="card-images"
     src={previewImage as string}
-    alt={post.frontmatter.title}
+    alt={`${post.frontmatter.title} - post preview`}
     width={width}
     height={height}
   />

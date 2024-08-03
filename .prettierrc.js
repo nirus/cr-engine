@@ -1,4 +1,7 @@
-{
+/** 
+ * @reference - https://github.com/withastro/prettier-plugin-astro/issues/97#issuecomment-1013645333 
+ **/
+module.exports ={
   "printWidth": 80,
   "tabWidth": 2,
   "useTabs": false,
@@ -10,5 +13,7 @@
   "bracketSpacing": true,
   "jsxBracketSameLine": true,
   "arrowParens": "avoid",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "pluginSearchDirs": ["."],
+  "plugins": [require.resolve('prettier-plugin-astro')],
 }
