@@ -1,0 +1,3 @@
+#!/bin/sh
+npm run pub-code:refresh
+npm run pub-code:link

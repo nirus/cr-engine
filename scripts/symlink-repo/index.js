@@ -1,9 +1,9 @@
 /**
  * Small script to link the files cross platform.
- * This could have been done in a bash script. But keeping it 
+ * This could have been done in a bash script. But keeping it
  * in a node script if needed to add more files in future. IT'S EASY for me!!
  */
-const { symlinkSync } = require('fs');
+const { symlinkSync, existsSync, unlinkSync } = require('fs')
 const { resolve } = require('path')
 
 /**
@@ -12,8 +12,17 @@ const { resolve } = require('path')
  * For now lets settle with this.
  */
 
-const files = ['[...page].astro'];
+const files = ['[...page].astro']
 
-files.forEach((file) => {
-    symlinkSync(resolve(`../../src/posts-astro-code/${file}`), resolve(`../../src/pages/posts/${file}`));
-});
+files.forEach(file => {
+  const astroCode = resolve(`../../src/posts-astro-code/${file}`)
+
+  if (!existsSync(astroCode)) {
+    symlinkSync(
+      resolve(`../../src/posts-astro-code/${file}`),
+      resolve(`../../src/pages/posts/${file}`),
+    )
+  }
+
+  console.log(`Symlinked: ${file}`)
+})

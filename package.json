@@ -15,7 +15,7 @@
     "build:search": "node scripts/search-indexer/index.js",
     "pub-code:link": "sh scripts/cr-repo-connect/build.sh && npm run start --prefix scripts/symlink-repo",
     "pub-code:clean": "npm run rmdir --silent -- src/pages/posts",
-    "pub-code:head": "git  --git-dir=src/pages/posts/.git --work-tree=src/pages/posts reset --hard origin/publish",
+    "pub-code:head": "git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts reset --hard origin/publish",
     "pub-code:refresh": "git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts pull",
     "prettier:write": "prettier 'src/**/*.{js,ts,mjs,cjs,json,astro}' --write --plugin-search-dir=. --config .prettierrc.js",
     "prepare": "husky"

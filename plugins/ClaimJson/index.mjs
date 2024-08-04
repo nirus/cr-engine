@@ -1,5 +1,4 @@
-import { resolve, dirname, basename } from 'path';
-import { existsSync } from 'fs';
+import { resolve, dirname, basename } from 'path'
 
 /**
  * @credits - https://gist.github.com/codeguy/6684588
@@ -7,15 +6,15 @@ import { existsSync } from 'fs';
  * @returns slug url
  */
 export const slugify = (...args) => {
-    const value = args.join(' ')
+  const value = args.join(' ')
 
-    return value
-        .normalize('NFD') // split an accented letter in the base letter and the acent
-        .replace(/[\u0300-\u036f]/g, '') // remove all previously split accents
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9 ]/g, '') // remove all chars not letters, numbers and spaces (to be replaced)
-        .replace(/\s+/g, '-') // separator
+  return value
+    .normalize('NFD') // split an accented letter in the base letter and the acent
+    .replace(/[\u0300-\u036f]/g, '') // remove all previously split accents
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9 ]/g, '') // remove all chars not letters, numbers and spaces (to be replaced)
+    .replace(/\s+/g, '-') // separator
 }
 
 /**
@@ -24,22 +23,21 @@ export const slugify = (...args) => {
  * @returns Mutated frontmatter object
  */
 export function claimMiddleware() {
-    return function (_, file) {
+  return function (_, file) {
+    const inputFolder = dirname(file.history[0])
+    if (inputFolder.includes('src/pages/posts')) {
+      const fullPath = filename => resolve(`${inputFolder}/${filename}`)
+      const toBeSlug = basename(inputFolder)
+      const claimFile = fullPath('claim.json')
+      const claimJSON = JSON.parse(fs.readFileSync(claimFile, 'utf8'))
 
-        const inputFolder = dirname(file.history[0]);
-        if (inputFolder.includes('src/pages/posts')) {
-            const fullPath = (filename) => resolve(`${inputFolder}/${filename}`);
-            const toBeSlug = basename(inputFolder);
-            const claimFile = fullPath('claim.json');
-            const claimJSON = JSON.parse(fs.readFileSync(claimFile, 'utf8'));
-
-            file.data.astro.frontmatter = {
-                ...file.data.astro.frontmatter,
-                author: 'nirus', // Hardcoding for now for default. Will be overridden if `author` is defined
-                ...claimJSON, 
-                slug: toBeSlug,
-                layout: '@layouts/BlogPostLayout.astro' // Hacks the 'tsconfig.json' to resolve the import
-            }
-        }
+      file.data.astro.frontmatter = {
+        ...file.data.astro.frontmatter,
+        author: 'nirus', // Hardcoding for now for default. Will be overridden if `author` is defined
+        ...claimJSON,
+        slug: toBeSlug,
+        layout: '@layouts/BlogPostLayout.astro', // Hacks the 'tsconfig.json' to resolve the import
+      }
     }
+  }
 }
