@@ -5,8 +5,8 @@ if [[ ! -d "src/pages/posts" ]]; then
 
 else
 
-    if [ $(find "src/pages/posts" -maxdepth 1 -type f ! -name ".git" | wc -l) -eq 0 ]; then
-        echo "No posts found in src/pages/posts. Refreshing..."
+    if [ $(find "src/pages/posts" -maxdepth 1 -type d ! -name "posts" ! -name ".git" | wc -l) -eq 0 ]; then
+        echo "No posts found in 'src/pages/posts' >> Refreshing..."
         npm run pub-code:head
     fi
 
