@@ -17,12 +17,13 @@ const files = ['[...page].astro']
 files.forEach(file => {
   const astroCode = resolve(`../../src/posts-astro-code/${file}`)
 
-  if (!existsSync(astroCode)) {
+  if (!existsSync(resolve(`../../src/pages/posts/${file}`))) {
     symlinkSync(
       resolve(`../../src/posts-astro-code/${file}`),
       resolve(`../../src/pages/posts/${file}`),
     )
+    console.log(`Symlinked: ${file}`)
+  } else {
+    console.warn(`Symlink to "${file}" already exists. Skipping!`)
   }
-
-  console.log(`Symlinked: ${file}`)
 })
