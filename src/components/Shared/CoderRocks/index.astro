@@ -1,12 +1,12 @@
 ---
-import CoderRocksLogo from "@component/VectorImages/CoderRocksLogo.astro";
-import { Settings } from "@config/settings";
+import CoderRocksLogo from '@component/VectorImages/CoderRocksLogo.astro'
+import { Settings } from '@config/settings'
 interface Props {
-  title?: string;
-  tagline?: string;
+  title?: string
+  tagline?: string
 }
 const { title = Settings.site.title, tagline = Settings.site.tagline } =
-  Astro.props;
+  Astro.props
 ---
 
 <>

@@ -1,23 +1,22 @@
 ---
-import { Settings } from "@config/settings";
+import { Settings } from '@config/settings'
 
 export interface Props {
-  avatar_url?: string;
-  name?: string;
-  company?: string;
-  bio?: string;
-  html_url?: string;
-  login?: string;
+  avatar_url?: string
+  name?: string
+  company?: string
+  bio?: string
+  html_url?: string
+  login?: string
 }
 
 const {
-  avatar_url = "",
-  name = "",
-  bio = "",
-  html_url = "",
-  login = "",
-} = Astro.props;
-
+  avatar_url = '',
+  name = '',
+  bio = '',
+  html_url = '',
+  login = '',
+} = Astro.props
 ---
 
 <footer
@@ -27,6 +26,7 @@ const {
 
   <div class="flex items-center m-auto">
     <img
+      alt={`Author Avatar ${name}`}
       src={avatar_url}
       loading="lazy"
       width={Settings.post.avatarSize}

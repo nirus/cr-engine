@@ -1,18 +1,18 @@
 ---
-import GoogleAnalytics from "./GoogleAnalytics.astro";
-import "../../styles/main.scss";
-import { Settings } from "@config/settings";
+import GoogleAnalytics from './GoogleAnalytics.astro'
+import '../../styles/main.scss'
+import { Settings } from '@config/settings'
 
 export interface Props {
-  title: string;
-  description: string;
-  image?: string | null;
+  title: string
+  description: string
+  image?: string | null
 }
 
-const { mainUrl } = Settings.site;
-const { title, description, image } = Astro.props;
+const { mainUrl } = Settings.site
+const { title, description, image } = Astro.props
 
-const ogImage = mainUrl + (image || "/images/social.png");
+const ogImage = mainUrl + (image || '/images/social.png')
 ---
 
 <GoogleAnalytics />
@@ -28,6 +28,10 @@ const ogImage = mainUrl + (image || "/images/social.png");
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={mainUrl} />
@@ -42,15 +46,3 @@ const ogImage = mainUrl + (image || "/images/social.png");
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
 <meta name="twitter:creator" content="@Coder_Rocks" />
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,800;1,100;1,200;1,400;1,600;1,800&display=swap"
-  rel="stylesheet"
-/>
-<link
-  href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap"
-  rel="stylesheet"
-/>

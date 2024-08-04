@@ -4,12 +4,12 @@
  * consuming /ask api from 'pages/ask.ts'
  * TODO: Future implementation
  */
-import { Settings } from "@config/settings";
+import { Settings } from '@config/settings'
 export interface Props {
-  author: string;
+  author: string
 }
 
-const { author: gitAuthor } = Astro.props;
+const { author: gitAuthor } = Astro.props
 ---
 
 <footer
@@ -27,7 +27,7 @@ const { author: gitAuthor } = Astro.props;
     />
     <div class="text-left m-5">
       <div class="text-sm font-light">Article by</div>
-      <strong class="text-lg" id="_authorName">{"name"}</strong>
+      <strong class="text-lg" id="_authorName">{'name'}</strong>
       <div class="text-lg font-light"><span id="_authorBio"></span></div>
       <a
         target="_blank"
@@ -41,14 +41,14 @@ const { author: gitAuthor } = Astro.props;
 </footer>
 
 <script define:vars={{ gitAuthor }}>
-  (async function () {
+  ;(async function () {
     try {
-      const response = await fetch("/ask", {
-        method: "POST",
+      const response = await fetch('/ask', {
+        method: 'POST',
         body: JSON.stringify({ author: gitAuthor }),
-      });
+      })
 
-      const author = await response.json();
+      const author = await response.json()
 
       /**
        * One way binding using classic window.[ID] technique
@@ -60,19 +60,19 @@ const { author: gitAuthor } = Astro.props;
         _authorBio,
         _authorProfileUrl,
         _authorBlock,
-      } = window;
+      } = window
 
-      _authorName.textContent = author.name;
-      _authorAvatar.src = author.avatar_url;
-      _authorBio.textContent = author.bio;
-      _authorProfileUrl.href = author.html_url;
-      _authorProfileUrl.textContent = `@${author.login}`;
-      _authorBlock.classList.remove("hidden");
-      _authorBlock.style.display = "flex";
+      _authorName.textContent = author.name
+      _authorAvatar.src = author.avatar_url
+      _authorBio.textContent = author.bio
+      _authorProfileUrl.href = author.html_url
+      _authorProfileUrl.textContent = `@${author.login}`
+      _authorBlock.classList.remove('hidden')
+      _authorBlock.style.display = 'flex'
     } catch (error) {
       console.log(
-        "Some error occured while rendering the profile details in footer"
-      );
+        'Some error occured while rendering the profile details in footer',
+      )
     }
-  })();
+  })()
 </script>

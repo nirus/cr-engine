@@ -18,9 +18,13 @@
       "@layouts/*": [
         "layouts/*"
       ],
-      "@restapi/*": [
+      "@request/*": [
         "restapi/*"
+      ],
+      "@pages/*": [
+        "pages/*"
       ]
+      
     },
     "types": [
       "astro/client"
