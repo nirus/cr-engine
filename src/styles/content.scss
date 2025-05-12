@@ -129,11 +129,12 @@
   a em > strong {
     @apply font-normal;
   }
+
+  section > *:first-child {
+    @apply mt-0 pt-0;
+  }
 }
 
-.content section > *:first-child {
-  @apply mt-0 pt-0;
-}
 
 .personality-formal .content {
   h1 {

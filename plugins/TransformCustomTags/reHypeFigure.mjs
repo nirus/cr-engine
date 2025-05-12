@@ -7,7 +7,7 @@ import { visit } from 'unist-util-visit'
 import { h } from 'hastscript'
 
 export function rehypeFigure(option) {
-  const className = (option && option.className) || 'rehype-figure'
+  const className = option?.className || 'rehype-figure'
 
   function buildFigure({ properties }) {
     try {
@@ -38,7 +38,7 @@ export function rehypeFigure(option) {
     return figure
   }
 
-  return function (tree) {
+  return tree => {
     visit(tree, { tagName: 'p' }, (node, index) => {
       const images = node.children
         .filter(n => {
@@ -52,11 +52,7 @@ export function rehypeFigure(option) {
       tree.children[index] =
         images.length === 1
           ? images[0]
-          : (tree.children[index] = h(
-              'div',
-              { class: `${className}-container` },
-              images,
-            ))
+          : h('div', { class: `${className}-container` }, images)
     })
   }
 }

@@ -1,4 +1,4 @@
-import { resolve, dirname, basename } from 'path'
+import { resolve, dirname, basename } from 'node:path'
 
 /**
  * @credits - https://gist.github.com/codeguy/6684588
@@ -9,8 +9,8 @@ export const slugify = (...args) => {
   const value = args.join(' ')
 
   return value
-    .normalize('NFD') // split an accented letter in the base letter and the acent
-    .replace(/[\u0300-\u036f]/g, '') // remove all previously split accents
+    .normalize('NFD') // split an accented letter in the base letter and the accent
+    .replace(/\p{M}/gu, '') // remove combining diacritical marks using Unicode property
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9 ]/g, '') // remove all chars not letters, numbers and spaces (to be replaced)
@@ -18,12 +18,12 @@ export const slugify = (...args) => {
 }
 
 /**
- * @credits: https://github.com/withastro/astro/issues/397#issuecomment-1236231783
  * 'claim.json' file to the remark processor
+ * @credits - https://github.com/withastro/astro/issues/397#issuecomment-1236231783
  * @returns Mutated frontmatter object
  */
 export function claimMiddleware() {
-  return function (_, file) {
+  return (_, file) => {
     const inputFolder = dirname(file.history[0])
     if (inputFolder.includes('src/pages/posts')) {
       const fullPath = filename => resolve(`${inputFolder}/${filename}`)

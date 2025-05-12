@@ -3,8 +3,8 @@
  * This could have been done in a bash script. But keeping it
  * in a node script if needed to add more files in future. IT'S EASY for me!!
  */
-const { symlinkSync, existsSync, unlinkSync } = require('fs')
-const { resolve } = require('path')
+const { symlinkSync, existsSync } = require('node:fs')
+const { resolve } = require('node:path')
 
 /**
  * Add the 'files' that you want to symlink to 'src/pages/posts' folder from 'src/posts-astro-code'.
@@ -14,9 +14,7 @@ const { resolve } = require('path')
 
 const files = ['[...page].astro']
 
-files.forEach(file => {
-  const astroCode = resolve(`../../src/posts-astro-code/${file}`)
-
+for (const file of files) {
   if (!existsSync(resolve(`../../src/pages/posts/${file}`))) {
     symlinkSync(
       resolve(`../../src/posts-astro-code/${file}`),
@@ -26,4 +24,4 @@ files.forEach(file => {
   } else {
     console.warn(`Symlink to "${file}" already exists. Skipping!`)
   }
-})
+}
