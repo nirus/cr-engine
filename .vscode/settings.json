@@ -1,9 +1,19 @@
 {
-  "cSpell.words": ["astro", "dont", "globby", "nirus"],
+  "cSpell.words": ["astro", "dont", "globby", "nirus", "rgba"],
   "eslint.workingDirectories": [
     {
       "directory": "src",
       "changeProcessCWD": true
     }
-  ]
+  ],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html"
+  },
+  "tailwindCSS.experimental.configFile": "src/styles/main.css",
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
 }

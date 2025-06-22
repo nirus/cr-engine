@@ -1,0 +1,10 @@
+@import "./global.css";
+@import "./variables.css";
+@import "./content.css";
+@import "./site.css";
+@import "./custom.css";
+
+html,
+body {
+  font-family: var(--font-display);
+}

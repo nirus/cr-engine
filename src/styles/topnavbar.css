@@ -1,0 +1,5 @@
+@utility top-nav-bar {
+  .link-text {
+    @apply mx-2 flex items-center border-b-2 border-solid border-b-zinc-800 text-sm hover:border-b-slate-50 lg:text-lg lg:leading-5;
+  }
+}

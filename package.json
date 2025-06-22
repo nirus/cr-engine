@@ -31,11 +31,14 @@
     ]
   },
   "dependencies": {
-    "@astrojs/rss": "4.0.11",
-    "@astrojs/sitemap": "3.4.0",
-    "astro": "5.7.12",
+    "@astrojs/rss": "4.0.12",
+    "@astrojs/sitemap": "3.4.1",
+    "@tailwindcss/postcss": "^4.1.7",
+    "@tailwindcss/vite": "^4.1.7",
+    "astro": "5.10.0",
     "autoprefixer": "^10.4.8",
     "dayjs": "^1.11.5",
+    "postcss": "^8.5.3",
     "sitemap": "^8.0.0"
   },
   "devDependencies": {
@@ -52,8 +55,10 @@
     "lint-staged": "^15.1.0",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "sass": "^1.54.8",
-    "tailwindcss": "^3.1.8",
+    "tailwindcss": "^4.1.7",
     "typescript": "^5.3.2",
     "unist-util-visit": "^5.0.0"
   }

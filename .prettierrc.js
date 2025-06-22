@@ -14,5 +14,9 @@ module.exports = {
   bracketSpacing: true,
   arrowParens: 'avoid',
   endOfLine: 'auto',
-  plugins: [require.resolve('prettier-plugin-astro')],
+  plugins: [
+    require.resolve('prettier-plugin-astro'),
+    require.resolve('prettier-plugin-organize-imports'),
+    require.resolve('prettier-plugin-tailwindcss'),
+  ],
 }
