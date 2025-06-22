@@ -38,6 +38,7 @@
     "astro": "5.10.0",
     "autoprefixer": "^10.4.8",
     "dayjs": "^1.11.5",
+    "gray-matter": "^4.0.3",
     "postcss": "^8.5.3",
     "sitemap": "^8.0.0"
   },

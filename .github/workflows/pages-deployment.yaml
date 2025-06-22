@@ -18,6 +18,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            **/node_modules
+          key: node-modules-${{ hashFiles('yarn.lock') }}
+          
       - name: Build
         run: yarn && yarn build
       - name: Publish
