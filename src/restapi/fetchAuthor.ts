@@ -1,6 +1,6 @@
+import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
 import { githubUserNameRegex } from '@utils/help'
 import { author as mockAuthorResp } from './stubs/gitauthor'
-import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
 // import fetch from 'node-fetch';
 
 export async function fetchAuthor({
@@ -10,8 +10,8 @@ export async function fetchAuthor({
 }): Promise<AuthorProps | null> {
   const { GITHUB_TOKEN = null, PROD } = import.meta.env
   const isValid: boolean = githubUserNameRegex.test(author)
-  let ghAuthor: AuthorProps | null = mockAuthorResp
   try {
+    let ghAuthor: AuthorProps | null = mockAuthorResp
     if (isValid && PROD) {
       const ghProfile = await fetch(`https://api.github.com/users/${author}`, {
         headers: {
@@ -20,7 +20,7 @@ export async function fetchAuthor({
         },
       })
 
-      ghAuthor = (await ghProfile.json()) as AuthorProps
+      ghAuthor = await ghProfile.json()
     }
     return ghAuthor
   } catch (e) {

@@ -4,7 +4,7 @@
  * Also copies all the images from 'src/pages/posts/**' to build folder
  * see 'yarn build:preview' command
  */
-import { resolve, relative } from 'path'
+import { resolve, relative } from 'node:path'
 import { globby } from 'globby'
 import { copyFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
@@ -20,7 +20,7 @@ export default function () {
         try {
           const resolvedPath = resolve('src/pages')
           const paths = await globby([
-            resolvedPath + `/posts/**/*.{${allowedImgExt.join(',')}}`,
+            `${resolvedPath}/posts/**/*.{${allowedImgExt.join(',')}}`,
             `!${resolvedPath}/posts/**/hero.{jpg,png}`,
           ])
           const destinationFolder = resolve(fileURLToPath(dir))

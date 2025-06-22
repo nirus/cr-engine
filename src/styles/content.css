@@ -1,0 +1,134 @@
+@import './code.css';
+
+.content {
+  h1 {
+    @apply font-display mb-4 text-3xl leading-relaxed font-normal break-words;
+
+    @variant sm {
+      @apply text-3xl;
+    }
+
+    @variant md {
+      @apply text-4xl;
+    }
+
+    @variant lg {
+      @apply text-5xl;
+    }
+  }
+
+  h2 {
+    @apply py-6 text-2xl leading-none font-semibold;
+
+    @variant sm {
+      @apply text-2xl;
+    }
+    @variant md {
+      @apply text-2xl;
+    }
+
+    @variant lg {
+      @apply text-3xl;
+    }
+  }
+
+  h3 {
+    @apply py-4 text-xl leading-6 font-semibold;
+  }
+
+  h4 {
+    @apply py-3 leading-5 font-semibold tracking-widest;
+  }
+
+  > p {
+    @apply mb-6 text-lg leading-normal;
+    @apply text-stone-700;
+  }
+
+  > blockquote {
+    @apply mb-6 px-4 pt-6 text-center text-3xl font-bold italic;
+  }
+
+  > blockquote > p {
+    @apply text-xl leading-normal font-light;
+  }
+
+  > img {
+    @apply my-12;
+  }
+
+  a {
+    @apply font-normal text-sky-600 underline;
+    text-decoration: none;
+
+    &:hover {
+      @apply border-b-2 border-b-gray-800;
+      @apply text-black;
+    }
+  }
+
+  ul:not(.list-none) {
+    @apply mb-8 ml-10 list-disc pl-0 text-lg;
+
+    li {
+      @apply mb-1;
+    }
+  }
+
+  ol {
+    @apply mb-8 ml-10 list-decimal pl-0 text-lg;
+
+    li {
+      @apply mb-1;
+    }
+  }
+
+  pre,
+  > ul li pre,
+  > ol li pre {
+    @apply mb-8 flex p-0 text-sm leading-loose;
+  }
+
+  pre[class*='language-'] {
+    margin-bottom: 2em;
+  }
+
+  table {
+    @apply mb-8 w-full border-collapse border-2 text-left text-sm;
+
+    th {
+      @apply border-t-4 border-b p-4 text-xl font-bold;
+    }
+
+    td {
+      @apply border-b p-4;
+    }
+
+    p {
+      @apply leading-normal;
+    }
+  }
+
+  em > strong,
+  p > strong {
+    @apply font-semibold;
+  }
+
+  a em > strong {
+    @apply font-normal;
+  }
+
+  section > *:first-child {
+    @apply mt-0 pt-0;
+  }
+}
+
+.personality-formal .content {
+  h1 {
+    @apply font-black normal-case;
+  }
+
+  > p {
+    @apply leading-normal;
+  }
+}

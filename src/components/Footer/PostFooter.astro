@@ -22,9 +22,9 @@ const {
 <footer
   class={`text-center ${Settings.post.contentWidth} mx-auto flex flex-col`}
 >
-  <div class="border-b-2 pt-4 border-zinc-400"></div>
+  <div class="border-b-2 border-zinc-400 pt-4"></div>
 
-  <div class="flex items-center m-auto">
+  <div class="m-auto flex items-center">
     <img
       alt={`Author Avatar ${name}`}
       src={avatar_url}
@@ -32,7 +32,7 @@ const {
       width={Settings.post.avatarSize}
       class="m-5"
     />
-    <div class="text-left m-5">
+    <div class="m-5 text-left">
       <div class="text-sm font-light">Article by</div>
       <div class="text-lg font-semibold">{name}</div>
       <div class="text-lg font-light"><span>{bio}</span></div>
@@ -40,7 +40,7 @@ const {
         href={html_url}
         target="_blank"
         rel="noreferrer"
-        class="font-medium text-lg"
+        class="text-lg font-medium"
       >
         @{login}
       </a>

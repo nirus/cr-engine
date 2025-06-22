@@ -26,19 +26,19 @@ dayjs.extend(localizedFormat)
 const parsedDay = dayjs(pubDate).format('LL')
 ---
 
-<header class="mx-auto max-w-3xl text-center content">
-  <h1 class="m-3 leading-normal pb-4">
+<header class="content mx-auto max-w-3xl text-center">
+  <h1 class="m-3 pb-4 leading-normal">
     {title}
   </h1>
 </header>
 <article
-  class="post max-w-5xl mx-auto p-3 lg:border-2 lg:border-stone-200 lg:rounded-lg"
+  class="post mx-auto max-w-5xl p-3 lg:rounded-lg lg:border-2 lg:border-stone-200"
 >
   <!-- Legend Image -->
   {
     legendImage && (
       <Image
-        class="rounded-xl mx-auto mb-4 object-contain"
+        class="mx-auto mb-4 rounded-xl object-contain"
         width={Settings.legendImageSize.width}
         height={Settings.legendImageSize.height}
         sizes={'100%'}
@@ -71,13 +71,13 @@ const parsedDay = dayjs(pubDate).format('LL')
   >
     <slot />
   </section>
-  <div class="inline-flex align-middle justify-center pb-3 flex-grow-1 w-full">
+  <div class="inline-flex w-full flex-grow-1 justify-center pb-3 align-middle">
     <div class="w-full px-2 text-sm">
       Published on <p class="font-semibold">{parsedDay}</p>
     </div>
-    <div class="w-full px-2 text-sm text-right truncate">
+    <div class="w-full truncate px-2 text-right text-sm">
       Tags
-      <p class="capitalize font-semibold truncate">
+      <p class="truncate font-semibold capitalize">
         {tags.length ? tags.slice(0, 4).join(', ') : tags[0]}
       </p>
     </div>

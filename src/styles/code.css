@@ -1,18 +1,7 @@
-@mixin code-block {
-  background: $code-block-bg;
-  color: rgb(232, 232, 232);
-  @apply p-5;
-}
-
 .content {
-  /* pre {
-        margin-bottom: 2em;
-    } */
-
   pre code,
-    // pre code&,
-    >ul li pre code,
-    >ol li pre code {
+  > ul li pre code,
+  > ol li pre code {
     @apply p-2;
   }
 
@@ -21,7 +10,7 @@
   ul li > code,
   ol li *:not(pre) code,
   ol li > code {
-    @apply bg-stone-300 text-black text-sm px-2 py-1 leading-none font-mono align-baseline rounded-md;
+    @apply rounded-md bg-stone-300 px-2 py-1 align-baseline font-mono text-sm leading-none text-black;
   }
 }
 
@@ -34,7 +23,9 @@
   border: 0px;
   max-height: 500px;
   code {
-    @include code-block;
+    background: var(--code-block-bg);
+    color: rgb(232, 232, 232);
+    @apply p-5;
     width: 100%;
     padding: 0.8rem !important;
     @apply overflow-auto;

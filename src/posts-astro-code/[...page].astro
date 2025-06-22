@@ -44,7 +44,7 @@ const { page } = Astro.props
 const pageDescription = `page [ ${page.currentPage} ] of all articles`
 const seoTitle = `Articles | ${Settings.site.title}`
 const seoDescription =
-  'Read all the aritcles written on Coder Rocks. Happy coding!'
+  'Read all the articles written on Coder Rocks. Happy coding!'
 ---
 
 <html lang="en">
@@ -52,18 +52,18 @@ const seoDescription =
     <BaseHead title={seoTitle} description={seoDescription} />
   </head>
 
-  <body class="bg-white text-black font-body leading-normal personality-casual">
+  <body class="font-body personality-casual bg-white leading-normal text-black">
     <TopBarNav />
 
     <main class="py-6 lg:py-10">
-      <article class="max-w-6xl mx-auto px-3">
+      <article class="mx-auto max-w-6xl px-3">
         <HomeHeader
           tagline={pageDescription}
           showLogo={true}
           showHeading={true}
         />
         <section
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-8"
+          class="grid grid-cols-1 gap-6 py-8 md:grid-cols-2 lg:grid-cols-3"
           data-test="articles-section"
         >
           {

@@ -31,7 +31,7 @@ const links: Links = [
 
 <nav class="top-nav-bar bg-zinc-800">
   <div
-    class="max-w-4xl mx-auto px-3 py-3 flex items-center justify-between h-14"
+    class="mx-auto flex h-14 max-w-4xl items-center justify-between px-3 py-3"
   >
     {
       links.map(item => {
@@ -39,9 +39,9 @@ const links: Links = [
         return (
           <a
             href={item.href}
-            class="text-slate-50 flex flex-row align-middle text-center"
+            class="flex flex-row text-center align-middle text-slate-50"
           >
-            <Icon class="w-5 h-5 lg:w-6 lg:h-6" />
+            <Icon class="h-5 w-5 lg:h-6 lg:w-6" />
             <span class="link-text">{item.name}</span>
           </a>
         )

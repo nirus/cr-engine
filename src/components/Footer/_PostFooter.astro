@@ -16,23 +16,23 @@ const { author: gitAuthor } = Astro.props
   class={`text-center ${Settings.post.contentWidth} mx-auto flex-col hidden`}
   id="_authorBlock"
 >
-  <div class="border-b-2 pt-4 border-zinc-400"></div>
+  <div class="border-b-2 border-zinc-400 pt-4"></div>
 
-  <div class="flex items-center m-auto">
+  <div class="m-auto flex items-center">
     <img
       id="_authorAvatar"
       loading="lazy"
       width={Settings.post.avatarSize}
       class="m-5"
     />
-    <div class="text-left m-5">
+    <div class="m-5 text-left">
       <div class="text-sm font-light">Article by</div>
       <strong class="text-lg" id="_authorName">{'name'}</strong>
       <div class="text-lg font-light"><span id="_authorBio"></span></div>
       <a
         target="_blank"
         rel="noreferrer"
-        class="font-medium text-lg"
+        class="text-lg font-medium"
         id="_authorProfileUrl"
       >
       </a>

@@ -1,7 +1,0 @@
-.top-nav-bar {
-  @layer components {
-    .link-text {
-      @apply text-sm lg:text-lg lg:leading-5 mx-2 flex items-center border-b-2 border-solid border-b-zinc-800 hover:border-b-slate-50;
-    }
-  }
-}
