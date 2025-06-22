@@ -43,7 +43,7 @@ const parsedDay = dayjs(pubDate).format('LL')
 
 <a
   href={post.url}
-  class="transition-all duration-75 ease-in-out h-full block relative top-0 hover:-top-2 shadow-lg hover:shadow-xl bg-white rounded-xl overflow-hidden border-solid border border-neutral-200"
+  class="relative top-0 block h-full overflow-hidden rounded-xl border border-solid border-neutral-200 bg-white shadow-lg transition-all duration-75 ease-in-out hover:-top-2 hover:shadow-xl"
   data-test="article-card"
 >
   <Image
@@ -54,11 +54,11 @@ const parsedDay = dayjs(pubDate).format('LL')
     height={height}
   />
 
-  <div class="py-6 px-8">
-    <h2 class="font-semibold text-xl leading-normal">
+  <div class="px-8 py-6">
+    <h2 class="text-xl leading-normal font-semibold">
       {post.frontmatter.title}
     </h2>
-    <p class="text-xs text-gray-600 mt-4 flex items-center">
+    <p class="mt-4 flex items-center text-xs text-gray-600">
       {parsedDay}
     </p>
   </div>

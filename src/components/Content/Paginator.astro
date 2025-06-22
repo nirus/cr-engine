@@ -6,7 +6,7 @@ const showSection = page.url.prev || page.url.next || false
 
 {
   showSection && (
-    <section class="flex space-x-8 justify-center text-xl pt-16 font-bold">
+    <section class="flex justify-center space-x-8 pt-16 text-xl font-bold">
       {page.url.prev && (
         <a href={page.url.prev} class="mr-8" data-test="paginator-prev">
           <span>&larr;</span> Prev
