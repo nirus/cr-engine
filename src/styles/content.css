@@ -41,8 +41,7 @@
   }
 
   > p {
-    @apply mb-6 text-lg leading-normal;
-    @apply text-stone-700;
+    @apply mb-6 text-lg leading-normal text-stone-700;
   }
 
   > blockquote {
@@ -58,12 +57,11 @@
   }
 
   a {
-    @apply font-normal text-sky-600 underline;
+    @apply font-normal underline text-sky-600;
     text-decoration: none;
 
     &:hover {
-      @apply border-b-2 border-b-gray-800;
-      @apply text-black;
+      @apply border-b-2 border-gray-800 text-black;
     }
   }
 
@@ -94,7 +92,7 @@
   }
 
   table {
-    @apply mb-8 w-full border-collapse border-2 text-left text-sm;
+    @apply mb-8 w-full border-collapse text-left text-sm border-2 border-black;
 
     th {
       @apply border-t-4 border-b p-4 text-xl font-bold;

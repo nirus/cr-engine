@@ -14,8 +14,18 @@ export interface MarkdownFrontmatter {
   file: string
 }
 const { title, tagline, description } = Settings.site
-const allPosts = await Astro.glob<MarkdownFrontmatter>('./posts/**/*.md')
-const sortedPosts = allPosts
+const allPosts = import.meta.glob<MarkdownFrontmatter>('./posts/**/*.md')
+
+const extractedPosts = await Promise.all(
+  Object.values(allPosts).map(
+    async (value: () => Promise<MarkdownFrontmatter>) => {
+      const post = await value()
+      return post
+    },
+  ),
+)
+
+const sortedPosts = extractedPosts
   .slice(0, 3)
   .sort(
     (a, b) =>

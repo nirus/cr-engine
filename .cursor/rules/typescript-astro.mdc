@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# TypeScript in Astro Development
+
+## TypeScript Configuration
+- This project uses TypeScript with configuration in [tsconfig.json](mdc:tsconfig.json)
+- Type definitions are available in [src/env.d.ts](mdc:src/env.d.ts) and [env.d.ts](mdc:env.d.ts)
+- Use the [@astrojs/ts-plugin](mdc:package.json) for enhanced TypeScript support
+
+## Type Safety Best Practices
+- Always use TypeScript for `.ts` and `.tsx` files
+- Leverage Astro's built-in TypeScript support for `.astro` files
+- Define proper interfaces and types for component props
+- Use strict type checking and avoid `any` types
+
+## Component Props Typing
+```typescript
+// Define interfaces for component props
+interface BlogPostProps {
+  title: string;
+  description: string;
+  publishDate: Date;
+  tags: string[];
+}
+
+// Use in Astro components
+---
+interface Props {
+  post: BlogPostProps;
+}
+
+const { post } = Astro.props;
+---
+```
+
+## Astro Global Types
+- Use `Astro.props` for typed component props
+- Leverage `Astro.glob()` with proper type annotations
+- Use `getStaticPaths()` with typed return values
+- Implement proper error handling with typed error objects
+
+## Utility Functions
+- Create typed utility functions in [src/utils/](mdc:src/utils)
+- Use proper return types for all functions
+- Implement generic types for reusable utilities
+- Add JSDoc comments for complex functions
+
+## Configuration Typing
+- Type your configuration objects properly
+- Use interfaces for plugin configurations
+- Implement proper typing for environment variables
+- Type your build scripts and custom plugins
+
+## Error Handling
+- Use typed error objects and custom error classes
+- Implement proper error boundaries with TypeScript
+- Use discriminated unions for error states
+- Add proper error logging with typed parameters
+
+## Data Fetching Types
+- Type your API responses and data structures
+- Use interfaces for frontmatter data
+- Implement proper typing for content collections
+- Type your search and filtering functions
+
+## Build and Development
+- Use TypeScript-aware build tools
+- Implement proper type checking in CI/CD
+- Use TypeScript for custom plugins and integrations
+- Leverage TypeScript for better IDE support and autocomplete

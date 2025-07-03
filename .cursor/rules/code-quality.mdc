@@ -1,0 +1,126 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Code Quality Standards
+
+## Code Formatting
+- This project uses Prettier for consistent code formatting
+- Configuration in [.prettierrc.js](mdc:.prettierrc.js) and [.prettierrc](mdc:.prettierrc)
+- Use `yarn run prettier:write` for automatic formatting
+- Prettier plugins: [prettier-plugin-astro](mdc:package.json), [prettier-plugin-tailwindcss](mdc:package.json), [prettier-plugin-organize-imports](mdc:package.json)
+
+## ESLint Configuration
+- ESLint configuration in [.eslintrc.cjs](mdc:.eslintrc.cjs)
+- Uses [eslint-plugin-astro](mdc:package.json) for Astro-specific rules
+- TypeScript ESLint with [@typescript-eslint/parser](mdc:package.json)
+- Custom rules for code quality enforcement
+
+## Pre-commit Hooks
+- Husky pre-commit hooks configured in [package.json](mdc:package.json)
+- Lint-staged for running linters on staged files
+- Automatic formatting and linting before commits
+- Quality gates for maintaining code standards
+
+## Naming Conventions
+- Use descriptive variable and function names
+- Follow Astro's component naming conventions
+- Use kebab-case for file names and URLs
+- Use camelCase for JavaScript/TypeScript variables and functions
+- Use PascalCase for component names and classes
+
+## File Organization
+- Organize components logically in [src/components/](mdc:src/components)
+- Use consistent file structure across the project
+- Group related functionality together
+- Maintain clear separation of concerns
+
+## Component Structure
+```astro
+---
+// 1. Imports
+import Layout from '../layouts/Layout.astro';
+
+// 2. Props interface
+interface Props {
+  title: string;
+  description?: string;
+}
+
+// 3. Props destructuring
+const { title, description = 'Default description' } = Astro.props;
+
+// 4. Data fetching
+const posts = await Astro.glob('../posts/*.md');
+---
+
+<!-- 5. Template -->
+<Layout title={title}>
+  <main>
+    <h1>{title}</h1>
+    {description && <p>{description}</p>}
+  </main>
+</Layout>
+
+<!-- 6. Scoped styles -->
+<style>
+  main {
+    padding: 1rem;
+  }
+</style>
+```
+
+## Error Handling
+- Implement proper error boundaries
+- Use try-catch blocks for async operations
+- Provide meaningful error messages
+- Log errors appropriately for debugging
+
+## Documentation
+- Add JSDoc comments for complex functions
+- Document component props and interfaces
+- Maintain README files for major features
+- Use inline comments for complex logic
+
+## Testing Standards
+- Write unit tests for utility functions
+- Implement integration tests for critical paths
+- Use proper test naming conventions
+- Maintain good test coverage
+
+## Security Best Practices
+- Validate and sanitize user inputs
+- Use proper authentication and authorization
+- Implement secure data handling
+- Follow OWASP security guidelines
+
+## Performance Considerations
+- Avoid unnecessary re-renders
+- Optimize bundle sizes
+- Use proper caching strategies
+- Monitor performance metrics
+
+## Accessibility
+- Use semantic HTML elements
+- Implement proper ARIA attributes
+- Ensure keyboard navigation support
+- Maintain proper color contrast ratios
+
+## Git Workflow
+- Use meaningful commit messages
+- Create feature branches for new development
+- Review code before merging
+- Maintain clean git history
+
+## Dependencies
+- Keep dependencies up to date
+- Use specific version numbers
+- Audit dependencies regularly
+- Minimize bundle size impact
+
+## Environment Management
+- Use environment variables for configuration
+- Maintain separate configs for different environments
+- Secure sensitive information
+- Document environment setup requirements

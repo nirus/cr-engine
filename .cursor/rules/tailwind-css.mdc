@@ -1,0 +1,82 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Tailwind CSS v4 in Astro Development
+
+## Tailwind Configuration
+- This project uses Tailwind CSS v4 with [@tailwindcss/vite](mdc:package.json)
+- Configuration is in [tailwind.config.js](mdc:tailwind.config.js)
+- PostCSS configuration in [postcss.config.cjs](mdc:postcss.config.cjs)
+- Prettier plugin for class sorting: [prettier-plugin-tailwindcss](mdc:package.json)
+
+## Tailwind Best Practices
+- Use Tailwind utility classes extensively in your Astro components
+- Leverage Tailwind's responsive design utilities (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`)
+- Utilize Tailwind's color palette and spacing scale for consistency
+- **Never use the `@apply` directive** - use utility classes directly
+- Use semantic class names and avoid arbitrary values when possible
+- Refer the Tailwind css v4 documentation and not top use v3 and below api's
+
+## Responsive Design
+```html
+<!-- Use responsive prefixes for mobile-first design -->
+<div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
+  <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl">Responsive Heading</h2>
+</div>
+```
+
+## Component Styling
+- Use Tailwind classes directly in Astro components
+- Leverage component composition for reusable styles
+- Use CSS custom properties for dynamic values when needed
+- Implement dark mode with Tailwind's dark mode utilities
+
+## Color System
+- Use Tailwind's built-in color palette
+- Leverage color opacity modifiers (e.g., `bg-blue-500/50`)
+- Use semantic color names for better maintainability
+- Implement consistent color schemes across components
+
+## Spacing and Layout
+- Use Tailwind's spacing scale for consistent spacing
+- Leverage Flexbox and Grid utilities for layouts
+- Use container queries for component-level responsive design
+- Implement proper spacing between sections and components
+
+## Typography
+- Use Tailwind's typography scale for consistent text sizing
+- Leverage font weight utilities for emphasis
+- Use proper line height and letter spacing
+- Implement responsive typography with breakpoint prefixes
+
+## Interactive States
+- Use hover, focus, and active state utilities
+- Implement proper focus indicators for accessibility
+- Use transition utilities for smooth interactions
+- Leverage group utilities for parent-child interactions
+
+## Customization
+- Extend Tailwind's theme in [tailwind.config.js](mdc:tailwind.config.js) when necessary
+- Use CSS custom properties for dynamic values
+- Implement custom utilities for project-specific needs
+- Maintain consistency with the design system
+
+## Performance
+- Tailwind's purge process removes unused styles in production
+- Use arbitrary value utilities sparingly
+- Leverage Tailwind's JIT mode for optimal bundle size
+- Monitor CSS bundle size and optimize as needed
+
+## Accessibility
+- Use proper contrast ratios with Tailwind's color utilities
+- Implement focus indicators with focus utilities
+- Use semantic HTML with appropriate Tailwind classes
+- Ensure keyboard navigation support
+
+## Code Organization
+- Group related utility classes logically
+- Use consistent ordering of utility classes
+- Leverage component composition for complex styles
+- Use Tailwind's component extraction for repeated patterns
