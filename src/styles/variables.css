@@ -1,10 +1,8 @@
 :root {
   --font-display: "Poppins", "Roboto", "Arial", "Helvetica";
   --font-body: "Poppins", "Roboto", "Arial", "Helvetica";
-  --code-block-bg: #292929;
-  --inline-code-bg: #c4c4c4;
+  --leading-normal: 1.8;
 }
-
 
 @theme {
   --font-display: "Open Sans", "Roboto", "Arial", "Helvetica";

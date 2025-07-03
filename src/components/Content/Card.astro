@@ -5,10 +5,9 @@ import type { Props as BlogPostProps } from './BlogPost.astro'
 import { youtubeImgPreview, Settings } from '@config/settings'
 import blogSlugToLegendImageData from '../../layouts/BlogHero'
 import { Image } from 'astro:assets'
-import type { MarkdownInstance } from 'astro'
 
 export interface Props {
-  post: MarkdownInstance<{
+  post: {
     pubDate: Date
     url: string
     frontmatter: BlogPostProps
@@ -16,7 +15,7 @@ export interface Props {
     slug?: string
     youtube?: string
     title?: string
-  }>
+  }
 }
 
 /**

@@ -15,8 +15,17 @@ import { Settings } from '@config/settings'
 import type { GetStaticPathsOptions } from 'astro'
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const allPosts = await Astro.glob<MarkdownFrontmatter>('./**/*.md') // Tracks all the 'src/pages/posts/**/*.md' files
-  const sortedPosts = allPosts.sort(
+  const allPosts = import.meta.glob<MarkdownFrontmatter>('./**/*.md') // Tracks all the 'src/pages/posts/**/*.md'
+  const extractedPosts = await Promise.all(
+    Object.values(allPosts).map(
+      async (value: () => Promise<MarkdownFrontmatter>) => {
+        const post = await value()
+        return post
+      },
+    ),
+  )
+
+  const sortedPosts = extractedPosts.sort(
     (a, b) =>
       new Date(b.frontmatter.pubDate).valueOf() -
       new Date(a.frontmatter.pubDate).valueOf(),
