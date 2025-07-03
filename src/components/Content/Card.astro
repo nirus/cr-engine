@@ -42,11 +42,11 @@ const parsedDay = dayjs(pubDate).format('LL')
 
 <a
   href={post.url}
-  class="relative top-0 block h-full overflow-hidden rounded-xl border border-solid border-neutral-200 bg-white shadow-lg transition-all duration-75 ease-in-out hover:-top-2 hover:shadow-xl"
+  class="hover:border-accent-primary group relative top-0 block h-full overflow-hidden rounded-xl border border-solid border-neutral-200 bg-white shadow-lg transition-all duration-300 ease-in-out hover:-top-2 hover:shadow-xl"
   data-test="article-card"
 >
   <Image
-    class="card-images"
+    class="card-images transition-transform duration-300 group-hover:scale-105"
     src={previewImage as string}
     alt={`${post.frontmatter.title} - post preview`}
     width={width}
