@@ -1,5 +1,5 @@
 import rss from '@astrojs/rss'
-import { Settings } from '@config/site'
+import { Settings } from '@config/settings'
 
 export const get = () =>
   rss({

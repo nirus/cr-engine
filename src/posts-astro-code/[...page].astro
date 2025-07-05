@@ -11,7 +11,7 @@ import Footer from '@component/Footer/Footer.astro'
 import Paginator from '@component/Content/Paginator.astro'
 import type { MarkdownFrontmatter } from '@pages/index.astro'
 import type { Props as CardProps } from '@component/Content/Card.astro'
-import { Settings } from '@config/site'
+import { Settings } from '@config/settings'
 import type { GetStaticPathsOptions } from 'astro'
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
