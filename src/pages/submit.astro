@@ -1,7 +1,7 @@
 ---
 import BaseHead from '@component/Head/BaseHead.astro'
 import Nav from '@component/Navigation/TopBar.astro'
-import HomeHeader from '@component/Head/HomeHeader.astro'
+import HomeHead from '@component/Head/HomeHead.astro'
 import Footer from '@component/Footer/Footer.astro'
 import { Settings } from '@config/settings'
 
@@ -18,7 +18,7 @@ const seoDescription = 'submit your article on CoderRocks'
   <body class="font-body personality-casual bg-white leading-normal text-black">
     <Nav />
     <main class="py-12">
-      <HomeHeader tagline={pageDescription} />
+      <HomeHead tagline={pageDescription} />
       <article class="content mx-auto max-w-6xl px-3">
         <h3 class="ml-4">Follow the below guidelines:</h3>
         <ul>

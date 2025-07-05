@@ -1,18 +1,22 @@
 ---
-const gaUserAgent = import.meta.env.GA_KEY
+export interface Props {
+  gaTagId: string
+}
+
+const { gaTagId } = Astro.props
 ---
 
 <!-- Global site tag (gtag.js) - Google Analytics -->{
-  gaUserAgent && (
+  gaTagId && (
     <script
       async
       defer
-      src={`https://www.googletagmanager.com/gtag/js?id=${gaUserAgent}`}
+      src={`https://www.googletagmanager.com/gtag/js?id=${gaTagId}`}
     />
   )
 }
 
-<script define:vars={{ gaUserAgent }}>
+<script is:inline define:vars={{ gaTagId }}>
   window.dataLayer = window.dataLayer || []
 
   function gtag() {
@@ -21,5 +25,5 @@ const gaUserAgent = import.meta.env.GA_KEY
 
   gtag('js', new Date())
 
-  gtag('config', gaUserAgent)
+  gtag('config', gaTagId)
 </script>

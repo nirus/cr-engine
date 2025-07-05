@@ -2,7 +2,7 @@ export const Settings = {
   site: {
     title: 'CoderRocks',
     tagline: 'Progress by coding',
-    gaUserAgent: '',
+    gaTagId: '',
     mainUrl: 'https://coder.rocks',
     secondUrl: 'https://CoderRocks.com',
     description:

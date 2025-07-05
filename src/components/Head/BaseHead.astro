@@ -13,6 +13,9 @@ const { mainUrl } = Settings.site
 const { title, description, image } = Astro.props
 
 const ogImage = mainUrl + (image || '/images/social.png')
+
+//Google Analytics Tag ID
+const gaTagId = import.meta.env.GA_TAG_ID || Settings.site.gaTagId
 ---
 
 <!-- Global Metadata -->
@@ -45,4 +48,5 @@ const ogImage = mainUrl + (image || '/images/social.png')
 <meta property="twitter:image" content={ogImage} />
 <meta name="twitter:creator" content="@Coder_Rocks" />
 
-<GoogleAnalytics />
+<!-- Google Analytics -->
+<GoogleAnalytics gaTagId={gaTagId} />
