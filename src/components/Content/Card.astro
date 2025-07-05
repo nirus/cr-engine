@@ -2,7 +2,8 @@
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import type { Props as BlogPostProps } from './BlogPost.astro'
-import { youtubeImgPreview, Settings } from '@config/settings'
+import { Settings } from '@config/site'
+import { youtubeImgPreview } from '@utils/help'
 import blogSlugToLegendImageData from '../../layouts/BlogHero'
 import { Image } from 'astro:assets'
 
