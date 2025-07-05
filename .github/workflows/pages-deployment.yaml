@@ -21,19 +21,24 @@ jobs:
 
       - name: Cache dependencies
         uses: actions/cache@v4
+        id: cache
         with:
           path: |
             node_modules
             **/node_modules
           key: node-modules-${{ hashFiles('yarn.lock') }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile --prefer-offline
           
       - name: Build
-        run: yarn && yarn build
-      - name: Publish
-        uses: cloudflare/pages-action@1
+        run: yarn build
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'coder-rocks'
-          directory: dist
+          command: pages deploy dist --project-name=coder-rocks
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}

@@ -18,29 +18,57 @@
     <input
       type="text"
       id="searchBox"
-      class="searchBox w-full px-2 py-2"
-      placeholder="type a keyword .."
+      class="searchBox w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-blue-500 focus:outline-none"
+      placeholder="Search articles..."
       data-test="search-input"
+      autocomplete="off"
     />
+    <div id="searchStatus" class="mt-2 hidden text-sm text-gray-500"></div>
   </div>
 
   <!-- Search Results -->
-  <div id="searchResults" class="searchResults lg:pl-8"></div>
+  <div id="searchResults" class="mt-6 space-y-4"></div>
 
   <!-- Search JS -->
-  <script>
-    let lunrIndex
-    let lunrResult
-    let pagesIndex
+  <script is:inline>
+    // Search state management
+    let lunrIndex = null
+    let lunrResult = []
+    let pagesIndex = []
+    let searchTimeout = null
+    let markInstance = null
+    let isLoading = false
 
-    const bigramTokeniser = (obj, metadata) => {
-      if (obj == null || obj == undefined) {
+    // Performance optimization: Debounce search
+    const debounce = (func, wait) => {
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(searchTimeout)
+          func(...args)
+        }
+        clearTimeout(searchTimeout)
+        searchTimeout = setTimeout(later, wait)
+      }
+    }
+
+    // Enhanced tokenizer for better search
+    const enhancedTokeniser = (obj, metadata) => {
+      if (!obj || obj === null || obj === undefined) {
         return []
       }
 
-      let str = obj.toString().trim().toLowerCase()
-      let tokens = []
+      const str = obj.toString().trim().toLowerCase()
+      const tokens = []
 
+      // Single character tokens for exact matches
+      for (let i = 0; i < str.length; i++) {
+        let tokenMetadata = lunr.utils.clone(metadata) || {}
+        tokenMetadata['position'] = [i, i + 1]
+        tokenMetadata['index'] = tokens.length
+        tokens.push(new lunr.Token(str.slice(i, i + 1), tokenMetadata))
+      }
+
+      // Bigram tokens for phrase matching
       for (let i = 0; i <= str.length - 2; i++) {
         let tokenMetadata = lunr.utils.clone(metadata) || {}
         tokenMetadata['position'] = [i, i + 2]
@@ -48,13 +76,33 @@
         tokens.push(new lunr.Token(str.slice(i, i + 2), tokenMetadata))
       }
 
+      // Word tokens for better word matching
+      const words = str.split(/\s+/)
+      words.forEach((word, wordIndex) => {
+        if (word.length > 0) {
+          let tokenMetadata = lunr.utils.clone(metadata) || {}
+          tokenMetadata['position'] = [wordIndex, wordIndex + word.length]
+          tokenMetadata['index'] = tokens.length
+          tokens.push(new lunr.Token(word, tokenMetadata))
+        }
+      })
+
       return tokens
     }
 
-    const queryNgramSeparator = query => {
+    // Enhanced query processing
+    const processQuery = query => {
       const str = query.toString().trim().toLowerCase()
       const tokens = []
 
+      // Add original query
+      tokens.push(str)
+
+      // Add individual words
+      const words = str.split(/\s+/)
+      tokens.push(...words)
+
+      // Add bigrams
       for (let i = 0; i <= str.length - 2; i++) {
         tokens.push(str.slice(i, i + 2))
       }
@@ -62,130 +110,305 @@
       return tokens.join(' ')
     }
 
-    const index = '/search-index.json'
+    // Initialize search index
+    const initLunr = async () => {
+      try {
+        updateSearchStatus('Loading search index...')
 
-    const initLunr = () => {
-      let request = new XMLHttpRequest()
-      request.open('GET', index, true)
-      request.onload = function () {
-        if (this.status >= 200 && this.status < 400) {
-          pagesIndex = JSON.parse(this.response)
-          lunrIndex = lunr(function () {
-            this.tokenizer = bigramTokeniser
-            this.pipeline.reset()
-            this.ref('slug')
-            this.field('title', { boost: 10 })
-            this.field('body')
-            this.metadataWhitelist = ['position']
-            pagesIndex.forEach(page => {
-              this.add(page)
-            }, this)
-          })
-        } else {
-          console.error('Error getting Hugo index flie')
+        const response = await fetch('/search-index.json')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
+
+        pagesIndex = await response.json()
+
+        lunrIndex = lunr(function () {
+          this.tokenizer = enhancedTokeniser
+          this.pipeline.reset()
+          this.ref('slug')
+          this.field('title', { boost: 15 })
+          this.field('tags', { boost: 10 })
+          this.field('description', { boost: 8 })
+          this.field('body', { boost: 5 })
+          this.field('bodyClean', { boost: 6 })
+          this.metadataWhitelist = ['position']
+
+          pagesIndex.forEach(page => {
+            this.add(page)
+          }, this)
+        })
+
+        updateSearchStatus('')
+        console.log(`Search index loaded with ${pagesIndex.length} pages`)
+      } catch (error) {
+        console.error('Error loading search index:', error)
+        updateSearchStatus('Error loading search index')
       }
-      request.onerror = function () {
-        console.error('connection error')
-      }
-      request.send()
     }
 
-    /**
-     * Searching pages using lunr
-     * @param {String} query Query string for searching
-     * @return {Object[]} Array of search results
-     */
+    // Enhanced search function
     const search = query => {
-      lunrResult = lunrIndex.search(queryNgramSeparator(query))
-      return lunrResult.map(result => {
-        return pagesIndex.filter(page => {
-          return page.slug === result.ref
-        })[0]
-      })
+      if (!lunrIndex || !query || query.length < 2) {
+        return []
+      }
+
+      try {
+        const processedQuery = processQuery(query)
+        lunrResult = lunrIndex.search(processedQuery)
+
+        return lunrResult
+          .map(result => {
+            return pagesIndex.filter(page => page.slug === result.ref)[0]
+          })
+          .filter(Boolean)
+      } catch (error) {
+        console.error('Search error:', error)
+        return []
+      }
     }
 
-    const initUI = () => {
-      const searchBox: HTMLInputElement = document.querySelector('#searchBox')
-      if (searchBox === null) {
+    // Update search status
+    const updateSearchStatus = message => {
+      const statusEl = document.querySelector('#searchStatus')
+      if (message) {
+        statusEl.textContent = message
+        statusEl.classList.remove('hidden')
+      } else {
+        statusEl.classList.add('hidden')
+      }
+    }
+
+    // Enhanced result rendering
+    const renderResults = (results, query) => {
+      const searchResults = document.querySelector('#searchResults')
+      const BODY_LENGTH = 150
+      const MAX_PAGES = 15
+
+      // Clear previous results
+      searchResults.innerHTML = ''
+
+      if (!results.length) {
+        const noResultsEl = document.createElement('div')
+        noResultsEl.className =
+          'p-6 bg-gray-50 rounded-lg border border-gray-200 text-center'
+        noResultsEl.innerHTML = `
+          <div class="text-gray-500 mb-2">
+            <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <p class="text-lg font-medium">No results found</p>
+            <p class="text-sm">Try different keywords or check your spelling</p>
+          </div>
+        `
+        searchResults.appendChild(noResultsEl)
         return
       }
-      searchBox.addEventListener('keyup', function (event) {
-        let searchResultsArea = document.querySelector('#searchResults')
-        let query = event.currentTarget.value
 
-        // Only trigger a search when 2 chars. at least have been provided
+      // Create results container
+      const resultsContainer = document.createElement('div')
+      resultsContainer.className = 'space-y-4'
+
+      // Show results count
+      const countEl = document.createElement('div')
+      countEl.className = 'text-sm text-gray-600 mb-4'
+      countEl.textContent = `Found ${results.length} result${results.length !== 1 ? 's' : ''} for "${query}"`
+      resultsContainer.appendChild(countEl)
+
+      // Initialize mark.js for highlighting
+      markInstance = new Mark(resultsContainer)
+
+      // Markdown parser function to clean text
+      const cleanMarkdown = text => {
+        if (!text) return ''
+
+        return (
+          text
+            // Remove HTML tags
+            .replace(/<[^>]*>/g, '')
+            // Remove markdown headers
+            .replace(/^#{1,6}\s+/gm, '')
+            // Remove bold/italic markdown
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/\*(.*?)\*/g, '$1')
+            .replace(/__(.*?)__/g, '$1')
+            .replace(/_(.*?)_/g, '$1')
+            // Remove inline code
+            .replace(/`([^`]+)`/g, '$1')
+            // Remove code blocks
+            .replace(/```[\s\S]*?```/g, '')
+            // Remove links but keep text
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+            // Remove image syntax
+            .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+            // Remove blockquotes
+            .replace(/^>\s+/gm, '')
+            // Remove list markers
+            .replace(/^[\s]*[-*+]\s+/gm, '')
+            .replace(/^[\s]*\d+\.\s+/gm, '')
+            // Remove horizontal rules
+            .replace(/^[\s]*[-*_]{3,}[\s]*$/gm, '')
+            // Clean up extra whitespace
+            .replace(/\n\s*\n/g, '\n')
+            .replace(/\s+/g, ' ')
+            .trim()
+        )
+      }
+
+      // Render each result
+      results.slice(0, MAX_PAGES).forEach((result, idx) => {
+        const resultEl = document.createElement('div')
+        resultEl.className =
+          'p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200'
+
+        const metadata = lunrResult[idx]?.matchData?.metadata
+        let matchPosition = 0
+
+        if (metadata && Object.keys(metadata).length > 0) {
+          const firstKey = Object.keys(metadata)[0]
+          if (metadata[firstKey]?.body?.position?.[0]?.[0]) {
+            matchPosition = metadata[firstKey].body.position[0][0]
+          }
+        }
+
+        // Clean the body text for excerpt
+        const cleanBody = result.bodyClean || cleanMarkdown(result.body)
+        const bodyStartPosition = Math.max(0, matchPosition - BODY_LENGTH / 2)
+        const bodyEndPosition = Math.min(
+          cleanBody.length,
+          bodyStartPosition + BODY_LENGTH,
+        )
+
+        // Create title link
+        const titleEl = document.createElement('a')
+        titleEl.className =
+          'block text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200 mb-2'
+        titleEl.href = `/posts/${result.slug}`
+        titleEl.innerHTML = result.title
+        resultEl.appendChild(titleEl)
+
+        // Create excerpt with clean text
+        const excerptEl = document.createElement('div')
+        excerptEl.className = 'text-sm text-gray-600 leading-relaxed'
+
+        let excerpt = cleanBody.substr(bodyStartPosition, BODY_LENGTH)
+        if (bodyStartPosition > 0) {
+          excerpt = '...' + excerpt
+        }
+        if (bodyEndPosition < cleanBody.length) {
+          excerpt = excerpt + '...'
+        }
+
+        excerptEl.innerHTML = excerpt
+        resultEl.appendChild(excerptEl)
+
+        // Add metadata if available
+        if (result.tags && result.tags.length > 0) {
+          const tagsEl = document.createElement('div')
+          tagsEl.className = 'mt-2 flex flex-wrap gap-1'
+          result.tags.forEach(tag => {
+            const tagEl = document.createElement('span')
+            tagEl.className =
+              'px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded'
+            tagEl.textContent = tag
+            tagsEl.appendChild(tagEl)
+          })
+          resultEl.appendChild(tagsEl)
+        }
+
+        resultsContainer.appendChild(resultEl)
+      })
+
+      searchResults.appendChild(resultsContainer)
+
+      // Highlight search terms
+      if (markInstance && query.length >= 2) {
+        markInstance.mark(query, {
+          accuracy: 'partially',
+          wildcards: 'enabled',
+          separateWordSearch: false,
+          diacritics: true,
+          caseSensitive: false,
+          exclude: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        })
+      }
+    }
+
+    // Initialize UI with debounced search
+    const initUI = () => {
+      const searchBox = document.querySelector('#searchBox')
+      if (!searchBox) return
+
+      // Debounced search function
+      const debouncedSearch = debounce(query => {
+        if (isLoading) return
+
         if (query.length < 2) {
-          searchResultsArea.style.display = 'none'
+          document.querySelector('#searchResults').innerHTML = ''
+          updateSearchStatus('')
           return
         }
 
-        // Display search results
-        renderResults(search(query))
-        searchResultsArea.style.display = 'block'
+        updateSearchStatus('Searching...')
+        isLoading = true
+
+        try {
+          const results = search(query)
+          renderResults(results, query)
+          updateSearchStatus('')
+        } catch (error) {
+          console.error('Search error:', error)
+          updateSearchStatus('Search error occurred')
+        } finally {
+          isLoading = false
+        }
+      }, 300)
+
+      // Search input handler
+      searchBox.addEventListener('input', event => {
+        const query = event.target.value.trim()
+        debouncedSearch(query)
+      })
+
+      // Keyboard navigation
+      searchBox.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          searchBox.value = ''
+          document.querySelector('#searchResults').innerHTML = ''
+          updateSearchStatus('')
+          searchBox.blur()
+        }
+      })
+
+      // Focus handler
+      searchBox.addEventListener('focus', () => {
+        if (searchBox.value.length >= 2) {
+          const results = search(searchBox.value)
+          renderResults(results, searchBox.value)
+        }
       })
     }
 
-    /**
-     * Rendering search results
-     * @param {Object[]} results Array of search results
-     */
-    const renderResults = results => {
-      const searchResults = document.querySelector('#searchResults')
-      const query = document.querySelector('#searchBox').value
-      const BODY_LENGTH = 100
-      const MAX_PAGES = 10
-
-      // Clear search result
-      while (searchResults.firstChild)
-        searchResults.removeChild(searchResults.firstChild)
-
-      // Show message when results is empty
-      if (!results.length) {
-        let resultPage = document.createElement('div')
-        resultPage.className = 'search-result-page'
-        resultPage.innerHTML = 'No results found for query "' + query + '"'
-        searchResults.append(resultPage)
-        return
-      }
-
-      let instance = new Mark(document.querySelector('#searchResults'))
-      // Only show the ten first results
-      results.slice(0, MAX_PAGES).forEach((result, idx) => {
-        let resultPage = document.createElement('div')
-        resultPage.className = 'search-result-page'
-        let metadata = lunrResult[idx].matchData.metadata
-        let matchPosition =
-          metadata[Object.keys(metadata)[0]].body.position[0][0]
-        let bodyStartPosition =
-          matchPosition - BODY_LENGTH / 2 > 0
-            ? matchPosition - BODY_LENGTH / 2
-            : 0
-
-        let resultTitle = document.createElement('a')
-        resultTitle.className = 'search-result-title'
-        resultTitle.href = `/posts/${result.slug}`
-        resultTitle.innerHTML = result.title
-        resultPage.append(resultTitle)
-
-        let resultBody = document.createElement('div')
-        resultBody.className = 'search-result-body'
-        resultBody.innerHTML = result.body.substr(
-          bodyStartPosition,
-          BODY_LENGTH,
-        )
-        resultPage.append(resultBody)
-        searchResults.append(resultPage)
-
-        instance.mark(query)
-      })
+    // Initialize everything
+    const init = async () => {
+      await initLunr()
+      initUI()
     }
 
-    initLunr()
-    initUI()
+    // Start initialization when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init)
+    } else {
+      init()
+    }
   </script>
 
-  <script>
-    document.getElementById('searchBox').focus()
+  <script is:inline>
+    // Auto-focus search box
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchBox = document.getElementById('searchBox')
+      if (searchBox) {
+        setTimeout(() => searchBox.focus(), 100)
+      }
+    })
   </script>
 </section>
