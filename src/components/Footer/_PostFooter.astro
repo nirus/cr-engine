@@ -4,7 +4,7 @@
  * consuming /ask api from 'pages/ask.ts'
  * TODO: Future implementation
  */
-import { Settings } from '@config/settings'
+import { Settings } from '@config/site'
 export interface Props {
   author: string
 }
@@ -53,6 +53,7 @@ const { author: gitAuthor } = Astro.props
       /**
        * One way binding using classic window.[ID] technique
        * Thats all i need for now! Who cares!!!!
+       * Accessing the DOM elements using window.[ID]
        */
       const {
         _authorName,
