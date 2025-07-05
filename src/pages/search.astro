@@ -1,7 +1,7 @@
 ---
 import BaseHead from '@component/Head/BaseHead.astro'
 import TopNavBar from '@component/Navigation/TopBar.astro'
-import HomeHeader from '@component/Head/HomeHeader.astro'
+import HomeHead from '@component/Head/HomeHead.astro'
 import Footer from '@component/Footer/Footer.astro'
 import SearchInput from '@component/Content/SearchInput.astro'
 import { Settings } from '@config/settings'
@@ -20,7 +20,7 @@ const seoDescription = 'search all the articles written on CoderRocks'
     <TopNavBar />
     <main class="py-12">
       <article class="mx-auto max-w-6xl px-3">
-        <HomeHeader tagline={pageDescription} showLogo={false} />
+        <HomeHead tagline={pageDescription} showLogo={false} />
         <SearchInput />
       </article>
       <Footer />

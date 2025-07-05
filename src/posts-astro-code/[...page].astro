@@ -5,7 +5,7 @@
  */
 import BaseHead from '@component/Head/BaseHead.astro'
 import TopBarNav from '@component/Navigation/TopBar.astro'
-import HomeHeader from '@component/Head/HomeHeader.astro'
+import HomeHead from '@component/Head/HomeHead.astro'
 import Card from '@component/Content/Card.astro'
 import Footer from '@component/Footer/Footer.astro'
 import Paginator from '@component/Content/Paginator.astro'
@@ -66,7 +66,7 @@ const seoDescription =
 
     <main class="py-6 lg:py-10">
       <article class="mx-auto max-w-6xl px-3">
-        <HomeHeader
+        <HomeHead
           tagline={pageDescription}
           showLogo={true}
           showHeading={true}
