@@ -27,7 +27,7 @@ export default defineConfig({
   },
   vite: {
     resolve: {
-      preserveSymlinks: true, // Resolves the symlink files from 'posts-astro-code' folder properly
+      preserveSymlinks: true, // Resolves the symlink files from 'posts-page-wrapper' folder properly
     },
 
     plugins: [tailwindcss()],

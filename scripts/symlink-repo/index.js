@@ -7,7 +7,7 @@ const { symlinkSync, existsSync } = require('node:fs')
 const { resolve } = require('node:path')
 
 /**
- * Add the 'files' that you want to symlink to 'src/pages/posts' folder from 'src/posts-astro-code'.
+ * Add the 'files' that you want to symlink to 'src/pages/posts' folder from 'src/posts-page-wrapper'.
  * In future it can be wildcard based on the requirement using glob matching
  * For now lets settle with this.
  */
@@ -17,7 +17,7 @@ const files = ['[...page].astro']
 for (const file of files) {
   if (!existsSync(resolve(`../../src/pages/posts/${file}`))) {
     symlinkSync(
-      resolve(`../../src/posts-astro-code/${file}`),
+      resolve(`../../src/posts-page-wrapper/${file}`),
       resolve(`../../src/pages/posts/${file}`),
     )
     console.log(`Symlinked: ${file}`)
