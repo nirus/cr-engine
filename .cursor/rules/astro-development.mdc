@@ -44,7 +44,7 @@ This project follows the recommended Astro structure:
 - Use Markdown (`.md`) or MDX (`.mdx`) files for content-heavy pages
 - Leverage Astro's built-in support for frontmatter in Markdown files
 - Implement content collections for organized content management
-- This project includes a custom posts system in [src/posts-astro-code/](mdc:src/posts-astro-code)
+- This project includes a custom posts system in [src/posts-page-wrapper/](mdc:src/posts-page-wrapper)
 
 ## Styling with Tailwind CSS
 - This project uses Tailwind CSS v4 with [@tailwindcss/vite](mdc:package.json)
