@@ -35,7 +35,7 @@
     "@astrojs/sitemap": "3.4.1",
     "@tailwindcss/postcss": "^4.1.7",
     "@tailwindcss/vite": "^4.1.7",
-    "astro": "5.10.0",
+    "astro": "5.11.0",
     "autoprefixer": "^10.4.8",
     "dayjs": "^1.11.5",
     "gray-matter": "^4.0.3",

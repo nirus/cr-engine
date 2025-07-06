@@ -1167,10 +1167,10 @@ astro-eslint-parser@^1.0.2:
     is-glob "^4.0.3"
     semver "^7.3.8"
 
-astro@5.10.0:
-  version "5.10.0"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-5.10.0.tgz#13f1202453ecc6fb1fe2dab09d244961fe5db307"
-  integrity sha512-g/t54kVzQnFVijs+GbbbX/NBAFTl/3yNAEA/AQYq4FumLLVv7n4BIF+jKhcPGn9iFGyT1Cjvr7KB/qYyNvHEIg==
+astro@5.11.0:
+  version "5.11.0"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-5.11.0.tgz#346e5f774f37c5a68b46f67a459476865a28210d"
+  integrity sha512-MEICntERthUxJPSSDsDiZuwiCMrsaYy3fnDhp4c6ScUfldCB8RBnB/myYdpTFXpwYBy6SgVsHQ1H4MuuA7ro/Q==
   dependencies:
     "@astrojs/compiler" "^2.12.2"
     "@astrojs/internal-helpers" "0.6.1"
