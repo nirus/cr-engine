@@ -27,6 +27,14 @@ export const Settings = {
     github: 'https://github.com/nirus/coder-rocks',
   },
 
+  preview: {
+    allowedRepo: 'https://github.com/nirus/coder-rocks',
+    allowedBranch: 'publish',
+    githubApiBaseUrl: 'https://api.github.com/repos/nirus/coder-rocks/contents',
+    githubUserApiUrl: 'https://api.github.com/users',
+    rawBaseUrl: 'https://raw.githubusercontent.com/nirus/coder-rocks/publish',
+  },
+
   legendImageSize: {
     width: 1024,
     height: 420,

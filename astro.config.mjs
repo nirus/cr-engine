@@ -1,4 +1,6 @@
+import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
+import markdownIntegration from '@astropub/md'
 import { defineConfig, passthroughImageService } from 'astro/config'
 import { claimMiddleware } from './plugins/ClaimJson/index.mjs'
 import PostsBundleProcess from './plugins/PostsBundleProcess/index.mjs'
@@ -8,10 +10,12 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'static',
+  adapter: cloudflare(),
   image: {
     service: passthroughImageService(),
   },
-  integrations: [sitemap(), PostsBundleProcess()],
+  integrations: [sitemap(), PostsBundleProcess(), markdownIntegration()],
   site: 'https://coder.rocks',
   markdown: {
     extendDefaultPlugins: true,
