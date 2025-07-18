@@ -1,10 +1,5 @@
 import { Settings } from '@config/site'
 
-export interface GitHubApiResponse {
-  content?: string
-  download_url?: string
-}
-
 export interface PostData {
   title: string
   description: string
@@ -14,45 +9,41 @@ export interface PostData {
   youtube?: string
 }
 
+// Destructure preview settings from Settings object
+const { allowedRepo, allowedBranch, rawBaseUrl } = Settings.preview
+
 /**
- * Secure API fetch with error handling and proper headers
+ * Get raw GitHub content URL
  */
-export const secureApiFetch = async (
-  url: string,
-): Promise<GitHubApiResponse> => {
+const getRawUrl = (postSlug: string, fileName: string): string => {
+  return `${rawBaseUrl}/${postSlug}/${fileName}`
+}
+
+/**
+ * Fetch file content from raw.githubusercontent.com
+ */
+export const fetchFileContent = async (
+  postSlug: string,
+  fileName: string,
+): Promise<string> => {
+  const rawUrl = getRawUrl(postSlug, fileName)
+
   try {
-    const response = await fetch(url, {
+    const response = await fetch(rawUrl, {
       headers: {
         'User-Agent': 'CoderRocks-Preview/1.0',
       },
     })
 
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`)
+      throw new Error(`Failed to fetch ${fileName}: ${response.status}`)
     }
 
-    return await response.json()
+    return await response.text()
   } catch (error) {
-    console.error('API fetch error:', error)
-    throw error
-  }
-}
-
-/**
- * Fetch and decode file content from GitHub API
- */
-export const fetchFileContent = async (
-  postSlug: string,
-  fileName: string,
-): Promise<string> => {
-  const apiUrl = `${Settings.preview.githubApiBaseUrl}/${postSlug}/${fileName}?ref=${Settings.preview.allowedBranch}`
-  const response = await secureApiFetch(apiUrl)
-
-  if (!response.content) {
+    console.error(`Error fetching ${fileName}:`, error)
     throw new Error(`No ${fileName} content found`)
   }
-
-  return atob(response.content)
 }
 
 /**
@@ -88,7 +79,7 @@ export const fetchHeroImage = async (
     extension: string,
   ): Promise<string | null> => {
     try {
-      const heroImageUrl = `${Settings.preview.githubApiBaseUrl}/${postSlug}/hero.${extension}?ref=${Settings.preview.allowedBranch}`
+      const heroImageUrl = getRawUrl(postSlug, `hero.${extension}`)
       const response = await fetch(heroImageUrl, {
         headers: {
           'User-Agent': 'CoderRocks-Preview/1.0',
@@ -96,8 +87,7 @@ export const fetchHeroImage = async (
       })
 
       if (response.ok) {
-        const data = await response.json()
-        return data.download_url || null
+        return heroImageUrl
       }
 
       return null

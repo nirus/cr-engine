@@ -32,6 +32,7 @@ export const Settings = {
     allowedBranch: 'publish',
     githubApiBaseUrl: 'https://api.github.com/repos/nirus/coder-rocks/contents',
     githubUserApiUrl: 'https://api.github.com/users',
+    rawBaseUrl: 'https://raw.githubusercontent.com/nirus/coder-rocks/publish',
   },
 
   legendImageSize: {

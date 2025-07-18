@@ -2,11 +2,12 @@
 import BlogPost from '@component/Content/BlogPost.astro'
 import { Markdown } from '@astropub/md'
 import type { PostData } from '@utils/preview/githubApi'
+import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
 
 export interface Props {
   postData: PostData | null
   postContent: string
-  authorDetails: any
+  authorDetails: AuthorProps | null
   heroImageUrl: string | null
   error: string
 }
@@ -35,6 +36,7 @@ const { postData, postContent, authorDetails, heroImageUrl, error } =
         pubDate={postData.pubDate}
         youtube={postData.youtube}
         author={authorDetails}
+        legendImage={heroImageUrl}
       >
         <Markdown of={postContent} />
       </BlogPost>

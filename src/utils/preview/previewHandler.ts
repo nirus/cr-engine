@@ -1,3 +1,4 @@
+import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
 import { Settings } from '@config/site'
 import { fetchAuthor } from '@request/fetchAuthor'
 import {
@@ -13,10 +14,13 @@ import {
   validateGitHubUrl,
 } from './validation'
 
+// Destructure preview settings from Settings object
+const { allowedRepo, allowedBranch } = Settings.preview
+
 export interface PreviewResult {
   postData: PostData | null
   postContent: string
-  authorDetails: any
+  authorDetails: AuthorProps | null
   heroImageUrl: string | null
   error: string
   showForm: boolean
@@ -31,9 +35,9 @@ export const handleExampleUrl = (
   if (!exampleParam) return null
 
   const exampleUrls = {
-    '1': `${Settings.preview.allowedRepo}/tree/${Settings.preview.allowedBranch}/apollo-graphql-client-abort-pending-requests`,
-    '2': `${Settings.preview.allowedRepo}/tree/${Settings.preview.allowedBranch}/reverse-engineering-popunder-js-chrome`,
-    '3': `${Settings.preview.allowedRepo}/tree/${Settings.preview.allowedBranch}/storybook-js-custom-webpack-setup-for-scss`,
+    '1': `${allowedRepo}/tree/${allowedBranch}/apollo-graphql-client-abort-pending-requests`,
+    '2': `${allowedRepo}/tree/${allowedBranch}/reverse-engineering-popunder-js-chrome`,
+    '3': `${allowedRepo}/tree/${allowedBranch}/storybook-js-custom-webpack-setup-for-scss`,
   }
 
   return exampleUrls[exampleParam as keyof typeof exampleUrls] || null
@@ -61,7 +65,7 @@ export const processPreviewUrl = async (
   result.showForm = false
 
   if (!validateGitHubUrl(urlParam)) {
-    result.error = `Invalid URL. Only URLs from ${Settings.preview.allowedRepo}/tree/${Settings.preview.allowedBranch}/ are allowed.`
+    result.error = `Invalid URL. Only URLs from ${allowedRepo}/tree/${allowedBranch}/ are allowed.`
     return result
   }
 
@@ -91,8 +95,9 @@ export const processPreviewUrl = async (
 
     // Fetch hero image
     result.heroImageUrl = await fetchHeroImage(postSlug)
-  } catch (err: any) {
-    result.error = `Failed to load post: ${err.message}`
+  } catch (err) {
+    const error = err as Error
+    result.error = `Failed to load post: ${error.message}`
   }
 
   return result
