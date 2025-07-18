@@ -1,0 +1,46 @@
+---
+import { Settings } from '@config/site'
+---
+
+<div class="mx-auto max-w-4xl px-4 py-8">
+  <h1 class="mb-4 text-3xl font-bold">GitHub Post Preview</h1>
+  <p class="mb-4 text-gray-600">
+    Enter a GitHub URL from the coder-rocks publish branch to preview a post:
+  </p>
+
+  <form method="GET" class="mb-6">
+    <div class="mb-4 flex gap-4">
+      <input
+        type="url"
+        name="url"
+        placeholder={`${Settings.preview.allowedRepo}/tree/${Settings.preview.allowedBranch}/apollo-graphql-client-abort-pending-requests`}
+        class="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        required
+      />
+      <button
+        type="submit"
+        class="rounded-lg bg-blue-600 px-6 py-2 text-white hover:bg-blue-700"
+      >
+        Preview
+      </button>
+    </div>
+  </form>
+
+  <div class="text-sm text-gray-500">
+    <p class="mb-2">Example URLs (click to preview):</p>
+    <ul class="list-inside list-disc space-y-1">
+      <li>
+        <a href="/preview?example=1" class="text-blue-600 hover:underline"
+          >Apollo GraphQL Client Abort Pending Requests</a>
+      </li>
+      <li>
+        <a href="/preview?example=2" class="text-blue-600 hover:underline"
+          >Reverse Engineering Popunder JS Chrome</a>
+      </li>
+      <li>
+        <a href="/preview?example=3" class="text-blue-600 hover:underline"
+          >Storybook JS Custom Webpack Setup for SCSS</a>
+      </li>
+    </ul>
+  </div>
+</div>
