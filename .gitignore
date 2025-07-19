@@ -21,4 +21,5 @@ pnpm-debug.log*
 
 # custom repo ignores
 src/pages/posts/
+src/pages/posts/[...page].astro
 .astro/
