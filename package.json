@@ -8,6 +8,7 @@
     "astro:build": "astro build",
     "build": "npm run pub-code:clean && npm run pub-code:link && npm run build:search && npm run astro:build",
     "preview": "astro preview",
+    "preview:cloudflare": "wrangler pages dev ./dist",
     "astro": "astro",
     "rmdir": "node -e \"var fs = require('fs');process.argv.slice(1).map((fpath)=>{ try { fs.rmdirSync(fpath,{recursive: true})} catch(e){console.warn('[ WARNING ] : Folder not found -', fpath)} });process.exit(0);\"",
     "build:clean": "npm run rmdir --silent -- dist",
@@ -68,6 +69,7 @@
     "sass": "^1.54.8",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.3.2",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "wrangler": "^4.25.0"
   }
 }

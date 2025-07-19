@@ -8,6 +8,7 @@ env:
   GA_TAG_ID: ${{vars.GA_TAG_ID}}
   SITE: ${{secrets.SITE}}  
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest

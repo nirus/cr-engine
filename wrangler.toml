@@ -1,0 +1,9 @@
+name = "coder-rocks"
+compatibility_date = "2025-07-19"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "coder-rocks"
+
+[env.preview]
+name = "coder-rocks-preview"
