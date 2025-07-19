@@ -10,7 +10,7 @@ export interface PostData {
 }
 
 // Destructure preview settings from Settings object
-const { allowedRepo, allowedBranch, rawBaseUrl } = Settings.preview
+const { rawBaseUrl } = Settings.preview
 
 /**
  * Get raw GitHub content URL
@@ -91,7 +91,7 @@ export const fetchHeroImage = async (
       }
 
       return null
-    } catch (error) {
+    } catch (_error) {
       return null
     }
   }

@@ -6,22 +6,10 @@ import BaseHead from '@component/Head/BaseHead.astro'
 import Footer from '@component/Footer/Footer.astro'
 import PreviewForm from '@component/Preview/PreviewForm.astro'
 import PreviewContent from '@component/Preview/PreviewContent.astro'
-import {
-  handleExampleUrl,
-  processPreviewUrl,
-} from '@utils/preview/previewHandler'
+import { processPreviewUrl } from '@utils/preview/previewHandler'
 
 // Get URL parameters
 const urlParam = Astro.url.searchParams.get('url')
-const exampleParam = Astro.url.searchParams.get('example')
-
-// Handle example URLs
-if (exampleParam) {
-  const exampleUrl = handleExampleUrl(exampleParam)
-  if (exampleUrl) {
-    return Astro.redirect(`/preview?url=${encodeURIComponent(exampleUrl)}`)
-  }
-}
 
 // Process preview URL and get result
 const previewResult = await processPreviewUrl(urlParam)
@@ -44,19 +32,15 @@ const previewResult = await processPreviewUrl(urlParam)
     <TopBarNav />
 
     <main class="py-12">
-      {
-        previewResult.showForm ? (
-          <PreviewForm />
-        ) : (
-          <PreviewContent
-            postData={previewResult.postData}
-            postContent={previewResult.postContent}
-            authorDetails={previewResult.authorDetails}
-            heroImageUrl={previewResult.heroImageUrl}
-            error={previewResult.error}
-          />
-        )
-      }
+      <PreviewForm />
+
+      <PreviewContent
+        postData={previewResult.postData}
+        postContent={previewResult.postContent}
+        authorDetails={previewResult.authorDetails}
+        heroImageUrl={previewResult.heroImageUrl}
+        error={previewResult.error}
+      />
     </main>
 
     <Footer />

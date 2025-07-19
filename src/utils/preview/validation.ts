@@ -8,7 +8,10 @@ export const validateGitHubUrl = (url: string): boolean => {
 
   // Only allow specific repository and branch
   const allowedPattern = new RegExp(
-    `^${Settings.preview.allowedRepo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/tree/${Settings.preview.allowedBranch}/[a-zA-Z0-9-_]+$`,
+    `^${Settings.preview.allowedRepo.replace(
+      /[.*+?^${}()|[\]\\]/g,
+      '\\$&',
+    )}/tree/[a-zA-Z0-9_][a-zA-Z0-9_.-]*(/[a-zA-Z0-9_-]+)?$`,
   )
   return allowedPattern.test(url)
 }
@@ -23,12 +26,21 @@ export const sanitizeSlug = (slug: string): string => {
 }
 
 /**
- * Extract post slug from GitHub URL
+ * Extract post slug with branch name from GitHub URL
  */
-export const extractPostSlug = (url: string): string => {
-  if (!url) return ''
+export const extractPostSlugWithBranchName = (url: string): string => {
   const parts = url.split('/')
-  return parts[parts.length - 1] || ''
+
+  if (parts.length < 3) {
+    return ''
+  }
+
+  const slug = sanitizeSlug(parts[parts.length - 1])
+  const branch = parts[parts.length - 2]
+  if (!url || !branch || !slug) {
+    return ''
+  }
+  return `${branch}/${slug}`
 }
 
 /**

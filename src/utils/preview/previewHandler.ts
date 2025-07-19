@@ -8,14 +8,13 @@ import {
   type PostData,
 } from './githubApi'
 import {
-  extractPostSlug,
+  extractPostSlugWithBranchName,
   sanitizeAuthor,
-  sanitizeSlug,
   validateGitHubUrl,
 } from './validation'
 
 // Destructure preview settings from Settings object
-const { allowedRepo, allowedBranch } = Settings.preview
+const { allowedRepo } = Settings.preview
 
 export interface PreviewResult {
   postData: PostData | null
@@ -23,24 +22,6 @@ export interface PreviewResult {
   authorDetails: AuthorProps | null
   heroImageUrl: string | null
   error: string
-  showForm: boolean
-}
-
-/**
- * Handle example URL redirects
- */
-export const handleExampleUrl = (
-  exampleParam: string | null,
-): string | null => {
-  if (!exampleParam) return null
-
-  const exampleUrls = {
-    '1': `${allowedRepo}/tree/${allowedBranch}/apollo-graphql-client-abort-pending-requests`,
-    '2': `${allowedRepo}/tree/${allowedBranch}/reverse-engineering-popunder-js-chrome`,
-    '3': `${allowedRepo}/tree/${allowedBranch}/storybook-js-custom-webpack-setup-for-scss`,
-  }
-
-  return exampleUrls[exampleParam as keyof typeof exampleUrls] || null
 }
 
 /**
@@ -55,31 +36,27 @@ export const processPreviewUrl = async (
     authorDetails: null,
     heroImageUrl: null,
     error: '',
-    showForm: true,
   }
 
   if (!urlParam) {
     return result
   }
-
-  result.showForm = false
-
   if (!validateGitHubUrl(urlParam)) {
-    result.error = `Invalid URL. Only URLs from ${allowedRepo}/tree/${allowedBranch}/ are allowed.`
+    result.error = `Invalid URL. Only URLs from ${allowedRepo}/tree/ are allowed.`
     return result
   }
 
   try {
-    const rawSlug = extractPostSlug(urlParam)
-    const postSlug = sanitizeSlug(rawSlug)
+    const rawSlugWithBranch = extractPostSlugWithBranchName(urlParam)
 
-    if (!postSlug) {
+    if (!rawSlugWithBranch) {
       throw new Error('Invalid post slug')
     }
 
     // Fetch post data and content
-    result.postData = await fetchPostClaim(postSlug)
-    result.postContent = await fetchPostMarkdown(postSlug)
+    result.postData = await fetchPostClaim(rawSlugWithBranch)
+
+    result.postContent = await fetchPostMarkdown(rawSlugWithBranch)
 
     // Fetch author data if available
     if (result.postData.author && typeof result.postData.author === 'string') {
@@ -94,7 +71,7 @@ export const processPreviewUrl = async (
     }
 
     // Fetch hero image
-    result.heroImageUrl = await fetchHeroImage(postSlug)
+    result.heroImageUrl = await fetchHeroImage(rawSlugWithBranch)
   } catch (err) {
     const error = err as Error
     result.error = `Failed to load post: ${error.message}`
