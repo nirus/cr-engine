@@ -24,7 +24,11 @@ export const Settings = {
   cr: {
     email: 'mailtto:support@coder.rocks',
     twitter: 'https://twitter.com/coder_rocks',
-    github: 'https://github.com/nirus/coder-rocks',
+  },
+
+  preview: {
+    allowedRepo: 'https://github.com/nirus/coder-rocks',
+    rawBaseUrl: 'https://raw.githubusercontent.com/nirus/coder-rocks',
   },
 
   legendImageSize: {

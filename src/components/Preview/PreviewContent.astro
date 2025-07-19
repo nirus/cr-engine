@@ -1,0 +1,46 @@
+---
+import BlogPost from '@component/Content/BlogPost.astro'
+import { Markdown } from '@astropub/md'
+import type { PostData } from '@utils/preview/githubApi'
+import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
+
+export interface Props {
+  postData: PostData | null
+  postContent: string
+  authorDetails: AuthorProps | null
+  heroImageUrl: string | null
+  error: string
+}
+
+const { postData, postContent, authorDetails, heroImageUrl, error } =
+  Astro.props
+---
+
+<div class="mx-auto max-w-5xl">
+  {
+    error ? (
+      <div class="mb-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
+        <p class="font-bold">Error:</p>
+        <p>{error}</p>
+      </div>
+    ) : postData ? (
+      <BlogPost
+        title={postData.title}
+        tags={postData.tags || []}
+        pubDate={postData.pubDate}
+        youtube={postData.youtube}
+        author={authorDetails}
+        legendImage={heroImageUrl}
+      >
+        <Markdown of={postContent} />
+      </BlogPost>
+    ) : (
+      <div class="text-center">
+        <p class="text-gray-600">
+          Preview post from GitHub publication repository how it will look like
+          on the website.
+        </p>
+      </div>
+    )
+  }
+</div>
