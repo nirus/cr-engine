@@ -12,9 +12,6 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   adapter: cloudflare({
     imageService: 'passthrough',
-    routes: {
-      exclude: ['/preview'],
-    },
   }),
   image: {
     service: passthroughImageService(),
