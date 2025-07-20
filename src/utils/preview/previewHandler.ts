@@ -29,8 +29,10 @@ export interface PreviewResult {
  */
 export const processPreviewUrl = async (
   urlParam: string | null,
-  userAgent: string | null,
+  request: Request,
 ): Promise<PreviewResult> => {
+  const userAgent = request.headers.get('user-agent')
+
   const result: PreviewResult = {
     postData: null,
     postContent: '',
@@ -55,9 +57,13 @@ export const processPreviewUrl = async (
     }
 
     // Fetch post data and content
-    result.postData = await fetchPostClaim(rawSlugWithBranch)
+    result.postData = await fetchPostClaim(rawSlugWithBranch, {
+      headers: request.headers,
+    })
 
-    result.postContent = await fetchPostMarkdown(rawSlugWithBranch)
+    result.postContent = await fetchPostMarkdown(rawSlugWithBranch, {
+      headers: request.headers,
+    })
 
     // Fetch author data if available
     if (result.postData.author && typeof result.postData.author === 'string') {
