@@ -29,6 +29,7 @@ export interface PreviewResult {
  */
 export const processPreviewUrl = async (
   urlParam: string | null,
+  userAgent: string | null,
 ): Promise<PreviewResult> => {
   const result: PreviewResult = {
     postData: null,
@@ -64,6 +65,7 @@ export const processPreviewUrl = async (
       try {
         result.authorDetails = await fetchAuthor({
           author: sanitizedAuthor,
+          userAgent,
         }).then(details => (details?.name ? details : null))
       } catch (error) {
         console.warn('Could not fetch author data:', error)

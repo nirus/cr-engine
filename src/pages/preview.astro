@@ -11,8 +11,12 @@ import { processPreviewUrl } from '@utils/preview/previewHandler'
 // Get URL parameters
 const urlParam = Astro.url.searchParams.get('url')
 
+const request = Astro.request
+
+const userAgent = request.headers.get('user-agent')
+
 // Process preview URL and get result
-const previewResult = await processPreviewUrl(urlParam)
+const previewResult = await processPreviewUrl(urlParam, userAgent)
 ---
 
 <html lang="en">

@@ -8,7 +8,7 @@
     "astro:build": "astro build",
     "build": "npm run pub-code:clean && npm run pub-code:link && npm run build:search && npm run astro:build",
     "preview": "astro preview",
-    "preview:cloudflare": "wrangler pages dev ./dist",
+    "preview:cf": "wrangler pages dev ./dist",
     "astro": "astro",
     "rmdir": "node -e \"var fs = require('fs');process.argv.slice(1).map((fpath)=>{ try { fs.rmdirSync(fpath,{recursive: true})} catch(e){console.warn('[ WARNING ] : Folder not found -', fpath)} });process.exit(0);\"",
     "build:clean": "npm run rmdir --silent -- dist",

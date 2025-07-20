@@ -23,3 +23,4 @@ pnpm-debug.log*
 src/pages/posts/
 .astro/
 .wrangler/
+.dev.vars
