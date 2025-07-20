@@ -1,6 +1,6 @@
 ---
 import BlogPost from '@component/Content/BlogPost.astro'
-import { markdown } from '@astropub/md'
+import { Markdown, markdown } from '@astropub/md'
 import type { PostData } from '@utils/preview/githubApi'
 import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
 
@@ -15,13 +15,12 @@ export interface Props {
 const { postData, postContent, authorDetails, heroImageUrl, error } =
   Astro.props
 
-let postContentMarkdown = null
+const testMarkdown = await markdown(postContent, {
+  syntaxHighlight: false,
+})
 
-try {
-  postContentMarkdown = await markdown(postContent)
-} catch (error) {
-  console.error('Error parsing markdown:', error)
-}
+console.log('testMarkdown ----->', testMarkdown)
+
 ---
 
 <div class="mx-auto max-w-5xl">
@@ -40,7 +39,7 @@ try {
         author={authorDetails}
         legendImage={heroImageUrl}
       >
-        {postContentMarkdown ?? 'FUCKED!!'}
+        <Markdown of={postContent} />
       </BlogPost>
     ) : (
       <div class="text-center">

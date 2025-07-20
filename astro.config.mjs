@@ -19,8 +19,9 @@ export default defineConfig({
   integrations: [sitemap(), PostsBundleProcess(), markdownIntegration()],
   site: 'https://coder.rocks',
   markdown: {
-    extendDefaultPlugins: true,
-    syntaxHighlight: false,
+    shikiConfig: {
+      wrap: null,
+    },
     /**
      * - Adds 'claim.json' to markdown bundle process.
      * - fixes the path of image file referenced in markdown to absolute one.
