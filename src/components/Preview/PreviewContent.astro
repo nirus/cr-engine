@@ -15,7 +15,11 @@ export interface Props {
 const { postData, postContent, authorDetails, heroImageUrl, error } =
   Astro.props
 
-const testMarkdown = await markdown(postContent)
+const testMarkdown = await markdown(`
+  # Hi, there!
+
+  Welcome to my _website_.
+`)
 
 console.log('testMarkdown ----->', testMarkdown)
 
@@ -37,7 +41,7 @@ console.log('testMarkdown ----->', testMarkdown)
         author={authorDetails}
         legendImage={heroImageUrl}
       >
-        <Markdown of={postContent} />
+        {/* <Markdown of={postContent} /> */}
       </BlogPost>
     ) : (
       <div class="text-center">
