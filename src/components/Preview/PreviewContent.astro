@@ -15,9 +15,7 @@ export interface Props {
 const { postData, postContent, authorDetails, heroImageUrl, error } =
   Astro.props
 
-const testMarkdown = await markdown(postContent, {
-  syntaxHighlight: false,
-})
+const testMarkdown = await markdown(postContent)
 
 console.log('testMarkdown ----->', testMarkdown)
 
