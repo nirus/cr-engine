@@ -1,5 +1,4 @@
 ---
-export const prerender = false
 
 import TopBarNav from '@component/Navigation/TopBar.astro'
 import BaseHead from '@component/Head/BaseHead.astro'
@@ -7,10 +6,11 @@ import Footer from '@component/Footer/Footer.astro'
 import PreviewForm from '@component/Preview/PreviewForm.astro'
 import PreviewContent from '@component/Preview/PreviewContent.astro'
 import { processPreviewUrl } from '@utils/preview/previewHandler'
-import type { ActionAPIContext } from 'astro:actions'
+
+export const prerender = false
 // Get URL parameters
-// const urlParam = Astro.url.searchParams.get('url')
-const urlParam = 'https://github.com/nirus/coder-rocks/tree/test-branch/test-post'
+const urlParam = Astro.url.searchParams.get('url')
+
 
 const request = Astro.request
 
