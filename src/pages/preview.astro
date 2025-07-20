@@ -7,9 +7,19 @@ import Footer from '@component/Footer/Footer.astro'
 import PreviewForm from '@component/Preview/PreviewForm.astro'
 import PreviewContent from '@component/Preview/PreviewContent.astro'
 import { processPreviewUrl } from '@utils/preview/previewHandler'
+import type { ActionAPIContext } from 'astro:actions'
 
 // Get URL parameters
 const urlParam = Astro.url.searchParams.get('url')
+
+export async function onRequest(context: ActionAPIContext) {
+  const { request } = context
+
+  const url = new URL(request.url)
+  const urlParam = url.searchParams.get('url')
+
+  console.log('urlParam ----->', urlParam)
+}
 
 const request = Astro.request
 
