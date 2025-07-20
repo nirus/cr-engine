@@ -30,9 +30,12 @@ const { postData, postContent, authorDetails, heroImageUrl, error } =
         pubDate={postData.pubDate}
         youtube={postData.youtube}
         author={authorDetails}
-        legendImage={heroImageUrl}
-      >
-        <Markdown of={postContent} />
+        legendImage={heroImageUrl}>
+        <Markdown
+          of={`# Hi, there!
+
+Welcome to my _website_.`}
+        />
       </BlogPost>
     ) : (
       <div class="text-center">
