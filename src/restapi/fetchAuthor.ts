@@ -5,8 +5,10 @@ import { author as mockAuthorResp } from './stubs/gitauthor'
 
 export async function fetchAuthor({
   author,
+  userAgent,
 }: {
   author: string
+  userAgent: string | null
 }): Promise<AuthorProps | null> {
   const { GITHUB_TOKEN = null, PROD } = import.meta.env
   const isValid: boolean = githubUserNameRegex.test(author)
@@ -17,6 +19,7 @@ export async function fetchAuthor({
         headers: {
           /* TODO: make this token a secret */
           Authorization: `token ${GITHUB_TOKEN}`,
+          'User-Agent': userAgent || 'coder-rocks',
         },
       })
 

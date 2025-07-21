@@ -25,32 +25,36 @@ const getRawUrl = (postSlug: string, fileName: string): string => {
 export const fetchFileContent = async (
   postSlug: string,
   fileName: string,
+  request: Pick<Request, 'headers'>,
 ): Promise<string> => {
   const rawUrl = getRawUrl(postSlug, fileName)
 
   try {
     const response = await fetch(rawUrl, {
-      headers: {
-        'User-Agent': 'CoderRocks-Preview/1.0',
-      },
+      headers: request.headers,
     })
 
     if (!response.ok) {
       throw new Error(`Failed to fetch ${fileName}: ${response.status}`)
     }
 
-    return await response.text()
+    const content = await response.text()
+
+    return content
   } catch (error) {
     console.error(`Error fetching ${fileName}:`, error)
-    throw new Error(`No ${fileName} content found`)
+    return ''
   }
 }
 
 /**
  * Fetch post claim.json data
  */
-export const fetchPostClaim = async (postSlug: string): Promise<PostData> => {
-  const claimContent = await fetchFileContent(postSlug, 'claim.json')
+export const fetchPostClaim = async (
+  postSlug: string,
+  request: Pick<Request, 'headers'>,
+): Promise<PostData> => {
+  const claimContent = await fetchFileContent(postSlug, 'claim.json', request)
   const postData = JSON.parse(claimContent)
 
   // Validate required fields
@@ -64,8 +68,12 @@ export const fetchPostClaim = async (postSlug: string): Promise<PostData> => {
 /**
  * Fetch post markdown content
  */
-export const fetchPostMarkdown = async (postSlug: string): Promise<string> => {
-  return await fetchFileContent(postSlug, 'index.md')
+export const fetchPostMarkdown = async (
+  postSlug: string,
+  request: Pick<Request, 'headers'>,
+): Promise<string> => {
+  const content = await fetchFileContent(postSlug, 'index.md', request)
+  return content
 }
 
 /**
