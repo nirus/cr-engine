@@ -19,15 +19,15 @@ export default defineConfig({
   integrations: [sitemap(), PostsBundleProcess(), markdownIntegration()],
   site: 'https://coder.rocks',
   markdown: {
-    shikiConfig: {
-      wrap: null,
-    },
-    /**
-     * - Adds 'claim.json' to markdown bundle process.
-     * - fixes the path of image file referenced in markdown to absolute one.
-     */
-    remarkPlugins: [claimMiddleware],
-    rehypePlugins: [transformCustomTag],
+    // shikiConfig: {
+    //   wrap: null,
+    // },
+    // /**
+    //  * - Adds 'claim.json' to markdown bundle process.
+    //  * - fixes the path of image file referenced in markdown to absolute one.
+    //  */
+    // remarkPlugins: [claimMiddleware],
+    // rehypePlugins: [transformCustomTag],
   },
   vite: {
     resolve: {
