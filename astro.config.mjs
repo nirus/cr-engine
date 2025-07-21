@@ -24,7 +24,7 @@ export default defineConfig({
      * - Adds 'claim.json' to markdown bundle process.
      * - fixes the path of image file referenced in markdown to absolute one.
      */
-    // remarkPlugins: [claimMiddleware],
+    remarkPlugins: [claimMiddleware],
     // rehypePlugins: [transformCustomTag],
   },
   vite: {
