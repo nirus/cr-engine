@@ -10,15 +10,15 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: 'passthrough',
+  }),
   image: {
     service: passthroughImageService(),
   },
   integrations: [sitemap(), PostsBundleProcess(), markdownIntegration()],
   site: 'https://coder.rocks',
   markdown: {
-    extendDefaultPlugins: true,
     shikiConfig: {
       wrap: null,
     },

@@ -1,6 +1,4 @@
 ---
-export const prerender = false
-
 import TopBarNav from '@component/Navigation/TopBar.astro'
 import BaseHead from '@component/Head/BaseHead.astro'
 import Footer from '@component/Footer/Footer.astro'
@@ -8,11 +6,13 @@ import PreviewForm from '@component/Preview/PreviewForm.astro'
 import PreviewContent from '@component/Preview/PreviewContent.astro'
 import { processPreviewUrl } from '@utils/preview/previewHandler'
 
+export const prerender = false
+
 // Get URL parameters
 const urlParam = Astro.url.searchParams.get('url')
 
 // Process preview URL and get result
-const previewResult = await processPreviewUrl(urlParam)
+const previewResult = await processPreviewUrl(urlParam, Astro.request)
 ---
 
 <html lang="en">

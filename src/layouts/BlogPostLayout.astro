@@ -7,6 +7,8 @@ import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
 import { fetchAuthor } from '@request/fetchAuthor'
 import blogSlugToLegendImageData from '../layouts/BlogHero'
 
+export const prerender = true
+
 interface Props {
   content: {
     lang: string // example: "en"
@@ -27,9 +29,12 @@ const { title, description, pubDate, slug, youtube, author, tags } = content
 
 const legendImage = slug ? blogSlugToLegendImageData(slug) : null
 
-const authorDetails: AuthorProps | null = await fetchAuthor({ author }).then(
-  details => (details?.name ? details : null), // Prevents bad request and just 'nullify'
-)
+const userAgent = 'cr-engine@v1.0.0'
+
+const authorDetails: AuthorProps | null = await fetchAuthor({
+  author,
+  userAgent,
+}).then(details => (details?.name ? details : null))
 ---
 
 <html lang={content.lang || 'en'}>
