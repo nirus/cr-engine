@@ -31,12 +31,6 @@ const legendImage = slug ? blogSlugToLegendImageData(slug) : null
 
 const userAgent = Astro.request.headers.get('user-agent')
 
-// Cache the response for 5 minutes
-Astro.response.headers.set(
-  'Cache-Control',
-  'public, max-age=300, s-maxage=3600',
-)
-
 const authorDetails: AuthorProps | null = await fetchAuthor({
   author,
   userAgent,
