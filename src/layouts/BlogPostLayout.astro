@@ -29,7 +29,7 @@ const { title, description, pubDate, slug, youtube, author, tags } = content
 
 const legendImage = slug ? blogSlugToLegendImageData(slug) : null
 
-const userAgent = Astro.request.headers.get('user-agent')
+const userAgent = 'cr-engine@v1.0.0'
 
 const authorDetails: AuthorProps | null = await fetchAuthor({
   author,
