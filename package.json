@@ -34,7 +34,7 @@
     ]
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.0",
+    "@astrojs/cloudflare": "^12.6.6",
     "@astrojs/rss": "4.0.12",
     "@astrojs/sitemap": "3.4.1",
     "@astropub/md": "^1.0.0",
