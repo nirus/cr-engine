@@ -28,7 +28,10 @@ const previewResult = await processPreviewUrl(urlParam, Astro.request)
     />
   </head>
 
-  <body>
+  <body
+    class="dark:bg-slate-900 dark:text-slate-100"
+    data-pagefind-ignore="all"
+  >
     <TopBarNav />
 
     <main class="py-12">

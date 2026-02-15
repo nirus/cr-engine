@@ -5,33 +5,18 @@ import HomeHead from '@component/Head/HomeHead.astro'
 import Card from '@component/Content/Card.astro'
 import Footer from '@component/Footer/Footer.astro'
 import { Settings } from '@config/site'
-import type { Props as BlogPostProps } from '@component/Content/BlogPost.astro'
+import { getCollection } from 'astro:content'
 
-export interface MarkdownFrontmatter {
-  pubDate: Date
-  url: string
-  frontmatter: BlogPostProps
-  file: string
-}
 const { title, tagline, description } = Settings.site
-const allPosts = import.meta.glob<MarkdownFrontmatter>('./posts/**/*.md')
 
-const extractedPosts = await Promise.all(
-  Object.values(allPosts).map(
-    async (value: () => Promise<MarkdownFrontmatter>) => {
-      const post = await value()
-      return post
-    },
-  ),
-)
+const allPosts = await getCollection('posts')
 
-const sortedPosts = extractedPosts
-  .slice(0, 3)
+const sortedPosts = allPosts
   .sort(
     (a, b) =>
-      new Date(b.frontmatter.pubDate).valueOf() -
-      new Date(a.frontmatter.pubDate).valueOf(),
+      new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
   )
+  .slice(0, 3)
 ---
 
 <html lang="en">
@@ -39,7 +24,10 @@ const sortedPosts = extractedPosts
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="font-body personality-casual bg-white leading-normal text-black">
+  <body
+    class="font-body personality-casual bg-white leading-normal text-black dark:bg-slate-900 dark:text-slate-100"
+    data-pagefind-ignore="all"
+  >
     <TopBarNav />
 
     <main class="py-12">
@@ -66,7 +54,7 @@ const sortedPosts = extractedPosts
       <a
         href="/posts"
         data-test="see-all-link"
-        class="m-2 border-b-2 border-b-white hover:border-b-gray-800"
+        class="m-2 border-b-2 border-b-white hover:border-b-gray-800 dark:border-b-slate-900 dark:hover:border-b-slate-200"
       >
         View All &nbsp;&rarr;
       </a>

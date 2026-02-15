@@ -2,18 +2,18 @@
 
 branch=$1
 
-git clone --no-checkout https://github.com/nirus/coder-rocks.git src/pages/posts
+git clone --no-checkout https://github.com/nirus/coder-rocks.git src/content/posts
 
-git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts sparse-checkout init --cone
+git --git-dir=src/content/posts/.git --work-tree=src/content/posts sparse-checkout init --cone
 
-rm -rf src/pages/posts/.git/info/sparse-checkout
+rm -rf src/content/posts/.git/info/sparse-checkout
 
-touch src/pages/posts/.git/info/sparse-checkout
+touch src/content/posts/.git/info/sparse-checkout
 
-echo "/* \n!README.md" >> src/pages/posts/.git/info/sparse-checkout
+echo "/* \n!README.md" >> src/content/posts/.git/info/sparse-checkout
 
 if [[ -n "$branch" ]]; then
-    git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts checkout $branch
+    git --git-dir=src/content/posts/.git --work-tree=src/content/posts checkout $branch
 else
-    git --git-dir=src/pages/posts/.git --work-tree=src/pages/posts checkout publish
+    git --git-dir=src/content/posts/.git --work-tree=src/content/posts checkout publish
 fi

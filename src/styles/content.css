@@ -41,7 +41,7 @@
   }
 
   > p {
-    @apply mb-6 text-lg leading-normal text-stone-700;
+    @apply mb-6 text-lg leading-normal text-stone-700 dark:text-slate-300;
   }
 
   > blockquote {
@@ -57,11 +57,11 @@
   }
 
   a {
-    @apply font-normal underline text-sky-600;
+    @apply font-normal underline text-sky-600 dark:text-sky-400;
     text-decoration: none;
 
     &:hover {
-      @apply border-b-2 border-gray-800 text-black;
+      @apply border-b-2 border-gray-800 text-black dark:border-slate-300 dark:text-slate-100;
     }
   }
 
@@ -92,7 +92,7 @@
   }
 
   table {
-    @apply mb-8 w-full border-collapse text-left text-sm border-2 border-black;
+    @apply mb-8 w-full border-collapse text-left text-sm border-2 border-black dark:border-slate-500;
 
     th {
       @apply border-t-4 border-b p-4 text-xl font-bold;
