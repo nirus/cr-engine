@@ -20,7 +20,7 @@ pnpm-debug.log*
 .DS_Store
 
 # custom repo ignores
-src/pages/posts/
+src/content/posts/
 .astro/
 .wrangler/
 .dev.vars
