@@ -2,14 +2,15 @@ import type { Loader } from 'astro/loaders'
 import { defineCollection, z } from 'astro:content'
 import { readdir, readFile } from 'node:fs/promises'
 import { join, relative } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 function claimJsonLoader(): Loader {
-  const postsDir = './src/content/posts'
-
   return {
     name: 'claim-json-loader',
     async load(context) {
-      const { store, logger, parseData, generateDigest } = context
+      const { store, logger, parseData, generateDigest, config } = context
+      const root = fileURLToPath(config.root)
+      const postsDir = join(root, 'src/content/posts')
 
       let entries: string[]
       try {
@@ -72,7 +73,7 @@ function claimJsonLoader(): Loader {
           id,
           data,
           body: mdRaw,
-          filePath: relative('.', mdPath),
+          filePath: relative(root, mdPath),
           digest,
           deferredRender: true,
         })
