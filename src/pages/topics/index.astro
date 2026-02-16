@@ -1,0 +1,80 @@
+---
+import BaseHead from '@component/Head/BaseHead.astro'
+import TopBarNav from '@component/Navigation/TopBar.astro'
+import HomeHead from '@component/Head/HomeHead.astro'
+import Footer from '@component/Footer/Footer.astro'
+import { Settings } from '@config/site'
+import { normalizeTag } from '@utils/tags'
+import { collectionPageJsonLd } from '@utils/jsonld'
+import { getCollection } from 'astro:content'
+
+const seoTitle = `Topics | ${Settings.site.title}`
+const seoDescription =
+  'Browse all topics on Coder Rocks — find articles by subject across AI-assisted development, coding, and modern engineering.'
+
+const allPosts = await getCollection('posts')
+
+const tagCounts = new Map<string, { display: string; count: number }>()
+for (const post of allPosts) {
+  const tags = post.data.tags
+  if (!tags) continue
+  for (const tag of tags) {
+    const slug = normalizeTag(tag)
+    const existing = tagCounts.get(slug)
+    if (existing) {
+      existing.count++
+    } else {
+      tagCounts.set(slug, { display: tag, count: 1 })
+    }
+  }
+}
+
+const sortedTags = [...tagCounts.entries()].sort(
+  (a, b) => b[1].count - a[1].count,
+)
+
+const jsonLd = collectionPageJsonLd({
+  name: 'Topics',
+  description: seoDescription,
+  url: '/topics/',
+})
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={seoTitle} description={seoDescription} jsonLd={jsonLd} />
+  </head>
+
+  <body
+    class="font-body personality-casual bg-white leading-normal text-black dark:bg-slate-900 dark:text-slate-100"
+    data-pagefind-ignore="all"
+  >
+    <TopBarNav />
+
+    <main class="py-6 lg:py-10">
+      <article class="mx-auto max-w-6xl px-3">
+        <HomeHead tagline="Topics" showLogo={true} showHeading={true} />
+        <section
+          class="grid grid-cols-2 gap-4 py-8 md:grid-cols-3 lg:grid-cols-4"
+        >
+          {
+            sortedTags.map(([slug, { display, count }]) => (
+              <a
+                href={`/topics/${slug}`}
+                class="group flex flex-col items-center rounded-xl border border-neutral-200 bg-white px-4 py-6 text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-sky-300 hover:shadow-md dark:border-slate-600 dark:bg-slate-800"
+              >
+                <span class="text-lg font-semibold text-zinc-800 capitalize group-hover:text-sky-600 dark:text-slate-100">
+                  {display}
+                </span>
+                <span class="mt-1 text-sm text-zinc-500 dark:text-slate-400">
+                  {count} {count === 1 ? 'article' : 'articles'}
+                </span>
+              </a>
+            ))
+          }
+        </section>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -14,7 +14,12 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   trailingSlash: 'never',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+    }),
+  ],
   site: 'https://coder.rocks',
   markdown: {
     shikiConfig: {

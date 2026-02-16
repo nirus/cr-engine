@@ -83,12 +83,22 @@ const parsedDay = dayjs(pubDate).format('LL')
   </section>
   <div class="inline-flex w-full flex-grow-1 justify-center pb-3 align-middle">
     <div class="w-full px-2 text-sm">
-      Published on <p class="font-semibold">{parsedDay}</p>
+      Published on
+      <time datetime={pubDate} class="block font-semibold">{parsedDay}</time>
     </div>
-    <div class="w-full truncate px-2 text-right text-sm">
+    <div class="w-full px-2 text-right text-sm">
       Tags
-      <p class="truncate font-semibold capitalize">
-        {tags.length ? tags.slice(0, 4).join(', ') : tags[0]}
+      <p class="flex flex-wrap justify-end gap-2 font-semibold capitalize">
+        {
+          (tags.length ? tags.slice(0, 4) : [tags[0]]).map(tag => (
+            <a
+              href={`/topics/${tag.toLowerCase().trim().replace(/\s+/g, '-')}`}
+              class="text-sky-600 hover:underline"
+            >
+              {tag}
+            </a>
+          ))
+        }
       </p>
     </div>
   </div>

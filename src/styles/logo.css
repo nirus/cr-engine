@@ -5,5 +5,5 @@ h1.coder-rocks-head-title {
 }
 
 p.coder-rocks-tagline {
-  @apply text-lg font-light;
+  @apply text-lg font-light tracking-wide text-zinc-500;
 }

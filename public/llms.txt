@@ -1,0 +1,28 @@
+# Coder Rocks — The Agentic Coding Hub
+
+> Coder Rocks is a technical content hub focused on AI-assisted development, autonomous coding agents, and modern software engineering.
+
+## Content
+
+Articles covering agentic coding, AI developer tools, programming languages, frameworks, and software engineering best practices.
+
+## URLs
+
+- Homepage: https://coder.rocks
+- All Articles: https://coder.rocks/posts
+- Topics: https://coder.rocks/topics
+- Search: https://coder.rocks/search
+- RSS Feed: https://coder.rocks/rss.xml
+- Sitemap: https://coder.rocks/sitemap.xml
+
+## Structure
+
+- /posts/{slug}/ — Individual blog posts with technical content
+- /topics/{tag}/ — Topic pages grouping articles by subject
+- /search — Full-text search across all articles
+
+## Contact
+
+- Website: https://coder.rocks
+- Twitter: https://twitter.com/coder_rocks
+- Email: support@coder.rocks
