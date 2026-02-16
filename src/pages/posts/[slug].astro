@@ -7,11 +7,11 @@ import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
 import { fetchAuthor } from '@request/fetchAuthor'
 import blogSlugToLegendImageData from '@layouts/BlogHero'
 import { getCollection, render } from 'astro:content'
-import type { GetStaticPathsResult } from 'astro'
+import type { InferGetStaticPropsType } from 'astro'
 
 export const prerender = true
 
-export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+export async function getStaticPaths() {
   const allPosts = await getCollection('posts')
   return allPosts.map(post => {
     const slug = post.id.replace(/\/index$/, '')
@@ -22,7 +22,8 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
   })
 }
 
-const { post } = Astro.props
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+const { post }: Props = Astro.props
 const { title, description, pubDate, youtube, author, tags } = post.data
 const slug = post.id.replace(/\/index$/, '')
 

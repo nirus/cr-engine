@@ -1,3 +1,5 @@
+name: Deploy to Cloudflare Pages
+
 on:
   push:
     branches:
@@ -33,6 +35,9 @@ jobs:
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline
+
+      - name: Lint
+        run: yarn lint
 
       - name: Test
         run: yarn test

@@ -32,7 +32,8 @@
   },
   "lint-staged": {
     "*.{js,ts,mjs,cjs,json,astro}": [
-      "yarn prettier:write"
+      "prettier --write --plugin-search-dir=. --config .prettierrc.js",
+      "eslint --fix"
     ]
   },
   "dependencies": {

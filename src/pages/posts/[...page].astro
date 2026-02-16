@@ -7,7 +7,7 @@ import Footer from '@component/Footer/Footer.astro'
 import Paginator from '@component/Content/Paginator.astro'
 import { Settings } from '@config/site'
 import { getCollection } from 'astro:content'
-import type { GetStaticPathsOptions } from 'astro'
+import type { GetStaticPathsOptions, InferGetStaticPropsType } from 'astro'
 
 export const prerender = true
 
@@ -22,7 +22,8 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   return paginate(sortedPosts, { pageSize: 21 })
 }
 
-const { page } = Astro.props
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+const { page }: Props = Astro.props
 const pageDescription = `page [ ${page.currentPage} ] of all articles`
 const seoTitle = `Articles | ${Settings.site.title}`
 const seoDescription =
@@ -52,7 +53,7 @@ const seoDescription =
           data-test="articles-section"
         >
           {
-            page.data.map((post: (typeof page.data)[0]) => (
+            page.data.map(post => (
               <div class="col-span-1">
                 <Card post={post} />
               </div>
