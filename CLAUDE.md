@@ -311,6 +311,28 @@ yarn run pub-code:clean && yarn run pub-code:link
 2. **Content Not Loading**: Verify content repository is properly cloned
 3. **Build Errors**: Check sparse checkout configuration and dependencies
 
+### Preview Deployment (Cloudflare Pages)
+
+Push to `demo/**` branches to deploy previews without affecting production:
+```bash
+# Deploy
+git push origin feat/my-feature:demo/my-feature
+
+# Monitor build and get deployment URL
+gh run list --branch demo/my-feature --limit 1
+gh run watch <run-id>
+gh run view <run-id> --log 2>&1 | grep "Deployment complete"
+# Preview URL: https://demo-my-feature.coder-rocks.pages.dev
+
+# Cleanup
+git push origin --delete demo/my-feature
+```
+
+### Common CI Issues
+- **Missing page routes**: `src/pages/posts/[slug].astro` and `[...page].astro` must be committed (not just local)
+- **`UnknownContentCollectionError`**: Custom loaders with `deferredRender: true` must call `store.addModuleImport(filePath)` after `store.set()` — Astro's digest cache skips module registration on cache hits
+- **Pagefind indexes 0 pages**: Post HTML not generated — verify `getCollection('posts')` returns entries and page routes exist
+
 ## Key Dependencies
 
 - `@astrojs/rss` - RSS feed generation
