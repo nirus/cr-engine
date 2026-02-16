@@ -12,6 +12,8 @@ function claimJsonLoader(): Loader {
       const root = fileURLToPath(config.root)
       const postsDir = join(root, 'src/content/posts')
 
+      console.log(`[claim-json-loader] root=${root} postsDir=${postsDir}`)
+
       let entries: string[]
       try {
         entries = await readdir(postsDir, { withFileTypes: true }).then(d =>
@@ -19,7 +21,9 @@ function claimJsonLoader(): Loader {
             .filter(e => e.isDirectory() && !e.name.startsWith('.'))
             .map(e => e.name),
         )
-      } catch {
+        console.log(`[claim-json-loader] found ${entries.length} dirs: ${entries.join(', ')}`)
+      } catch (err) {
+        console.log(`[claim-json-loader] readdir failed: ${err}`)
         logger.warn(`Posts directory not found: ${postsDir}`)
         return
       }
