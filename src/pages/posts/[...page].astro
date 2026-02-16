@@ -27,12 +27,17 @@ const { page }: Props = Astro.props
 const pageDescription = `page [ ${page.currentPage} ] of all articles`
 const seoTitle = `Articles | ${Settings.site.title}`
 const seoDescription =
-  'Read all the articles written on Coder Rocks. Happy coding!'
+  'Browse all articles on Coder Rocks — the agentic coding hub for AI-assisted development and modern engineering.'
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={seoTitle} description={seoDescription} />
+    <BaseHead
+      title={seoTitle}
+      description={seoDescription}
+      paginationPrev={page.url.prev || undefined}
+      paginationNext={page.url.next || undefined}
+    />
   </head>
 
   <body

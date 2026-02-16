@@ -1,5 +1,6 @@
 ---
 import HomeIcon from '@component/VectorIcons/HomeIcon.astro'
+import TopicsIcon from '@component/VectorIcons/TopicsIcon.astro'
 import SubmitIcon from '@component/VectorIcons/SubmitIcon.astro'
 import SearchIcon from '@component/VectorIcons/SearchIcon.astro'
 import type { JSX } from 'astro/jsx-runtime'
@@ -15,6 +16,11 @@ const links: Links = [
     name: 'Home',
     href: '/',
     icon: HomeIcon,
+  },
+  {
+    name: 'Topics',
+    href: '/topics',
+    icon: TopicsIcon,
   },
   {
     name: 'Submit',

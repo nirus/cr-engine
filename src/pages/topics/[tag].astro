@@ -1,0 +1,103 @@
+---
+import BaseHead from '@component/Head/BaseHead.astro'
+import TopBarNav from '@component/Navigation/TopBar.astro'
+import HomeHead from '@component/Head/HomeHead.astro'
+import Card from '@component/Content/Card.astro'
+import Footer from '@component/Footer/Footer.astro'
+import { Settings } from '@config/site'
+import { normalizeTag } from '@utils/tags'
+import { collectionPageJsonLd, breadcrumbJsonLd } from '@utils/jsonld'
+import { getCollection } from 'astro:content'
+import type { GetStaticPathsResult } from 'astro'
+
+export const prerender = true
+
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  const allPosts = await getCollection('posts')
+
+  const tagPostsMap = new Map<
+    string,
+    { display: string; posts: typeof allPosts }
+  >()
+  for (const post of allPosts) {
+    const tags = post.data.tags
+    if (!tags) continue
+    for (const tag of tags) {
+      const slug = normalizeTag(tag)
+      const existing = tagPostsMap.get(slug)
+      if (existing) {
+        existing.posts.push(post)
+      } else {
+        tagPostsMap.set(slug, { display: tag, posts: [post] })
+      }
+    }
+  }
+
+  return [...tagPostsMap.entries()].map(([slug, { display, posts }]) => ({
+    params: { tag: slug },
+    props: {
+      displayName: display,
+      posts: posts.sort(
+        (a, b) =>
+          new Date(b.data.pubDate).valueOf() -
+          new Date(a.data.pubDate).valueOf(),
+      ),
+    },
+  }))
+}
+
+const { tag } = Astro.params
+const { displayName, posts } = Astro.props
+
+const seoTitle = `${displayName} | ${Settings.site.title}`
+const seoDescription = `Articles about ${displayName} on Coder Rocks — the agentic coding hub.`
+
+const jsonLd = [
+  collectionPageJsonLd({
+    name: displayName,
+    description: seoDescription,
+    url: `/topics/${tag}/`,
+  }),
+  breadcrumbJsonLd([
+    { name: 'Home', url: '/' },
+    { name: 'Topics', url: '/topics/' },
+    { name: displayName, url: `/topics/${tag}/` },
+  ]),
+]
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={seoTitle} description={seoDescription} jsonLd={jsonLd} />
+  </head>
+
+  <body
+    class="font-body personality-casual bg-white leading-normal text-black dark:bg-slate-900 dark:text-slate-100"
+    data-pagefind-ignore="all"
+  >
+    <TopBarNav />
+
+    <main class="py-6 lg:py-10">
+      <article class="mx-auto max-w-6xl px-3">
+        <HomeHead
+          tagline={`${displayName} (${posts.length})`}
+          showLogo={true}
+          showHeading={true}
+        />
+        <section
+          class="grid grid-cols-1 gap-6 py-8 md:grid-cols-2 lg:grid-cols-3"
+          data-test="articles-section"
+        >
+          {
+            posts.map(p => (
+              <div class="col-span-1">
+                <Card post={p} />
+              </div>
+            ))
+          }
+        </section>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

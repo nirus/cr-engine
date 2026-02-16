@@ -8,6 +8,7 @@ import { fetchAuthor } from '@request/fetchAuthor'
 import blogSlugToLegendImageData from '@layouts/BlogHero'
 import { getCollection, render } from 'astro:content'
 import type { InferGetStaticPropsType } from 'astro'
+import { blogPostingJsonLd, breadcrumbJsonLd } from '@utils/jsonld'
 
 export const prerender = true
 
@@ -29,6 +30,8 @@ const slug = post.id.replace(/\/index$/, '')
 
 const legendImage = blogSlugToLegendImageData(slug)
 
+const ogImage = `/posts/${slug}/hero.jpg`
+
 const userAgent = 'cr-engine@v1.0.0'
 
 const authorDetails: AuthorProps | null = await fetchAuthor({
@@ -37,11 +40,42 @@ const authorDetails: AuthorProps | null = await fetchAuthor({
 }).then(details => (details?.name ? details : null))
 
 const { Content } = await render(post)
+
+const pubDateStr = pubDate.toISOString().split('T')[0]
+
+const jsonLd = [
+  blogPostingJsonLd({
+    title,
+    description,
+    pubDate: pubDateStr,
+    author,
+    tags,
+    slug,
+    image: ogImage,
+  }),
+  breadcrumbJsonLd([
+    { name: 'Home', url: '/' },
+    { name: 'Posts', url: '/posts/' },
+    { name: title, url: `/posts/${slug}/` },
+  ]),
+]
+
+const articleMeta = {
+  pubDate: pubDateStr,
+  author: author || 'Coder Rocks',
+  tags: tags || [],
+}
 ---
 
 <html lang={post.data.lang || 'en'}>
   <head>
-    <BaseHead title={title} description={description} image={null} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={ogImage}
+      articleMeta={articleMeta}
+      jsonLd={jsonLd}
+    />
   </head>
 
   <body class="dark:bg-slate-900 dark:text-slate-100">

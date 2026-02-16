@@ -1,12 +1,19 @@
 export const Settings = {
   site: {
     title: 'CoderRocks',
-    tagline: 'Code Meets Creativity',
+    tagline: 'The Agentic Coding Hub',
     gaTagId: '',
     mainUrl: 'https://coder.rocks',
     secondUrl: 'https://CoderRocks.com',
     description:
-      'Coder Rocks is a blog site to share coding knowledge, ideas & learning through articles',
+      'Coder Rocks is the agentic coding hub — articles, guides, and deep dives on AI-assisted development, autonomous coding agents, and modern software engineering.',
+  },
+
+  brand: {
+    name: 'Coder Rocks',
+    tagline: 'The Agentic Coding Hub',
+    foundingDate: '2020',
+    logo: '/images/social.png',
   },
 
   post: {
@@ -22,7 +29,7 @@ export const Settings = {
   },
 
   cr: {
-    email: 'mailtto:support@coder.rocks',
+    email: 'mailto:support@coder.rocks',
     twitter: 'https://twitter.com/coder_rocks',
   },
 
