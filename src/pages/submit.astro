@@ -1,14 +1,12 @@
 ---
 import BaseHead from '@component/Head/BaseHead.astro'
 import Nav from '@component/Navigation/TopBar.astro'
-import HomeHead from '@component/Head/HomeHead.astro'
 import Footer from '@component/Footer/Footer.astro'
 import { Settings } from '@config/site'
 
-const pageDescription = 'Are you interested to submit an article?'
 const seoTitle = `Submit | ${Settings.site.title}`
 const seoDescription =
-  'Submit your article to Coder Rocks — the agentic coding hub for AI-assisted development and modern engineering.'
+  'Submit your engineering solutions to Coder Rocks — let your coding agent open a PR with your unique problem-solving approach.'
 ---
 
 <html lang="en">
@@ -21,38 +19,163 @@ const seoDescription =
     data-pagefind-ignore="all"
   >
     <Nav />
-    <main class="py-12">
-      <HomeHead tagline={pageDescription} />
-      <article class="content mx-auto max-w-6xl px-3">
-        <h3 class="ml-4">Follow the below guidelines:</h3>
-        <ul>
-          <li>
-            Create a <b>pull request on Github</b> with proper description.
-          </li>
-          <li>Excerpt about your post.</li>
-          <li>
-            Article legend image size should be lesser than <b>400kb</b> (Formats:
-            JPEG, PNG or SVG).
-          </li>
-          <li>Proper <b>SEO description</b> for your article.</li>
-          <li>Strictly <b>no profanity words</b> .</li>
-          <li>
-            Strictly <b>no plagiarism</b>. Link the original article and author
-            as inspirational source material.
-          </li>
-          <li>
-            Strictly <b>no illegal content</b> linking and referencing in your article.
-          </li>
-          <li>
-            <b>No spam</b>, no spam linking for page ranking in search engines.
-          </li>
-          <li>
-            Articles allowed on CR - coding, hacking <b>(whiteHat)</b>,
-            programming, embedded programming.
-          </li>
-        </ul>
+    <main
+      class="bg-gradient-to-b from-zinc-50 to-white py-12 dark:from-slate-900 dark:to-slate-800"
+    >
+      <article class="mx-auto max-w-2xl px-4">
+        <div class="mb-10 text-center">
+          <h1
+            class="text-2xl font-semibold tracking-tight text-zinc-800 dark:text-slate-100"
+          >
+            Submit a Post
+          </h1>
+          <p class="mt-2 text-zinc-500 dark:text-slate-400">
+            You and your coding agent solved something interesting? Write it up
+            and share it with the world.
+          </p>
+        </div>
+
+        <section
+          class="mb-10 rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-slate-600 dark:bg-slate-800"
+        >
+          <h2
+            class="mb-4 text-lg font-semibold text-zinc-800 dark:text-slate-100"
+          >
+            How it works
+          </h2>
+          <p
+            class="mb-4 text-sm leading-relaxed text-zinc-500 dark:text-slate-400"
+          >
+            Whether you pair-programmed with an AI agent or cracked a tough
+            problem on your own — if the solution is worth sharing, we want it
+            here.
+          </p>
+          <ol
+            class="space-y-3 text-sm leading-relaxed text-zinc-600 dark:text-slate-300"
+          >
+            <li class="flex gap-3">
+              <span
+                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-bold text-sky-700 dark:bg-sky-900 dark:text-sky-300"
+                >1</span
+              >
+              <span
+                >Build or discover a unique solution — solo, pair-programming
+                with an AI agent, or in a human + agent session.</span
+              >
+            </li>
+            <li class="flex gap-3">
+              <span
+                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-bold text-sky-700 dark:bg-sky-900 dark:text-sky-300"
+                >2</span
+              >
+              <span
+                >Write it up yourself or have your coding agent (Claude Code,
+                Cursor, Copilot, etc.) draft the post for you.</span
+              >
+            </li>
+            <li class="flex gap-3">
+              <span
+                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-bold text-sky-700 dark:bg-sky-900 dark:text-sky-300"
+                >3</span
+              >
+              <span
+                >Fork the <a
+                  href="https://github.com/nirus/coder-rocks"
+                  class="font-medium text-sky-600 underline decoration-sky-300 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300"
+                  >coder-rocks</a
+                > content repo and add your post directory.</span
+              >
+            </li>
+            <li class="flex gap-3">
+              <span
+                class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-bold text-sky-700 dark:bg-sky-900 dark:text-sky-300"
+                >4</span
+              >
+              <span>Open a pull request — we review and publish.</span>
+            </li>
+          </ol>
+        </section>
+
+        <section
+          class="mb-10 rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-slate-600 dark:bg-slate-800"
+        >
+          <h2
+            class="mb-4 text-lg font-semibold text-zinc-800 dark:text-slate-100"
+          >
+            Post structure
+          </h2>
+          <div
+            class="rounded-lg bg-zinc-50 p-4 font-mono text-xs leading-relaxed text-zinc-600 dark:bg-slate-900 dark:text-slate-400"
+          >
+            <div>your-post-slug/</div>
+            <div class="ml-4">
+              ├── index.md&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-zinc-400"
+                ># your article (markdown)</span
+              >
+            </div>
+            <div class="ml-4">
+              ├── claim.json&nbsp;&nbsp;<span class="text-zinc-400"
+                ># title, description, tags, pubDate</span
+              >
+            </div>
+            <div class="ml-4">
+              └── hero.jpg&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-zinc-400"
+                ># cover image (optional, &lt;400kb)</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="mb-10 rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-slate-600 dark:bg-slate-800"
+        >
+          <h2
+            class="mb-4 text-lg font-semibold text-zinc-800 dark:text-slate-100"
+          >
+            Guidelines
+          </h2>
+          <ul
+            class="space-y-2 text-sm leading-relaxed text-zinc-600 dark:text-slate-300"
+          >
+            <li class="flex gap-2">
+              <span class="text-green-500">&#10003;</span>
+              <span
+                >Original solutions, debugging stories, tooling tips, agentic
+                workflows</span
+              >
+            </li>
+            <li class="flex gap-2">
+              <span class="text-green-500">&#10003;</span>
+              <span>Clear problem statement and how you solved it</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="text-green-500">&#10003;</span>
+              <span>Proper SEO description and relevant tags</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="text-green-500">&#10003;</span>
+              <span
+                >Credit original sources — link inspirational articles and
+                authors</span
+              >
+            </li>
+            <li class="mt-3 flex gap-2">
+              <span class="text-red-400">&#10007;</span>
+              <span>No plagiarism, spam, profanity, or illegal content</span>
+            </li>
+          </ul>
+        </section>
+
+        <div class="text-center">
+          <a
+            href="https://github.com/nirus/coder-rocks"
+            class="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-sky-600 dark:hover:bg-sky-500"
+          >
+            Open the content repo &rarr;
+          </a>
+        </div>
       </article>
-      <Footer />
     </main>
+    <Footer />
   </body>
 </html>
