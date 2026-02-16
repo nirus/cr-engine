@@ -1,0 +1,67 @@
+---
+import BaseHead from '@component/Head/BaseHead.astro'
+import TopBarNav from '@component/Navigation/TopBar.astro'
+import HomeHead from '@component/Head/HomeHead.astro'
+import Card from '@component/Content/Card.astro'
+import Footer from '@component/Footer/Footer.astro'
+import Paginator from '@component/Content/Paginator.astro'
+import { Settings } from '@config/site'
+import { getCollection } from 'astro:content'
+import type { GetStaticPathsOptions } from 'astro'
+
+export const prerender = true
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const allPosts = await getCollection('posts')
+
+  const sortedPosts = allPosts.sort(
+    (a, b) =>
+      new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
+  )
+
+  return paginate(sortedPosts, { pageSize: 21 })
+}
+
+const { page } = Astro.props
+const pageDescription = `page [ ${page.currentPage} ] of all articles`
+const seoTitle = `Articles | ${Settings.site.title}`
+const seoDescription =
+  'Read all the articles written on Coder Rocks. Happy coding!'
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={seoTitle} description={seoDescription} />
+  </head>
+
+  <body
+    class="font-body personality-casual bg-white leading-normal text-black dark:bg-slate-900 dark:text-slate-100"
+    data-pagefind-ignore="all"
+  >
+    <TopBarNav />
+
+    <main class="py-6 lg:py-10">
+      <article class="mx-auto max-w-6xl px-3">
+        <HomeHead
+          tagline={pageDescription}
+          showLogo={true}
+          showHeading={true}
+        />
+        <section
+          class="grid grid-cols-1 gap-6 py-8 md:grid-cols-2 lg:grid-cols-3"
+          data-test="articles-section"
+        >
+          {
+            page.data.map((post: (typeof page.data)[0]) => (
+              <div class="col-span-1">
+                <Card post={post} />
+              </div>
+            ))
+          }
+        </section>
+      </article>
+    </main>
+    <Paginator page={page} />
+    <Footer />
+  </body>
+</html>
