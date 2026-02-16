@@ -12,8 +12,6 @@ function claimJsonLoader(): Loader {
       const root = fileURLToPath(config.root)
       const postsDir = join(root, 'src/content/posts')
 
-      console.log(`[claim-json-loader] root=${root} postsDir=${postsDir}`)
-
       let entries: string[]
       try {
         entries = await readdir(postsDir, { withFileTypes: true }).then(d =>
@@ -21,9 +19,7 @@ function claimJsonLoader(): Loader {
             .filter(e => e.isDirectory() && !e.name.startsWith('.'))
             .map(e => e.name),
         )
-        console.log(`[claim-json-loader] found ${entries.length} dirs: ${entries.join(', ')}`)
-      } catch (err) {
-        console.log(`[claim-json-loader] readdir failed: ${err}`)
+      } catch {
         logger.warn(`Posts directory not found: ${postsDir}`)
         return
       }
@@ -74,13 +70,12 @@ function claimJsonLoader(): Loader {
               lang: claim.lang,
             },
           })
-        } catch (err) {
-          console.log(`[claim-json-loader] parseData failed for "${slug}": ${err}`)
+        } catch {
+          logger.warn(`Skipping "${slug}": parseData failed`)
           continue
         }
 
         const fp = relative(root, mdPath)
-        console.log(`[claim-json-loader] storing id=${id} filePath=${fp} title=${data.title}`)
         store.set({
           id,
           data,
@@ -89,10 +84,11 @@ function claimJsonLoader(): Loader {
           digest,
           deferredRender: true,
         })
-        console.log(`[claim-json-loader] store.has(${id})=${store.has(id)}`)
+        // Always register the module import for deferred rendering.
+        // store.set() skips addModuleImport on cache hits (matching digest),
+        // so we must call it explicitly — same pattern as Astro's glob loader.
+        store.addModuleImport(fp)
       }
-
-      console.log(`[claim-json-loader] stored ${validIds.size} entries, store has ${[...store.keys()].length} keys`)
 
       // Remove stale entries
       const keysToDelete: string[] = []
