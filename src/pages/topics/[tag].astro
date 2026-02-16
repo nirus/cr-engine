@@ -1,7 +1,6 @@
 ---
 import BaseHead from '@component/Head/BaseHead.astro'
 import TopBarNav from '@component/Navigation/TopBar.astro'
-import HomeHead from '@component/Head/HomeHead.astro'
 import Card from '@component/Content/Card.astro'
 import Footer from '@component/Footer/Footer.astro'
 import { Settings } from '@config/site'
@@ -50,7 +49,7 @@ const { tag } = Astro.params
 const { displayName, posts } = Astro.props
 
 const seoTitle = `${displayName} | ${Settings.site.title}`
-const seoDescription = `Articles about ${displayName} on Coder Rocks — the agentic coding hub.`
+const seoDescription = `Articles about ${displayName} on Coder Rocks — the agentic engineering blog.`
 
 const jsonLd = [
   collectionPageJsonLd({
@@ -77,15 +76,31 @@ const jsonLd = [
   >
     <TopBarNav />
 
-    <main class="py-6 lg:py-10">
-      <article class="mx-auto max-w-6xl px-3">
-        <HomeHead
-          tagline={`${displayName} (${posts.length})`}
-          showLogo={true}
-          showHeading={true}
-        />
+    <main
+      class="bg-gradient-to-b from-zinc-50 to-white py-12 dark:from-slate-900 dark:to-slate-800"
+    >
+      <article class="mx-auto max-w-6xl px-4">
+        <div class="mb-10 text-center">
+          <nav class="mb-4 text-sm text-zinc-400 dark:text-slate-500">
+            <a href="/topics" class="hover:text-sky-600 dark:hover:text-sky-400"
+              >Topics</a
+            >
+            <span class="mx-1.5">/</span>
+            <span class="text-zinc-600 dark:text-slate-300">{displayName}</span>
+          </nav>
+          <h1
+            class="text-2xl font-semibold tracking-tight text-zinc-800 capitalize dark:text-slate-100"
+          >
+            {displayName}
+          </h1>
+          <p class="mt-1.5 text-sm text-zinc-400 dark:text-slate-500">
+            {posts.length}
+            {posts.length === 1 ? 'article' : 'articles'}
+          </p>
+        </div>
+
         <section
-          class="grid grid-cols-1 gap-6 py-8 md:grid-cols-2 lg:grid-cols-3"
+          class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
           data-test="articles-section"
         >
           {
@@ -96,6 +111,15 @@ const jsonLd = [
             ))
           }
         </section>
+
+        <div class="mt-10 text-center">
+          <a
+            href="/topics"
+            class="inline-flex items-center gap-1.5 text-sm text-zinc-400 transition-colors hover:text-sky-600 dark:text-slate-500 dark:hover:text-sky-400"
+          >
+            &larr; All topics
+          </a>
+        </div>
       </article>
     </main>
     <Footer />
