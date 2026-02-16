@@ -89,6 +89,7 @@ function claimJsonLoader(): Loader {
           digest,
           deferredRender: true,
         })
+        console.log(`[claim-json-loader] store.has(${id})=${store.has(id)}`)
       }
 
       console.log(`[claim-json-loader] stored ${validIds.size} entries, store has ${[...store.keys()].length} keys`)
