@@ -60,28 +60,38 @@ function claimJsonLoader(): Loader {
 
         const digest = generateDigest(`${claimRaw}${mdRaw}`)
 
-        const data = await parseData({
-          id,
-          data: {
-            title: claim.title,
-            description: claim.description,
-            pubDate: claim.pubDate,
-            tags: claim.tags,
-            author: claim.author,
-            youtube: claim.youtube,
-            lang: claim.lang,
-          },
-        })
+        let data
+        try {
+          data = await parseData({
+            id,
+            data: {
+              title: claim.title,
+              description: claim.description,
+              pubDate: claim.pubDate,
+              tags: claim.tags,
+              author: claim.author,
+              youtube: claim.youtube,
+              lang: claim.lang,
+            },
+          })
+        } catch (err) {
+          console.log(`[claim-json-loader] parseData failed for "${slug}": ${err}`)
+          continue
+        }
 
+        const fp = relative(root, mdPath)
+        console.log(`[claim-json-loader] storing id=${id} filePath=${fp} title=${data.title}`)
         store.set({
           id,
           data,
           body: mdRaw,
-          filePath: relative(root, mdPath),
+          filePath: fp,
           digest,
           deferredRender: true,
         })
       }
+
+      console.log(`[claim-json-loader] stored ${validIds.size} entries, store has ${[...store.keys()].length} keys`)
 
       // Remove stale entries
       const keysToDelete: string[] = []
