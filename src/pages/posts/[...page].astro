@@ -24,10 +24,9 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { page }: Props = Astro.props
-const pageDescription = `page [ ${page.currentPage} ] of all articles`
 const seoTitle = `Articles | ${Settings.site.title}`
 const seoDescription =
-  'Browse all articles on Coder Rocks — the agentic coding hub for AI-assisted development and modern engineering.'
+  'Browse all articles on Coder Rocks — the agentic engineering blog for AI-assisted development and modern engineering.'
 ---
 
 <html lang="en">
@@ -46,15 +45,35 @@ const seoDescription =
   >
     <TopBarNav />
 
-    <main class="py-6 lg:py-10">
-      <article class="mx-auto max-w-6xl px-3">
-        <HomeHead
-          tagline={pageDescription}
-          showLogo={true}
-          showHeading={true}
-        />
+    <main
+      class="bg-gradient-to-b from-zinc-50 to-white py-12 dark:from-slate-900 dark:to-slate-800"
+    >
+      <article class="mx-auto max-w-6xl px-4">
+        <HomeHead showLogo={true} />
+        <div class="mt-1 mb-8 flex items-center gap-4">
+          <div class="h-px flex-1 bg-zinc-200 dark:bg-slate-700"></div>
+          <div class="flex items-center gap-2.5">
+            <span
+              class="text-base font-medium tracking-wider text-zinc-500 uppercase dark:text-slate-400"
+              >Articles</span
+            >
+            <span
+              class="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-sky-100 px-2 text-sm font-bold text-sky-700 dark:bg-sky-900 dark:text-sky-300"
+              >{page.total}</span
+            >
+            {
+              page.lastPage > 1 && (
+                <span class="text-xs text-zinc-400 dark:text-slate-500">
+                  · pg {page.currentPage}/{page.lastPage}
+                </span>
+              )
+            }
+          </div>
+          <div class="h-px flex-1 bg-zinc-200 dark:bg-slate-700"></div>
+        </div>
+
         <section
-          class="grid grid-cols-1 gap-6 py-8 md:grid-cols-2 lg:grid-cols-3"
+          class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
           data-test="articles-section"
         >
           {
