@@ -1,4 +1,4 @@
-# Coder Rocks — The Agentic Coding Hub
+# Coder Rocks — The Agentic Engineering Blog
 
 > Coder Rocks is a technical content hub focused on AI-assisted development, autonomous coding agents, and modern software engineering.
 
