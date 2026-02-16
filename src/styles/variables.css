@@ -2,6 +2,15 @@
   --font-display: "Poppins", "Roboto", "Arial", "Helvetica";
   --font-body: "Poppins", "Roboto", "Arial", "Helvetica";
   --leading-normal: 1.8;
+  --logo-primary: #3b3838;
+  --logo-secondary: #262626;
+  --logo-accent: #404040;
+}
+
+.dark {
+  --logo-primary: #e2e8f0;
+  --logo-secondary: #cbd5e1;
+  --logo-accent: #94a3b8;
 }
 
 @theme {

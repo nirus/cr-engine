@@ -1,12 +1,16 @@
+name: Deploy to Cloudflare Pages
+
 on:
   push:
     branches:
       - main
       - 'demo/**'
+  repository_dispatch:
+    types: [content-update]
 
-env: 
+env:
   GA_TAG_ID: ${{vars.GA_TAG_ID}}
-  SITE: ${{secrets.SITE}}  
+  SITE: ${{secrets.SITE}}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   deploy:
@@ -31,7 +35,13 @@ jobs:
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline
-          
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Test
+        run: yarn test
+
       - name: Build
         env:
           GA_TAG_ID: ${{vars.GA_TAG_ID}}

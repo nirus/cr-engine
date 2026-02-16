@@ -1,5 +1,6 @@
 ---
 import Social from './Social.astro'
+import ThemeToggle from '@component/Navigation/ThemeToggle.astro'
 import { Settings } from '@config/site'
 ---
 
@@ -7,9 +8,8 @@ import { Settings } from '@config/site'
   class="flex flex-col content-center py-4 text-center align-middle lg:py-6"
 >
   <div class="w-full text-sm" data-test="footer-text">
-    &copy; {Settings.site.title}&nbsp;-&nbsp;<script type="text/javascript">
-      document.write(new Date().getFullYear())
-    </script>
+    &copy; {Settings.site.title}&nbsp;-&nbsp;{new Date().getFullYear()}
   </div>
   <Social />
+  <ThemeToggle />
 </footer>

@@ -2,7 +2,7 @@
  * @file This file contains the logic to extract the image metadata from the glob import
  */
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  '../pages/posts/*/*.{jpg,png}',
+  '../content/posts/*/*.{jpg,png}',
   {
     import: 'default',
   },

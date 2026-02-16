@@ -1,7 +1,6 @@
 ---
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
-import type { Props as BlogPostProps } from './BlogPost.astro'
 import { Settings } from '@config/site'
 import { youtubeImgPreview } from '@utils/help'
 import blogSlugToLegendImageData from '../../layouts/BlogHero'
@@ -9,24 +8,23 @@ import { Image } from 'astro:assets'
 
 export interface Props {
   post: {
-    pubDate: Date
-    url: string
-    frontmatter: BlogPostProps
-    file: string
-    slug?: string
-    youtube?: string
-    title?: string
+    id: string
+    data: {
+      title: string
+      pubDate: Date
+      youtube?: string
+      tags: string[]
+      author: string
+    }
   }
 }
 
-/**
- * Set the Card height and width here
- */
 const { width, height } = Settings.indexPage.card
 
 const { post } = Astro.props
 
-const { youtube, pubDate, slug } = post.frontmatter
+const slug = post.id.replace(/\/index$/, '')
+const { youtube, pubDate } = post.data
 
 const postImageGlobFile = blogSlugToLegendImageData(slug)
 
@@ -34,31 +32,28 @@ const image = postImageGlobFile ? await postImageGlobFile : null
 
 const previewImage = youtube ? youtubeImgPreview(youtube) : image
 
-/**
- * @docs: https://day.js.org/docs/en/display/format#list-of-localized-formats
- */
 dayjs.extend(localizedFormat)
 const parsedDay = dayjs(pubDate).format('LL')
 ---
 
 <a
-  href={post.url}
-  class="hover:border-accent-primary group relative top-0 block h-full overflow-hidden rounded-xl border border-solid border-neutral-200 bg-white shadow-lg transition-all duration-300 ease-in-out hover:-top-2 hover:shadow-xl"
+  href={`/posts/${slug}`}
+  class="hover:border-accent-primary group relative top-0 block h-full overflow-hidden rounded-xl border border-solid border-neutral-200 bg-white shadow-lg transition-all duration-300 ease-in-out hover:-top-2 hover:shadow-xl dark:border-slate-600 dark:bg-slate-800"
   data-test="article-card"
 >
   <Image
     class="card-images transition-transform duration-300 group-hover:scale-105"
     src={previewImage as string}
-    alt={`${post.frontmatter.title} - post preview`}
+    alt={`${post.data.title} - post preview`}
     width={width}
     height={height}
   />
 
   <div class="px-8 py-6">
     <h2 class="text-xl leading-normal font-normal">
-      {post.frontmatter.title}
+      {post.data.title}
     </h2>
-    <p class="mt-4 flex items-center text-xs text-gray-600">
+    <p class="mt-4 flex items-center text-xs text-gray-600 dark:text-slate-400">
       {parsedDay}
     </p>
   </div>

@@ -1,0 +1,97 @@
+---
+
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  class="fixed right-6 bottom-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-zinc-300 bg-zinc-100 shadow-lg transition-colors hover:bg-zinc-200 dark:border-transparent dark:bg-zinc-700 dark:hover:bg-zinc-600"
+  aria-label="Toggle theme"
+>
+  <!-- Sun icon (shown in dark mode — click to go light) -->
+  <svg
+    id="icon-sun"
+    class="hidden h-5 w-5 text-amber-400"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+    ></path>
+  </svg>
+  <!-- Moon icon (shown in light mode — click to go dark) -->
+  <svg
+    id="icon-moon"
+    class="hidden h-5 w-5 text-zinc-700"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+    ></path>
+  </svg>
+</button>
+
+<script is:inline>
+  ;(function () {
+    var STORAGE_KEY = 'theme-preference'
+
+    function getStored() {
+      var val = localStorage.getItem(STORAGE_KEY)
+      return val === 'dark' ? 'dark' : 'light'
+    }
+
+    function apply(pref) {
+      if (pref === 'dark') {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    }
+
+    function updateIcon(pref) {
+      var sun = document.getElementById('icon-sun')
+      var moon = document.getElementById('icon-moon')
+      if (!sun || !moon) return
+
+      sun.classList.add('hidden')
+      moon.classList.add('hidden')
+
+      if (pref === 'dark') {
+        sun.classList.remove('hidden')
+      } else {
+        moon.classList.remove('hidden')
+      }
+    }
+
+    var current = getStored()
+    apply(current)
+
+    function init() {
+      updateIcon(current)
+      var btn = document.getElementById('theme-toggle')
+      if (btn) {
+        btn.addEventListener('click', function () {
+          current = current === 'light' ? 'dark' : 'light'
+          localStorage.setItem(STORAGE_KEY, current)
+          apply(current)
+          updateIcon(current)
+        })
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init)
+    } else {
+      init()
+    }
+  })()
+</script>

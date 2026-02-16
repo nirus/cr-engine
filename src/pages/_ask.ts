@@ -7,7 +7,10 @@ import { fetchAuthor } from '@request/fetchAuthor'
 export async function post({ request }: { request: Request }) {
   try {
     const incoming: { author: string } = await request.json()
-    const data = await fetchAuthor(incoming)
+    const data = await fetchAuthor({
+      author: incoming.author,
+      userAgent: request.headers.get('user-agent'),
+    })
     return new Response(JSON.stringify(data), { status: 200 })
   } catch (_error) {
     return new Response(JSON.stringify({ message: 'Something went wrong!' }), {

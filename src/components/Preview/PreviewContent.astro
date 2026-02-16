@@ -23,7 +23,7 @@ const { postData, postContent, authorDetails, heroImageUrl, error } =
         <p class="font-bold">Error:</p>
         <p>{error}</p>
       </div>
-    ) : postData ? (
+    ) : postData && postContent ? (
       <BlogPost
         title={postData.title}
         tags={postData.tags || []}

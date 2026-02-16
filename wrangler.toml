@@ -1,11 +1,38 @@
 name = "coder-rocks"
-pages_build_output_dir = "./dist"
-
+main = "./dist/_worker.js/index.js"
 compatibility_date = "2025-07-19"
 compatibility_flags = ["nodejs_compat"]
 
+# Routes configuration for production (optional, for custom domains)
+# [[routes]]
+# pattern = "coder.rocks/*"
+# zone_name = "coder.rocks"
+
 [env.production]
 name = "coder-rocks"
+# Uncomment and set your actual zone_id for production custom domain
+# route = { pattern = "coder.rocks/*", zone_id = "81c7ecf54b677508e235559008dbe531" }
 
 [env.preview]
 name = "coder-rocks-preview"
+vars = { ENVIRONMENT = "preview" }
+kv_namespaces = [{ binding = "SESSION", preview_id = "preview_session_kv", id = "preview_session_kv" }]
+
+[env.development] 
+name = "coder-rocks-dev"
+vars = { ENVIRONMENT = "development" }
+kv_namespaces = [{ binding = "SESSION", preview_id = "dev_session_kv", id = "dev_session_kv" }]
+
+# Build configuration (disabled to prevent loops in dev)
+# [build]
+# command = "yarn build"
+
+# Variables (can be overridden per environment)
+[vars]
+ENVIRONMENT = "production"
+
+# KV namespaces for session storage
+[[kv_namespaces]]
+binding = "SESSION"
+preview_id = "preview_session_kv"
+id = "production_session_kv"

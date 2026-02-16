@@ -10,7 +10,7 @@
   ul li > code,
   ol li *:not(pre) code,
   ol li > code {
-    @apply rounded-md bg-stone-300 px-2 py-1 align-baseline font-mono text-sm leading-none text-black;
+    @apply rounded-md bg-stone-300 px-2 py-1 align-baseline font-mono text-sm leading-none text-black dark:bg-slate-700 dark:text-slate-200;
   }
 }
 

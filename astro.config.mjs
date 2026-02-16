@@ -1,9 +1,6 @@
 import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
-import markdownIntegration from '@astropub/md'
 import { defineConfig, passthroughImageService } from 'astro/config'
-import { claimMiddleware } from './plugins/ClaimJson/index.mjs'
-import PostsBundleProcess from './plugins/PostsBundleProcess/index.mjs'
 import { transformCustomTag } from './plugins/TransformCustomTags/index.mjs'
 
 import tailwindcss from '@tailwindcss/vite'
@@ -16,24 +13,16 @@ export default defineConfig({
   image: {
     service: passthroughImageService(),
   },
-  integrations: [sitemap(), PostsBundleProcess(), markdownIntegration()],
+  trailingSlash: 'never',
+  integrations: [sitemap()],
   site: 'https://coder.rocks',
   markdown: {
     shikiConfig: {
       wrap: null,
     },
-    /**
-     * - Adds 'claim.json' to markdown bundle process.
-     * - fixes the path of image file referenced in markdown to absolute one.
-     */
-    remarkPlugins: [claimMiddleware],
     rehypePlugins: [transformCustomTag],
   },
   vite: {
-    resolve: {
-      preserveSymlinks: true, // Resolves the symlink files from 'posts-page-wrapper' folder properly
-    },
-
     plugins: [tailwindcss()],
   },
 })

@@ -1,0 +1,63 @@
+---
+import TopBarNav from '@component/Navigation/TopBar.astro'
+import BaseHead from '@component/Head/BaseHead.astro'
+import BlogPost from '@component/Content/BlogPost.astro'
+import Footer from '@component/Footer/Footer.astro'
+import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
+import { fetchAuthor } from '@request/fetchAuthor'
+import blogSlugToLegendImageData from '@layouts/BlogHero'
+import { getCollection, render } from 'astro:content'
+import type { InferGetStaticPropsType } from 'astro'
+
+export const prerender = true
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('posts')
+  return allPosts.map(post => {
+    const slug = post.id.replace(/\/index$/, '')
+    return {
+      params: { slug },
+      props: { post },
+    }
+  })
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+const { post }: Props = Astro.props
+const { title, description, pubDate, youtube, author, tags } = post.data
+const slug = post.id.replace(/\/index$/, '')
+
+const legendImage = blogSlugToLegendImageData(slug)
+
+const userAgent = 'cr-engine@v1.0.0'
+
+const authorDetails: AuthorProps | null = await fetchAuthor({
+  author,
+  userAgent,
+}).then(details => (details?.name ? details : null))
+
+const { Content } = await render(post)
+---
+
+<html lang={post.data.lang || 'en'}>
+  <head>
+    <BaseHead title={title} description={description} image={null} />
+  </head>
+
+  <body class="dark:bg-slate-900 dark:text-slate-100">
+    <TopBarNav />
+    <main class="py-12" data-pagefind-body>
+      <BlogPost
+        title={title}
+        tags={tags}
+        legendImage={legendImage}
+        pubDate={pubDate.toISOString()}
+        youtube={youtube}
+        author={authorDetails}
+      >
+        <Content />
+      </BlogPost>
+    </main>
+    <Footer />
+  </body>
+</html>

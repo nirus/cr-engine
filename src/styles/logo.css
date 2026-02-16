@@ -1,7 +1,7 @@
 /** Coder Rocks logo */
 h1.coder-rocks-head-title {
   font-family: 'Cutive Mono', monospace !important;
-  @apply my-2 mb-0 border-b-2 border-neutral-200 text-center text-3xl leading-[1.2] font-extrabold tracking-tighter md:text-4xl lg:text-4xl;
+  @apply my-2 mb-0 border-b-2 border-neutral-200 text-center text-3xl leading-[1.2] font-extrabold tracking-tighter md:text-4xl lg:text-4xl dark:border-slate-600;
 }
 
 p.coder-rocks-tagline {
