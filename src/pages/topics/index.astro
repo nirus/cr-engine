@@ -1,7 +1,6 @@
 ---
 import BaseHead from '@component/Head/BaseHead.astro'
 import TopBarNav from '@component/Navigation/TopBar.astro'
-import HomeHead from '@component/Head/HomeHead.astro'
 import Footer from '@component/Footer/Footer.astro'
 import { Settings } from '@config/site'
 import { normalizeTag } from '@utils/tags'
@@ -51,28 +50,38 @@ const jsonLd = collectionPageJsonLd({
   >
     <TopBarNav />
 
-    <main class="py-6 lg:py-10">
-      <article class="mx-auto max-w-6xl px-3">
-        <HomeHead tagline="Topics" showLogo={true} showHeading={true} />
-        <section
-          class="grid grid-cols-2 gap-4 py-8 md:grid-cols-3 lg:grid-cols-4"
-        >
+    <main
+      class="bg-gradient-to-b from-zinc-50 to-white py-12 dark:from-slate-900 dark:to-slate-800"
+    >
+      <article class="mx-auto max-w-4xl px-4">
+        <div class="mb-10 text-center">
+          <h1
+            class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white"
+          >
+            Topics
+          </h1>
+          <p class="mt-2 text-zinc-500 dark:text-slate-400">
+            Browse articles by subject
+          </p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-3">
           {
             sortedTags.map(([slug, { display, count }]) => (
               <a
                 href={`/topics/${slug}`}
-                class="group flex flex-col items-center rounded-xl border border-neutral-200 bg-white px-4 py-6 text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-sky-300 hover:shadow-md dark:border-slate-600 dark:bg-slate-800"
+                class="group inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-5 py-2.5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-sky-400 hover:shadow-md dark:border-slate-600 dark:bg-slate-800 dark:hover:border-sky-500"
               >
-                <span class="text-lg font-semibold text-zinc-800 capitalize group-hover:text-sky-600 dark:text-slate-100">
+                <span class="text-sm font-medium text-zinc-700 capitalize group-hover:text-sky-600 dark:text-slate-200 dark:group-hover:text-sky-400">
                   {display}
                 </span>
-                <span class="mt-1 text-sm text-zinc-500 dark:text-slate-400">
-                  {count} {count === 1 ? 'article' : 'articles'}
+                <span class="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-zinc-100 px-1.5 text-xs font-semibold text-zinc-500 group-hover:bg-sky-100 group-hover:text-sky-700 dark:bg-slate-700 dark:text-slate-400 dark:group-hover:bg-sky-900 dark:group-hover:text-sky-300">
+                  {count}
                 </span>
               </a>
             ))
           }
-        </section>
+        </div>
       </article>
     </main>
     <Footer />
