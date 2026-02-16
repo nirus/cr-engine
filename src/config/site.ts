@@ -1,7 +1,7 @@
 export const Settings = {
   site: {
     title: 'CoderRocks',
-    tagline: 'The Agentic Coding Hub',
+    tagline: 'The Agentic Engineering Blog',
     gaTagId: '',
     mainUrl: 'https://coder.rocks',
     secondUrl: 'https://CoderRocks.com',
@@ -11,7 +11,7 @@ export const Settings = {
 
   brand: {
     name: 'Coder Rocks',
-    tagline: 'The Agentic Coding Hub',
+    tagline: 'The Agentic Engineering Blog',
     foundingDate: '2020',
     logo: '/images/social.png',
   },
