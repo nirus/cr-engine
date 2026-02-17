@@ -18,7 +18,7 @@
   }
 
   h2 {
-    @apply py-6 text-2xl leading-none font-semibold;
+    @apply py-6 text-2xl leading-snug font-semibold;
 
     @variant sm {
       @apply text-2xl;
@@ -33,7 +33,7 @@
   }
 
   h3 {
-    @apply py-4 text-xl leading-6 font-semibold;
+    @apply py-4 text-xl leading-snug font-semibold;
   }
 
   h4 {
