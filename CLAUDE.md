@@ -58,6 +58,12 @@ yarn pub-code:clean         # Remove content directory
 
 `@utils/*`, `@config/*`, `@component/*`, `@layouts/*`, `@request/*` (restapi), `@pages/*`
 
+## Deployment
+
+- **Cloudflare Pages free tier has limited deployments per day.** Batch all related changes into a single PR and merge once — do not create separate PRs for each small change.
+- Every push to `main` triggers a deploy via GitHub Actions (`pages-deployment.yaml`).
+- The content repo (`coder-rocks`) also triggers deploys via `repository_dispatch`.
+
 ## Conventions
 
 - **Naming**: kebab-case files, camelCase vars, PascalCase components
