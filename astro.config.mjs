@@ -23,7 +23,7 @@ export default defineConfig({
   site: 'https://coder.rocks',
   markdown: {
     shikiConfig: {
-      wrap: null,
+      theme: 'github-dark-dimmed',
     },
     rehypePlugins: [transformCustomTag],
   },

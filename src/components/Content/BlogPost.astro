@@ -105,3 +105,52 @@ const parsedDay = dayjs(pubDate).format('LL')
   <!-- Author details -->
   {author && <Author {...author} />}
 </article>
+
+<script>
+  const COPY_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`
+  const CHECK_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
+
+  function initCodeBlocks() {
+    document.querySelectorAll('.astro-code').forEach(pre => {
+      if (pre.parentElement?.classList.contains('code-block-wrapper')) return
+
+      // Wrap in container
+      const wrapper = document.createElement('div')
+      wrapper.className = 'code-block-wrapper'
+      pre.parentNode!.insertBefore(wrapper, pre)
+      wrapper.appendChild(pre)
+
+      // Language badge
+      const lang = pre.getAttribute('data-language')
+      if (lang) {
+        const badge = document.createElement('span')
+        badge.className = 'code-lang-badge'
+        badge.textContent = lang
+        wrapper.appendChild(badge)
+      }
+
+      // Copy button
+      const btn = document.createElement('button')
+      btn.className = 'code-copy-btn'
+      btn.setAttribute('aria-label', 'Copy code')
+      btn.innerHTML = COPY_ICON
+
+      btn.addEventListener('click', async () => {
+        const code = pre.querySelector('code')
+        if (!code) return
+        await navigator.clipboard.writeText(code.textContent || '')
+        btn.classList.add('copied')
+        btn.innerHTML = CHECK_ICON
+        setTimeout(() => {
+          btn.classList.remove('copied')
+          btn.innerHTML = COPY_ICON
+        }, 2000)
+      })
+
+      wrapper.appendChild(btn)
+    })
+  }
+
+  initCodeBlocks()
+  document.addEventListener('astro:after-swap', initCodeBlocks)
+</script>
