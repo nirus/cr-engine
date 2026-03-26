@@ -1,7 +1,8 @@
 import { createHmac, randomBytes } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 
-const SITE_URL = 'https://coder.rocks'
+const SITE_URL = process.env.SITE_URL || 'https://coder.rocks'
+const X_HANDLE = process.env.X_HANDLE || 'Coder_Rocks'
 const API_URL = 'https://api.x.com/2/tweets'
 
 const { X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET } = process.env
@@ -124,7 +125,7 @@ for (const slug of slugs) {
 
   try {
     const result = await postTweet(tweet)
-    console.log(`Posted: https://x.com/Coder_Rocks/status/${result.data.id}`)
+    console.log(`Posted: https://x.com/${X_HANDLE}/status/${result.data.id}`)
   } catch (err) {
     console.error(`Failed to tweet for ${slug}:`, err.message)
     // Don't fail the build if tweeting fails
