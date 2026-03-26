@@ -15,6 +15,9 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
   integrations: [
     sitemap({
       changefreq: 'weekly',
