@@ -57,3 +57,14 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=coder-rocks
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Tweet new posts
+        if: >-
+          github.event_name == 'repository_dispatch' &&
+          github.event.client_payload.new_posts != ''
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: node scripts/tweet-new-post.mjs "${{ github.event.client_payload.new_posts }}"
