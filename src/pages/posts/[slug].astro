@@ -7,7 +7,7 @@ import type { Props as AuthorProps } from '@component/Footer/PostFooter.astro'
 import { fetchAuthor } from '@request/fetchAuthor'
 import blogSlugToLegendImageData from '@layouts/BlogHero'
 import { getCollection, render } from 'astro:content'
-import type { InferGetStaticPropsType } from 'astro'
+import type { InferGetStaticPropsType, ImageMetadata } from 'astro'
 import { blogPostingJsonLd, breadcrumbJsonLd } from '@utils/jsonld'
 
 export const prerender = true
@@ -29,8 +29,10 @@ const { title, description, pubDate, youtube, author, tags } = post.data
 const slug = post.id.replace(/\/index$/, '')
 
 const legendImage = blogSlugToLegendImageData(slug)
-
-const ogImage = `/posts/${slug}/hero.jpg`
+const resolvedImage = (await legendImage) as unknown as
+  | ImageMetadata
+  | undefined
+const ogImage = resolvedImage?.src || '/images/social.png'
 
 const userAgent = 'cr-engine@v1.0.0'
 
