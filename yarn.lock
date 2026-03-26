@@ -4772,9 +4772,9 @@ slice-ansi@^7.1.0:
     is-fullwidth-code-point "^5.0.0"
 
 smol-toml@^1.4.2:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/smol-toml/-/smol-toml-1.5.0.tgz#514e56fa6379ce284e824c224e321e750f9ef5b6"
-  integrity sha512-Jjsa8LZ+DyLbZ7gVi9d18bS8oxq0PQrTlVDfvYXgh7gxLwbW9QWgvakHD+hBLUtr5NahfStd8LQLGSPchaEJ8Q==
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/smol-toml/-/smol-toml-1.6.1.tgz#4fceb5f7c4b86c2544024ef686e12ff0983465be"
+  integrity sha512-dWUG8F5sIIARXih1DTaQAX4SsiTXhInKf1buxdY9DIg4ZYPZK5nGM1VRIYmEbDbsHt7USo99xSLFu5Q1IqTmsg==
 
 source-map-js@^1.0.1, source-map-js@^1.2.1:
   version "1.2.1"
