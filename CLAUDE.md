@@ -58,11 +58,28 @@ yarn pub-code:clean         # Remove content directory
 
 `@utils/*`, `@config/*`, `@component/*`, `@layouts/*`, `@request/*` (restapi), `@pages/*`
 
+## Content Repo (`coder-rocks`)
+
+The blog content lives in a separate repo: [`nirus/coder-rocks`](https://github.com/nirus/coder-rocks).
+
+- **Default branch**: `publish`
+- **Local path**: `/Volumes/aryabhata/workspace/coder-rocks`
+- **Structure**: each post is a directory with `claim.json`, `index.md`, and optional `hero.jpg`/`hero.png`
+- **Deploy trigger**: pushing to `publish` fires `.github/workflows/trigger-build.yaml`, which sends a `repository_dispatch` (`content-update`) to `cr-engine` using the `CR_ENGINE_TRIGGER_TOKEN` PAT
+- **During build**: `scripts/cr-repo-connect/build.sh` clones `coder-rocks` into `src/content/posts/` via sparse checkout
+
+### Adding a new post
+
+1. Create a directory in `coder-rocks` with the post slug
+2. Add `claim.json` (title, description, pubDate, tags, author), `index.md`, and `hero.jpg`
+3. Push/merge to `publish` — cr-engine deploys automatically
+
 ## Deployment
 
 - **Cloudflare Pages free tier has limited deployments per day.** Batch all related changes into a single PR and merge once — do not create separate PRs for each small change.
 - Every push to `main` triggers a deploy via GitHub Actions (`pages-deployment.yaml`).
 - The content repo (`coder-rocks`) also triggers deploys via `repository_dispatch`.
+- **OG images**: `plugins/CopyOgImages/index.mjs` copies hero images to `dist/og/{slug}.{ext}` at build time for social card previews (Cloudflare blocks crawler access to Vite-hashed `/_astro/` paths).
 
 ## Conventions
 
@@ -72,6 +89,49 @@ yarn pub-code:clean         # Remove content directory
 - **Images**: Relative paths (`./image.png`), hero images auto-detected per post
 - **Pagination**: 21 posts per page
 - **SSR**: Only `/preview` route — everything else is static
+
+## PR Rules
+
+- **One PR per logical change.** Batch related fixes into a single PR — Cloudflare free tier has limited daily deploys.
+- **All PRs must pass CI** before merging: lint, format check, tests, build.
+- **Squash merge only** to keep `main` history clean.
+- **Delete branch after merge** (auto-enabled in repo settings).
+- **Dependabot PRs** auto-merge when CI passes. Do not manually merge Dependabot PRs that have failing checks.
+- **Never force-push to `main`.**
+- **PR titles** follow conventional commits: `feat:`, `fix:`, `chore:`, `build:`, `docs:`.
+- **PR descriptions** must include a `## Summary` and `## Test plan` section.
+
+## Lint Rules
+
+ESLint enforces these rules (pre-commit hook + CI):
+
+- **`curly: 'error'`** — always use braces on `if`/`else`/`for`/`while`. Never write `if (x) return`.
+- **`@typescript-eslint/consistent-type-assertions: never`** — do not use `as` type casts. Use type guards (`instanceof`, `in`, narrowing) instead. If unavoidable, add `eslint-disable-next-line` with a comment explaining why.
+- **Lint-staged order**: ESLint runs first, then Prettier formats the result.
+
+## Security
+
+### Secrets — never commit these
+
+| Secret | Where it lives | Purpose |
+|--------|---------------|---------|
+| `CLOUDFLARE_API_TOKEN` | GitHub repo secrets | Cloudflare Pages deploy |
+| `CLOUDFLARE_ACCOUNT_ID` | GitHub repo secrets | Cloudflare account |
+| `GITHUB_TOKEN` | GitHub auto-provided | CI workflows |
+| `GA_TAG_ID` | GitHub repo variables | Google Analytics |
+| `SITE` | GitHub repo secrets | Site configuration |
+| `CR_ENGINE_TRIGGER_TOKEN` | `coder-rocks` repo secrets | Cross-repo deploy dispatch |
+
+### Rules
+
+- **Never commit `.env`, `.dev.vars`, API keys, tokens, or credentials.** These are already in `.gitignore`.
+- **Never log secrets** in CI output, console.log, or error messages.
+- **Never put secrets in URL parameters** — they leak in server logs and referrer headers.
+- **Never hardcode secrets in source code.** Use `import.meta.env` for environment variables.
+- **Review CI workflow changes carefully** — `pages-deployment.yaml` has access to all deploy secrets.
+- **PATs (Personal Access Tokens)** must be scoped to the minimum required permissions and stored as GitHub secrets, never in code.
+- **Dependabot PRs** that modify `package.json`, `yarn.lock`, or CI workflows should be reviewed for supply chain risks before merging.
+- **Third-party Actions** in workflows must be pinned to a specific version (e.g., `actions/checkout@v3`), not `@latest`.
 
 ## Troubleshooting
 
