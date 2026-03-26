@@ -64,24 +64,35 @@ function oauthHeader(method, url) {
 }
 
 /**
- * Compose tweet text from claim.json metadata
+ * Sanitize claim.json fields to safe types
+ */
+function sanitizeClaim(slug, raw) {
+  const title = typeof raw.title === 'string' ? raw.title : slug
+  const description = typeof raw.description === 'string' ? raw.description : ''
+  const tags = Array.isArray(raw.tags)
+    ? raw.tags.filter(t => typeof t === 'string')
+    : []
+  return { title, description, tags }
+}
+
+/**
+ * Compose tweet text from sanitized claim metadata
  */
 function composeTweet(slug, claim) {
-  const title = claim.title || slug
-  const description = claim.description || ''
-  const tags = (claim.tags || [])
+  const { title, description, tags } = sanitizeClaim(slug, claim)
+  const hashtags = tags
     .slice(0, 4)
     .map(t => `#${t.replace(/\s+/g, '')}`)
     .join(' ')
   const url = `${SITE_URL}/posts/${slug}`
 
-  let tweet = `${title}\n\n${description}\n\n${tags}\n${url}`
+  let tweet = `${title}\n\n${description}\n\n${hashtags}\n${url}`
 
   // X counts URLs as ~23 chars. Trim description if over 280.
   if (tweet.length > 280) {
-    const available = 280 - title.length - tags.length - 23 - 8 // newlines + buffer
+    const available = 280 - title.length - hashtags.length - 23 - 8 // newlines + buffer
     const trimmed = description.slice(0, Math.max(0, available)) + '...'
-    tweet = `${title}\n\n${trimmed}\n\n${tags}\n${url}`
+    tweet = `${title}\n\n${trimmed}\n\n${hashtags}\n${url}`
   }
 
   return tweet
@@ -107,8 +118,20 @@ async function postTweet(text) {
   return data
 }
 
+/**
+ * Validate slug contains only safe characters (no path traversal)
+ */
+function isValidSlug(slug) {
+  return /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(slug)
+}
+
 // Process each new post
 for (const slug of slugs) {
+  if (!isValidSlug(slug)) {
+    console.error(`Skipping invalid slug: ${slug.slice(0, 50)}`)
+    continue
+  }
+
   const claimPath = `src/content/posts/${slug}/claim.json`
   let claim
   try {
@@ -118,16 +141,23 @@ for (const slug of slugs) {
     continue
   }
 
-  const tweet = composeTweet(slug, claim)
-  console.log(`Tweeting for: ${slug}`)
-  console.log(tweet)
-  console.log('---')
-
   try {
+    const tweet = composeTweet(slug, claim)
+    // Neutralize GitHub Actions workflow commands (lines starting with ::)
+    // to prevent log injection from untrusted claim.json content
+    const safeTweet = tweet.replace(/^::/gm, '\u200B::')
+    console.log(`Tweeting for: ${slug}`)
+    console.log(safeTweet)
+    console.log('---')
+
     const result = await postTweet(tweet)
     console.log(`Posted: https://x.com/${X_HANDLE}/status/${result.data.id}`)
   } catch (err) {
-    console.error(`Failed to tweet for ${slug}:`, err.message)
-    // Don't fail the build if tweeting fails
+    const safeMsg =
+      err instanceof Error
+        ? err.message.replace(/^::/gm, '\u200B::')
+        : 'Unknown error'
+    console.error(`Failed to tweet for ${slug}: ${safeMsg}`)
+    // Don't fail the build — continue to next post
   }
 }
