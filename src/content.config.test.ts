@@ -247,8 +247,12 @@ describe('Loader directory scanning', () => {
     const indexMd = '# Hello World\n\nSome content.'
 
     mockedReadFile.mockImplementation((path: any) => {
-      if (String(path).endsWith('claim.json')) return Promise.resolve(claimJson)
-      if (String(path).endsWith('index.md')) return Promise.resolve(indexMd)
+      if (String(path).endsWith('claim.json')) {
+        return Promise.resolve(claimJson)
+      }
+      if (String(path).endsWith('index.md')) {
+        return Promise.resolve(indexMd)
+      }
       return Promise.reject(new Error('Not found'))
     })
 

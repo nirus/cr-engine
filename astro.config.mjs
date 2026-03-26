@@ -1,6 +1,7 @@
 import cloudflare from '@astrojs/cloudflare'
 import sitemap from '@astrojs/sitemap'
 import { defineConfig, passthroughImageService } from 'astro/config'
+import { copyOgImages } from './plugins/CopyOgImages/index.mjs'
 import { transformCustomTag } from './plugins/TransformCustomTags/index.mjs'
 
 import tailwindcss from '@tailwindcss/vite'
@@ -19,6 +20,7 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
     }),
+    copyOgImages(),
   ],
   site: 'https://coder.rocks',
   markdown: {

@@ -39,6 +39,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Format check
+        run: yarn prettier --check 'src/**/*.{js,ts,mjs,cjs,json,astro}'
+
       - name: Test
         run: yarn test
 

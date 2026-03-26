@@ -106,11 +106,15 @@ export const fetchHeroImage = async (
 
   // Try PNG first
   const pngUrl = await tryFetchHeroImage('png')
-  if (pngUrl) return pngUrl
+  if (pngUrl) {
+    return pngUrl
+  }
 
   // Try JPG if PNG doesn't exist
   const jpgUrl = await tryFetchHeroImage('jpg')
-  if (jpgUrl) return jpgUrl
+  if (jpgUrl) {
+    return jpgUrl
+  }
 
   // No hero image found
   return null

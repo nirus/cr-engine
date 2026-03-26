@@ -16,7 +16,9 @@ const allPosts = await getCollection('posts')
 const tagCounts = new Map<string, { display: string; count: number }>()
 for (const post of allPosts) {
   const tags = post.data.tags
-  if (!tags) continue
+  if (!tags) {
+    continue
+  }
   for (const tag of tags) {
     const slug = normalizeTag(tag)
     const existing = tagCounts.get(slug)
