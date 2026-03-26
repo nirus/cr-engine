@@ -43,7 +43,7 @@
     "@astropub/md": "^1.0.0",
     "@tailwindcss/postcss": "^4.1.7",
     "@tailwindcss/vite": "^4.1.7",
-    "astro": "5.15.6",
+    "astro": "5.18.1",
     "dayjs": "^1.11.5",
     "postcss": "^8.5.3"
   },
