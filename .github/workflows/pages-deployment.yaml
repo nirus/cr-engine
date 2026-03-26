@@ -50,7 +50,26 @@ jobs:
           GA_TAG_ID: ${{vars.GA_TAG_ID}}
         run: yarn build
 
+      - name: Check if deploy is needed
+        id: should-deploy
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            MSG="${{ github.event.head_commit.message }}"
+            case "$MSG" in
+              chore:*|chore\(*|build\(deps\)*|ci:*|ci\(*|docs:*|docs\(*)
+                echo "deploy=false" >> "$GITHUB_OUTPUT"
+                echo "Skipping deploy for: $MSG"
+                ;;
+              *)
+                echo "deploy=true" >> "$GITHUB_OUTPUT"
+                ;;
+            esac
+          fi
+
       - name: Deploy
+        if: steps.should-deploy.outputs.deploy == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -60,6 +79,7 @@ jobs:
 
       - name: Tweet new posts
         if: >-
+          steps.should-deploy.outputs.deploy == 'true' &&
           github.event_name == 'repository_dispatch' &&
           github.event.client_payload.new_posts != ''
         env:

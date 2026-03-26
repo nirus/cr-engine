@@ -77,9 +77,11 @@ The blog content lives in a separate repo: [`nirus/coder-rocks`](https://github.
 ## Deployment
 
 - **Cloudflare Pages free tier has limited deployments per day.** Batch all related changes into a single PR and merge once — do not create separate PRs for each small change.
-- Every push to `main` triggers a deploy via GitHub Actions (`pages-deployment.yaml`).
-- The content repo (`coder-rocks`) also triggers deploys via `repository_dispatch`.
+- Every push to `main` triggers CI (lint, format, test, build). **Deploy only runs for `feat:` and `fix:` commits.**
+- **`chore:`, `build(deps):`, `ci:`, `docs:` commits skip deploy** — they still run the full CI pipeline but don't consume a Cloudflare deployment. Changes are picked up on the next `feat:`/`fix:` deploy.
+- The content repo (`coder-rocks`) always triggers a deploy via `repository_dispatch`.
 - **OG images**: `plugins/CopyOgImages/index.mjs` copies hero images to `dist/og/{slug}.{ext}` at build time for social card previews (Cloudflare blocks crawler access to Vite-hashed `/_astro/` paths).
+- **Auto-tweet**: new blog posts are announced on @Coder_Rocks after deploy (`scripts/tweet-new-post.mjs`).
 
 ## Conventions
 
