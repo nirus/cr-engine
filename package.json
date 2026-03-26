@@ -49,6 +49,8 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "1.10.4",
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.31.0",
     "@types/node": "^22.1.0",
