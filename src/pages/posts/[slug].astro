@@ -32,7 +32,9 @@ const legendImage = blogSlugToLegendImageData(slug)
 const resolvedImage = (await legendImage) as unknown as
   | ImageMetadata
   | undefined
-const ogImage = resolvedImage?.src || '/images/social.png'
+const ogImage = resolvedImage
+  ? `/og/${slug}.${resolvedImage.format}`
+  : '/images/social.png'
 
 const userAgent = 'cr-engine@v1.0.0'
 
