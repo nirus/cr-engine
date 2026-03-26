@@ -9,7 +9,9 @@ export function extractTagMap(
 
   for (const post of posts) {
     const tags = post.frontmatter.tags
-    if (!tags) continue
+    if (!tags) {
+      continue
+    }
     for (const tag of tags) {
       const slug = normalizeTag(tag)
       if (!tagMap.has(slug)) {

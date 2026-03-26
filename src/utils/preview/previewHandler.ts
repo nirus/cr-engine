@@ -81,8 +81,9 @@ export const processPreviewUrl = async (
     // Fetch hero image
     result.heroImageUrl = await fetchHeroImage(rawSlugWithBranch)
   } catch (err) {
-    const error = err as Error
-    result.error = `Failed to load post: ${error.message}`
+    const message =
+      err instanceof Error ? err.message : 'Unknown error occurred'
+    result.error = `Failed to load post: ${message}`
   }
 
   return result

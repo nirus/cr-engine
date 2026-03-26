@@ -45,7 +45,7 @@ const tags: string[] = post.data.tags || []
 >
   <Image
     class="card-images transition-transform duration-300 group-hover:scale-105"
-    src={previewImage as string}
+    src={previewImage!}
     alt={`${post.data.title} - post preview`}
     width={width}
     height={height}

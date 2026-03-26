@@ -49,6 +49,11 @@ module.exports = [
       'no-loops': noLoops,
     },
     rules: {
+      curly: 'error',
+      '@typescript-eslint/consistent-type-assertions': [
+        'error',
+        { assertionStyle: 'never' },
+      ],
       '@typescript-eslint/strict-boolean-expressions': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -74,6 +79,13 @@ module.exports = [
       ],
     },
   },
+  // Test files — allow type assertions for mocking
+  {
+    files: ['**/*.test.ts'],
+    rules: {
+      '@typescript-eslint/consistent-type-assertions': 'off',
+    },
+  },
   // Astro files
   {
     files: ['**/*.astro'],
@@ -97,6 +109,11 @@ module.exports = [
       'no-loops': noLoops,
     },
     rules: {
+      curly: 'error',
+      '@typescript-eslint/consistent-type-assertions': [
+        'error',
+        { assertionStyle: 'never' },
+      ],
       '@typescript-eslint/strict-boolean-expressions': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',

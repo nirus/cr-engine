@@ -29,11 +29,11 @@ const { title, description, pubDate, youtube, author, tags } = post.data
 const slug = post.id.replace(/\/index$/, '')
 
 const legendImage = blogSlugToLegendImageData(slug)
-const resolvedImage = (await legendImage) as unknown as
-  | ImageMetadata
-  | undefined
-const ogImage = resolvedImage
-  ? `/og/${slug}.${resolvedImage.format}`
+// glob with import:'default' resolves to ImageMetadata directly at runtime
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+const heroMeta = (await legendImage) as unknown as ImageMetadata | undefined
+const ogImage = heroMeta
+  ? `/og/${slug}.${heroMeta.format}`
   : '/images/social.png'
 
 const userAgent = 'cr-engine@v1.0.0'
