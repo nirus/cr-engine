@@ -21,8 +21,8 @@ describe('theme utilities', () => {
   })
 
   describe('getStoredTheme', () => {
-    it('returns "light" when localStorage is empty', () => {
-      expect(getStoredTheme()).toBe('light')
+    it('returns "dark" when localStorage is empty', () => {
+      expect(getStoredTheme()).toBe('dark')
     })
 
     it('returns "dark" when stored preference is dark', () => {
@@ -35,9 +35,9 @@ describe('theme utilities', () => {
       expect(getStoredTheme()).toBe('light')
     })
 
-    it('migrates legacy "system" value to "light"', () => {
+    it('defaults unknown values to "dark"', () => {
       localStorage.setItem('theme-preference', 'system')
-      expect(getStoredTheme()).toBe('light')
+      expect(getStoredTheme()).toBe('dark')
     })
   })
 

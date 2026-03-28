@@ -40,36 +40,36 @@ const seoDescription =
   </head>
 
   <body
-    class="font-body personality-casual bg-white leading-normal text-black dark:bg-slate-900 dark:text-slate-100"
+    class="font-body personality-casual bg-white leading-normal text-black dark:bg-neutral-950 dark:text-neutral-200"
     data-pagefind-ignore="all"
   >
     <TopBarNav />
 
     <main
-      class="bg-gradient-to-b from-zinc-50 to-white py-12 dark:from-slate-900 dark:to-slate-800"
+      class="bg-gradient-to-b from-zinc-50 to-white py-12 dark:from-neutral-950 dark:to-neutral-900"
     >
       <article class="mx-auto max-w-6xl px-4">
         <HomeHead showLogo={true} />
         <div class="mt-1 mb-8 flex items-center gap-4">
-          <div class="h-px flex-1 bg-zinc-200 dark:bg-slate-700"></div>
+          <div class="h-px flex-1 bg-zinc-200 dark:bg-neutral-800"></div>
           <div class="flex items-center gap-2.5">
             <span
-              class="text-base font-medium tracking-wider text-zinc-500 uppercase dark:text-slate-400"
+              class="text-base font-medium tracking-wider text-zinc-500 uppercase dark:text-neutral-400"
               >Articles</span
             >
             <span
-              class="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-sky-100 px-2 text-sm font-bold text-sky-700 dark:bg-sky-900 dark:text-sky-300"
+              class="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-sky-100 px-2 text-sm font-bold text-sky-700 dark:bg-cyan-900 dark:text-cyan-300"
               >{page.total}</span
             >
             {
               page.lastPage > 1 && (
-                <span class="text-xs text-zinc-400 dark:text-slate-500">
+                <span class="text-xs text-zinc-400 dark:text-neutral-500">
                   · pg {page.currentPage}/{page.lastPage}
                 </span>
               )
             }
           </div>
-          <div class="h-px flex-1 bg-zinc-200 dark:bg-slate-700"></div>
+          <div class="h-px flex-1 bg-zinc-200 dark:bg-neutral-800"></div>
         </div>
 
         <section

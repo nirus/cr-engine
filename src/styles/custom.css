@@ -5,16 +5,16 @@
   a {
     font-weight: bold;
     text-decoration: underline;
-    @apply text-sky-600 dark:text-sky-400;
+    @apply text-sky-600 dark:text-cyan-400;
 
     &:hover {
-      @apply text-black dark:text-slate-100;
+      @apply text-black dark:text-neutral-200;
     }
   }
 }
 
 #searchBox {
-  @apply border-2 border-black rounded dark:border-slate-500 dark:bg-slate-800 dark:text-slate-100;
+  @apply border-2 border-black rounded dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200;
 }
 
 .search-result-page {
