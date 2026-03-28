@@ -37,7 +37,7 @@ const links: Links = [
 
 <nav class="top-nav-bar fixed top-0 right-0 left-0 z-50 bg-zinc-800">
   <div
-    class="mx-auto flex h-14 max-w-4xl items-center justify-between px-3 py-3"
+    class="mx-auto flex h-10 max-w-4xl items-center justify-between px-3 py-2 md:h-14 md:py-3"
   >
     {
       links.map(item => {
@@ -48,7 +48,7 @@ const links: Links = [
             class="flex flex-row text-center align-middle text-slate-50"
           >
             <Icon class="h-5 w-5 lg:h-6 lg:w-6" />
-            <span class="link-text">{item.name}</span>
+            <span class="link-text hidden sm:inline">{item.name}</span>
           </a>
         )
       })

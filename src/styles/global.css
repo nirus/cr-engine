@@ -3,7 +3,7 @@
 
 /* ─── Design tokens ─── */
 :root {
-  --header-height: calc(var(--spacing) * 14);
+  --header-height: calc(var(--spacing) * 10);
   --scrollbar-width: 8px;
   --scrollbar-radius: 9999px;
 
@@ -11,6 +11,12 @@
   --scrollbar-thumb: #d4d4d4;
   --scrollbar-thumb-hover: #a3a3a3;
   --scrollbar-track: transparent;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: calc(var(--spacing) * 14);
+  }
 }
 
 .dark {
