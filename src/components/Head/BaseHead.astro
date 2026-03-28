@@ -36,10 +36,10 @@ const gaTagId = import.meta.env.GA_TAG_ID || Settings.site.gaTagId
 const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []
 ---
 
-<!-- Dark mode FOUC prevention -->
+<!-- Dark mode FOUC prevention — dark is default -->
 <script is:inline>
   ;(function () {
-    if (localStorage.getItem('theme-preference') === 'dark') {
+    if (localStorage.getItem('theme-preference') !== 'light') {
       document.documentElement.classList.add('dark')
     }
   })()

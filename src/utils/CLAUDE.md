@@ -8,7 +8,7 @@
 ## theme.ts
 
 Dark mode management for client-side `<script>` tags:
-- `getStoredTheme()` / `setStoredTheme()` — localStorage key: `theme-preference`, default: `'light'`
+- `getStoredTheme()` / `setStoredTheme()` — localStorage key: `theme-preference`, default: `'dark'`
 - `toggleTheme(current)` — light ↔ dark
 - `applyTheme(pref)` — adds/removes `dark` class on `document.documentElement`
 

@@ -8,9 +8,9 @@
 }
 
 .dark {
-  --logo-primary: #e2e8f0;
-  --logo-secondary: #cbd5e1;
-  --logo-accent: #94a3b8;
+  --logo-primary: #e0e0e0;
+  --logo-secondary: #a8a8a8;
+  --logo-accent: #9ca3af;
 }
 
 @theme {

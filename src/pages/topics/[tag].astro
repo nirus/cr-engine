@@ -74,29 +74,32 @@ const jsonLd = [
   </head>
 
   <body
-    class="font-body personality-casual bg-white leading-normal text-black dark:bg-slate-900 dark:text-slate-100"
+    class="font-body personality-casual bg-white leading-normal text-black dark:bg-neutral-950 dark:text-neutral-200"
     data-pagefind-ignore="all"
   >
     <TopBarNav />
 
     <main
-      class="bg-gradient-to-b from-zinc-50 to-white py-12 dark:from-slate-900 dark:to-slate-800"
+      class="bg-gradient-to-b from-zinc-50 to-white py-12 dark:from-neutral-950 dark:to-neutral-900"
     >
       <article class="mx-auto max-w-6xl px-4">
         <div class="mb-10 text-center">
-          <nav class="mb-4 text-sm text-zinc-400 dark:text-slate-500">
-            <a href="/topics" class="hover:text-sky-600 dark:hover:text-sky-400"
-              >Topics</a
+          <nav class="mb-4 text-sm text-zinc-400 dark:text-neutral-500">
+            <a
+              href="/topics"
+              class="hover:text-sky-600 dark:hover:text-cyan-400">Topics</a
             >
             <span class="mx-1.5">/</span>
-            <span class="text-zinc-600 dark:text-slate-300">{displayName}</span>
+            <span class="text-zinc-600 dark:text-neutral-300"
+              >{displayName}</span
+            >
           </nav>
           <h1
-            class="text-2xl font-semibold tracking-tight text-zinc-800 capitalize dark:text-slate-100"
+            class="text-2xl font-semibold tracking-tight text-zinc-800 capitalize dark:text-neutral-200"
           >
             {displayName}
           </h1>
-          <p class="mt-1.5 text-sm text-zinc-400 dark:text-slate-500">
+          <p class="mt-1.5 text-sm text-zinc-400 dark:text-neutral-500">
             {posts.length}
             {posts.length === 1 ? 'article' : 'articles'}
           </p>
@@ -118,7 +121,7 @@ const jsonLd = [
         <div class="mt-10 text-center">
           <a
             href="/topics"
-            class="inline-flex items-center gap-1.5 text-sm text-zinc-400 transition-colors hover:text-sky-600 dark:text-slate-500 dark:hover:text-sky-400"
+            class="inline-flex items-center gap-1.5 text-sm text-zinc-400 transition-colors hover:text-sky-600 dark:text-neutral-500 dark:hover:text-cyan-400"
           >
             &larr; All topics
           </a>
