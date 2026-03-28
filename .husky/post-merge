@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Syncing content repo..."
+yarn pub-code:clean && yarn pub-code:link
