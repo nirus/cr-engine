@@ -32,7 +32,8 @@ const parsedDay = dayjs(pubDate).format('LL')
   </h1>
 </header>
 <article
-  class="post mx-auto max-w-5xl p-3 lg:rounded-lg lg:border-2 lg:border-stone-200 lg:shadow-[0_0_60px_10px_rgba(59,130,246,0.06),0_0_120px_40px_rgba(147,51,234,0.04)] dark:bg-neutral-950 dark:lg:border-neutral-800 dark:lg:shadow-[0_0_80px_15px_rgba(77,208,225,0.12),0_0_160px_50px_rgba(124,58,237,0.06)]"
+  id="blog-article"
+  class="post mx-auto max-w-5xl p-3 lg:rounded-lg lg:border-2 lg:border-stone-200 dark:bg-neutral-950 dark:lg:border-neutral-800"
 >
   <!-- Legend Image -->
   {
@@ -154,3 +155,43 @@ const parsedDay = dayjs(pubDate).format('LL')
   initCodeBlocks()
   document.addEventListener('astro:after-swap', initCodeBlocks)
 </script>
+
+<script is:inline>
+  ;(function () {
+    function initAmbientGlow() {
+      var article = document.getElementById('blog-article')
+      if (!article) {
+        return
+      }
+      setTimeout(function () {
+        article.classList.add('ambient-glow')
+      }, 300)
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAmbientGlow)
+    } else {
+      initAmbientGlow()
+    }
+  })()
+</script>
+
+<style is:global>
+  #blog-article {
+    transition: box-shadow 2s ease-in-out;
+  }
+
+  @media (min-width: 1024px) {
+    #blog-article.ambient-glow {
+      box-shadow:
+        0 0 60px 10px rgba(0, 0, 0, 0.06),
+        0 0 120px 40px rgba(0, 0, 0, 0.04);
+    }
+
+    .dark #blog-article.ambient-glow {
+      box-shadow:
+        0 0 80px 15px rgba(77, 208, 225, 0.12),
+        0 0 160px 50px rgba(124, 58, 237, 0.06);
+    }
+  }
+</style>
