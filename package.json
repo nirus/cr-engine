@@ -74,5 +74,8 @@
     "unist-util-visit": "^5.0.0",
     "vitest": "^4.0.18",
     "wrangler": "^4.59.1"
+  },
+  "resolutions": {
+    "vite": "^6.4.2"
   }
 }
